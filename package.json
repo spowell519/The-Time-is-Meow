@@ -1,0 +1,17 @@
+{
+  "name": "the-time-is-meow",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server",
+    "start-dev": "nodemon server"
+  },
+  "dependencies": {
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "sequelize": "^6.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "volleyball": "^1.5.1"
+  }
+}
