@@ -8,8 +8,13 @@ class ItemPreview extends React.PureComponent {
     super(props);
   }
   render() {
-    return (
-      <div></div>
+    const item = this.props.item || {};
+    return ( // only return if inventory > 0 ?
+        <div class="item-preview">
+          <div class="quick-add">{item.price}<a href="" onclick="">+</a></div>
+          <div class="thumbnail"><img src={item.imageURL}></div>
+          <div class="info"><h4>{item.title}</h4></div>
+        </div>
       )
   }
 }
