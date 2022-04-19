@@ -1,25 +1,35 @@
-const express = require('express')
-const path = require('path')
-const volleyball = require('volleyball')
+const express = require('express');
+const path = require('path');
+const morgan = require('morgan');
+const app = express();
 
-const app = express()
-
-const debug = process.env.NODE_ENV === 'test'
-app.use(volleyball.custom({ debug }))
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-app.use(express.static(path.join(__dirname, '../public')))
-
-app.use('/api', require('./api'))
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
+const port = process.env.PORT || 3000
+app.listen(port, function(){
+  console.log(`right meow you're at port ${port}`)
 })
 
+//logging middleware
+app.use(morgan('dev'))
+
+//static middleware
+app.use(express.static(path.join(__dirname, '../public')));
+
+//body parsing middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+//this will lead to our routes!
+// app.use('api', require('./api'))
+
+//sends index.html for non-api requests
+app.get('*', (req,res) => {
+  res.sendFile(path.join(__dirname,'../public/index.html'))
+})
+
+//error handling middlware
 app.use((err, req, res, next) => {
-  if (process.env.NODE_ENV !== 'test') console.error(err.stack)
+  console.error(err)
+  console.error(err.stack);
   res.status(err.status || 500).send(err.message || 'Internal server error')
 })
 
