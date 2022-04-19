@@ -9,8 +9,8 @@ class FrontPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      category: all; // TODO add ability to change with dropdown choice
-      admin: false; // just testing before we add admin's add item feature
+      category: all, // TODO add ability to change with dropdown choice
+      admin: false, // just testing before we add admin's add item feature
     }
   }
   componentDidMount() {
@@ -21,24 +21,20 @@ class FrontPage extends React.PureComponent {
     const items = this.state.itemList || [];
 
     return (
-     <>
+    <div>
       <section>
-      { (!this.state.admin)
-          ? {
-            <div id="intro">
-              <div><img src="logo.png"></div>
-              <div id="intro-text">
-                <h1>The Time Is Meow</h1>
-                <br />
-                <p>Welcome to The Time Is Meow, your home for the timeliest gifts for your furry friends!</p>
-                <!-- featured item will go here in the future -->
-              </div>
-            </div>
-            }
-        </section>
-        <ItemGrid items={items} />
-      </>
-      )
+        <div id="intro">
+          <div><img src="logo.png" /></div>
+          <div id="intro-text">
+            <h1>The Time Is Meow</h1>
+            <br />
+            <p>Welcome to The Time Is Meow, your home for the timeliest gifts for your furry friends!</p>
+          </div>
+        </div>
+      </section>
+      <ItemGrid items={items} />
+    </div>
+    )
   }
 }
 
