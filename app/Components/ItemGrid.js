@@ -16,7 +16,7 @@ class ItemGrid extends React.PureComponent {
       <section>
         <h2>Our Products</h2> // change val if using off main page
           <div id="all-products">
-          items.map(item => <ItemPreview key="{`item_${item.id}`}" item={item} />
+          {items.map(item => <ItemPreview key="{`item_${item.id}`}" item={item} />}
           </div>
       </section>
     )

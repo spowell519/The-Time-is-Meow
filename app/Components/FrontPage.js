@@ -13,6 +13,7 @@ class FrontPage extends React.PureComponent {
       admin: false, // just testing before we add admin's add item feature
     }
   }
+  
   componentDidMount() {
     getItems(this.state.category);
   }

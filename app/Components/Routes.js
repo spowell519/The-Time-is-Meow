@@ -9,9 +9,7 @@ const Routes = () => {
     <Router>
       <main>
         <Navbar />
-        <main>
-          <Route exact path="/" component={FrontPage} />
-        </main>
+        <Route exact path="/" component={FrontPage} />
       </main>
     </Router>
   );
