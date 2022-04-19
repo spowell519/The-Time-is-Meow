@@ -1,4 +1,4 @@
-// individual element in ItemGrid
+// Front page view containing header block (intro/feature for user, AddItem for admin) and itemgrid
 
 import React from 'react';
 import { connect } from 'react-redux';
