@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ItemGrid from './ItemGrid';
+import {items} from '../redux/data'
 
 class FrontPage extends React.PureComponent {
   constructor(props) {
@@ -15,7 +16,8 @@ class FrontPage extends React.PureComponent {
   }
   
   componentDidMount() {
-    getItems(this.state.category);
+    // getItems(this.state.category);
+    this.setState({itemList:items});
   }
   
   render() {
