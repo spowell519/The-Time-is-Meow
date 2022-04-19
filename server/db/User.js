@@ -27,13 +27,28 @@ module.exports = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    //empty/null??
+    allowNull: false
   },
   isAdmin: {
-    type: Sequelize.STRING,
+    type: Sequelize.BOOLEAN,
     defaultValue: false,
-    validate: {
-      isIn: [[true, false]]
-    }
+  },
+  shippingAddress: {
+    type: Sequelize.STRING
+  },
+  billingAddress: {
+    type: Sequelize.STRING
+  },
+  creditCardNumber: {
+    //this will get hashed, so it will create a STRING
+    type: Sequelize.STRING
+  },
+  creditCardExp: {
+    //this will get hashed, so it will create a STRING
+    type: Sequelize.STRING
+  },
+  CreditCardSec: {
+    //this will get hashed, so it will create a STRING
+    type: Sequelize.STRING
   }
 })

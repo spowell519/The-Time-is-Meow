@@ -3,11 +3,6 @@ const path = require('path');
 const morgan = require('morgan');
 const app = express();
 
-const port = process.env.PORT || 3000
-app.listen(port, function(){
-  console.log(`right meow you're at port ${port}`)
-})
-
 //logging middleware
 app.use(morgan('dev'))
 
@@ -19,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 //this will lead to our routes!
-// app.use('api', require('./api'))
+app.use('api', require('./api'))
 
 //sends index.html for non-api requests
 app.get('*', (req,res) => {
