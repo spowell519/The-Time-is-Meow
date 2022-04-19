@@ -4,26 +4,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ItemGrid from './ItemGrid';
-import getItems from '../redux/itemReducer';
+import { getItems } from '../redux/itemReducer';
 
 
 class FrontPage extends React.PureComponent {
   constructor(props) {
     super(props);
-    console.log('constructor')
     this.state = {
       category: "all", //  add ability to change with dropdown choice
       // admin: false, // just testing before we add admin's add item feature
     }
   }
-
   componentWillMount() {
-    // this.props.getItems(this.state.category);
+    this.props.getItems(this.state.category);
   }
 
   render() {
     console.log('props', this.props)
     const items = this.state.itemList || [];
+    console.log('items in render:', items)
 
     return (
       <div>
@@ -50,7 +49,6 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => {
-  console.log('THis is mapDispatch');
   return (
     {
       getItems: (category) => dispatch(getItems(category)),
