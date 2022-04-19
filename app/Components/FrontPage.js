@@ -10,24 +10,26 @@ import getItems from '../redux/itemReducer';
 class FrontPage extends React.PureComponent {
   constructor(props) {
     super(props);
+    console.log('constructor')
     this.state = {
       category: "all", //  add ability to change with dropdown choice
       // admin: false, // just testing before we add admin's add item feature
     }
   }
 
-  componentDidMount() {
-    this.props.getItems(this.state.category);
+  componentWillMount() {
+    // this.props.getItems(this.state.category);
   }
 
   render() {
+    console.log('props', this.props)
     const items = this.state.itemList || [];
 
     return (
       <div>
         <section>
           <div id="intro">
-            <div><img src="logo.png" /></div>
+            <div><img src="images/logo.png" /></div>
             <div id="intro-text">
               <h1>The Time Is Meow</h1>
               <br />
