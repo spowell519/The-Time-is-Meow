@@ -10,5 +10,5 @@ render(
   <Provider store={store}>
     <Routes />
   </Provider>,
-  document.getElementById('main')
+  document.getElementById('app')
 )

@@ -3,9 +3,10 @@ const Product = require('../db/Product')
 
 router.get('/', async (req, res, next) => {
   try {
-    const allProducts = await Products.findAll();
+    const allProducts = await Product.findAll();
+    console.log('this is products from router', allProducts);
     res.send(allProducts);
-  } catch(err) {
+  } catch (err) {
     res.sendStatus(404)
   }
 })

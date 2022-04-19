@@ -14,7 +14,7 @@ module.exports = db.define('product', {
     allowNull: false,
     validate: {
       notEmpty: true,
-      isIn: [['treat', 'toy', 'costume']]
+      isIn: [['treat', 'toy', 'clothing']]
     }
   },
   price: {
