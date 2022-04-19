@@ -8,8 +8,10 @@ const db = require('./database');
 module.exports = db.define('order', {
   price: {
     type: Sequelize.DECIMAL,
+    allowNull: false,
     validate: {
-      min: 0
+      min: 0,
+      notEmpty: true
     }
   }
 })
