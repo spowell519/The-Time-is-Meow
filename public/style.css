@@ -1,0 +1,141 @@
+* {
+  padding:0;
+  margin:0;
+  color:#49306B;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(255,138,91,1) 0%, rgba(233,73,103,1) 100%);
+}
+
+h2 {
+  background-color: #ffffffb0;
+  border-radius: 1rem;
+  padding: 0.5rem 0.75rem;
+}
+
+/* nav bar */
+nav {
+  width: 96%;
+  height: 3rem;
+  margin:0 auto;
+  padding:0;
+  color:#E94967;
+  background-color:#FCEADE;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav>ul {
+  height: 3rem;
+  padding:0;
+  margin:0;
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  text-align:right;
+}
+
+nav>ul>li {
+  padding: 0 1rem;
+  display:inline-block;
+}
+nav>ul:first-child>li {
+  padding-left: 1rem;
+}
+
+nav a, nav select {
+  background:#E94967;
+  border-radius: 1rem;
+  padding:0.25rem 0.75rem;
+  color:#FCEADE;
+  font-size: 1rem;
+}
+nav select {
+  margin:0;
+  padding:0.1rem 0.75rem;
+}
+
+/* main sections */
+
+section {
+  width:90%;
+  max-width:90%;
+  margin:1rem auto;
+  padding:2rem 0;
+}
+
+#intro {
+  background-color: #ffffffb0;
+  border-radius: 3rem;
+  display: flex;
+  padding: 1rem;
+}
+#intro img {
+  max-width: 20rem;
+}
+#intro.div {
+  flex:auto;
+}
+#intro-text {
+  padding-left:2rem;
+}
+
+/* come back to this - featured product lewk 
+#intro-text>.item-preview {
+
+} */
+
+#all-products {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+/* styling for elements in grid */
+
+#all-products>.item-preview, #intro-text>.item-preview {
+  flex: 1 1 27%;
+  display: flex;
+  flex-direction: column;
+  margin: 3%;
+  padding:0 0 0.5rem 0;
+  background:#25CED1;
+  border-radius: 3rem;
+  border-top-right-radius: 0rem;
+  border-bottom-left-radius: 0rem;
+}
+.item-preview>div {
+  flex:1;
+}
+.item-preview>.thumbnail {
+  margin-top: -2rem;
+}
+.item-preview>.thumbnail>img {
+  max-width: 100%;
+  margin:1rem auto 0 auto;
+}
+.item-preview>.info {
+  padding-left: 1rem;
+}
+.item-preview>.info>h4 {
+  padding-top:0.5rem;
+  font-size: 1.25rem;
+}
+.item-preview>.quick-add {
+  width: 100%;
+  padding:0 0 0 0;
+  z-index:3;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0) 35%, rgba(255,255,255,1) 100%);
+  min-height:2rem;
+  font-size: 1.8rem;
+  line-height: 1.75rem;
+  text-align:right;
+}
+.item-preview>.quick-add a {
+  text-decoration: none;
+  margin-right:0.5rem;
+}
