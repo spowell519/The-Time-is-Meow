@@ -10,12 +10,12 @@ class ItemPreview extends React.PureComponent {
   render() {
     const item = this.props.item || {};
     return (
-        <div class="item-preview">
-          <div class="quick-add">{item.price}<a href="" onclick="">+</a></div>
-          <div class="thumbnail"><img src={item.imageURL} /></div>
-          <div class="info"><h4>{item.title}</h4></div>
-        </div>
-      )
+      <div className="item-preview">
+        <div className="quick-add">{item.price}<a href="" onClick="">+</a></div>
+        <div className="thumbnail"><img src={item.imageURL} /></div>
+        <div className="info"><h4>{item.title}</h4></div>
+      </div>
+    )
   }
 }
 

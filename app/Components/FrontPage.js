@@ -4,18 +4,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ItemGrid from './ItemGrid';
+import {items} from '../redux/data'
 
 class FrontPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      category: all, // TODO add ability to change with dropdown choice
+      category: all, //  add ability to change with dropdown choice
       admin: false, // just testing before we add admin's add item feature
     }
   }
   
   componentDidMount() {
-    getItems(this.state.category);
+    // getItems(this.state.category);
+    this.setState({itemList:items});
   }
   
   render() {
