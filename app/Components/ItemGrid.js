@@ -14,13 +14,13 @@ class ItemGrid extends React.PureComponent {
 
     return (
       <section>
-        <h2>Our Products</h2> // change val if using off main page
-          <div id="all-products">
+        <h2>Our Products</h2>
+        <div id="all-products">
           {items.filter(item => {
-          if (item.inventory > 0)
-            return(<ItemPreview key="{`item_${item.id}`}" item={item} />)
+            if (item.inventory > 0)
+              return (<ItemPreview key="{`item_${item.id}`}" item={item} />)
           })}
-          </div>
+        </div>
       </section>
     )
   }
