@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 //this will lead to our routes!
-// app.use('api', require('./api'))
+app.use('api', require('./api'))
 
 //sends index.html for non-api requests
 app.get('*', (req,res) => {
