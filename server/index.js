@@ -3,11 +3,6 @@ const path = require('path');
 const morgan = require('morgan');
 const app = express();
 
-const port = process.env.PORT || 3000
-app.listen(port, function(){
-  console.log(`right meow you're at port ${port}`)
-})
-
 //logging middleware
 app.use(morgan('dev'))
 
