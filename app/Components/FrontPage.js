@@ -10,7 +10,7 @@ class FrontPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      category: all, // TODO add ability to change with dropdown choice
+      category: all, //  add ability to change with dropdown choice
       admin: false, // just testing before we add admin's add item feature
     }
   }
