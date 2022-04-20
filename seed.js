@@ -17,7 +17,7 @@ const items = [
     price: 27.99,
     imageUrl: "default.png",
     description: "hair elastic to play with, comes full of hair",
-    rating: 1.8,
+    rating: 1.9,
     inventory: 27,
   },
   {
