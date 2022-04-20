@@ -16,7 +16,7 @@ class ItemPreview extends React.PureComponent {
     return (
       <div className="item-preview">
         <div className="quick-add"><span className="price">${product.price}</span><a href="" onClick={this.addToCart}>+</a></div>
-        <div className="thumbnail"><img src={'images/' + product.imageURL} /></div>
+        <div className="thumbnail"><img src={'images/' + product.imageUrl} /></div>
         <div className="info"><h4>{product.title}</h4></div>
       </div>
     )
