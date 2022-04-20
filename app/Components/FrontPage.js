@@ -20,10 +20,7 @@ class FrontPage extends React.PureComponent {
   }
 
   render() {
-    // console.log('props', this.props)
-    // console.log('state', this.state)
     const products = this.props.products || [];
-    console.log('products in render:', products)
 
     return (
       <div>
