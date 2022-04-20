@@ -1,7 +1,7 @@
 import React from 'react';
 
-class Login extends React.Component{
-  constructor(){
+class Login extends React.Component {
+  constructor() {
     super();
     this.state = {
       email: '',
@@ -10,10 +10,10 @@ class Login extends React.Component{
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  onChange(ev){
+  onChange(ev) {
     this.setState({ [ev.target.name]: ev.target.value });
   }
-  onSubmit(ev){
+  onSubmit(ev) {
     ev.preventDefault();
     const { email, password } = this.state;
     this.props.signIn({
@@ -21,13 +21,16 @@ class Login extends React.Component{
       password
     });
   }
-  render(){
+  render() {
+    console.log('this.props', this.props);
     const { onChange, onSubmit } = this;
     const { email, password } = this.state;
     return (
-      <form onSubmit={ onSubmit }>
-        <input value={ email } onChange={ onChange } name="email" />
-        <input value={ password } onChange={ onChange } name="password" />
+      <form onSubmit={onSubmit}>
+        <label htmlFor="email" >Email Address: </label>
+        <input value={email} onChange={onChange} name="email" />
+        <label htmlFor="password" >Password: </label>
+        <input value={password} onChange={onChange} name="password" />
         <button type="submit">Sign In</button>
       </form>
     );
