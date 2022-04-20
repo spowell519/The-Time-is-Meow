@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 
 import Navbar from './Navbar'
 import FrontPage from './FrontPage'
-import Login from './Login'
+import Login from './LoginForm'
 
 const Routes = () => {
   return (

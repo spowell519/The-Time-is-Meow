@@ -3,8 +3,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { DefaultHeader } from './DefaultHeader';
+//import CrupdateProduct from './CrupdateProduct';
 import ItemGrid from './ItemGrid';
-import { getItems } from '../redux/itemReducer';
+import { getProducts } from '../redux/productsReducer';
 
 
 class FrontPage extends React.PureComponent {
@@ -12,11 +14,11 @@ class FrontPage extends React.PureComponent {
     super(props);
     this.state = {
       category: "all", //  add ability to change with dropdown choice
-      // admin: false, // just testing before we add admin's add item feature
+      admin: false, // just for testing without auth
     }
   }
   componentWillMount() {
-    this.props.getItems("all");
+    this.props.getProducts("all");
   }
 
   render() {
@@ -24,16 +26,10 @@ class FrontPage extends React.PureComponent {
 
     return (
       <div>
-        <section>
-          <div id="intro">
-            <div><img src="images/logo.png" /></div>
-            <div id="intro-text">
-              <h1>The Time Is Meow</h1>
-              <br />
-              <p>Welcome to The Time Is Meow, your home for the timeliest gifts for your furry friends!</p>
-            </div>
-          </div>
-        </section>
+        {/* {(this.state.admin)
+        ? <CrupdateProduct />
+        : <DefaultHeader />
+        } */}
         <ItemGrid products={products} />
       </div>
     )
@@ -42,14 +38,14 @@ class FrontPage extends React.PureComponent {
 
 const mapState = (state) => {
   return {
-    products: state.items,
+    products: state.products,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return (
     {
-      getItems: (category) => dispatch(getItems(category)),
+      getProducts: (category) => dispatch(getProducts(category)),
     })
 }
 
