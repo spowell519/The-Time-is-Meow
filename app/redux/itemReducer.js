@@ -4,7 +4,7 @@ const GET_ITEMS = 'GET_ITEMS';
 
 // actions
 
-export const _getItems = (items) => {
+const _getItems = (items) => {
   return {
     type: GET_ITEMS,
     items
@@ -15,20 +15,20 @@ export const _getItems = (items) => {
 
 export const getItems = (category) => {
   // later on filter by category
-  console.log('We ar in the thunk');
   return async (dispatch) => {
     const { data } = await axios.get('/api/products');
-    console.log('this is data', data);
     dispatch(_getItems(data))
   }
 };
 
 // reducers
 export default function itemReducer(state = [], action) {
-  console.log('this is action', action);
+  if (action.type === GET_ITEMS) console.log('items', action.items)
+
   switch (action.type) {
     case GET_ITEMS:
       return action.items;
-    default: return state;
+    default:
+      return state;
   }
 }

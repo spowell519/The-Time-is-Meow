@@ -4,30 +4,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ItemGrid from './ItemGrid';
-import getItems from '../redux/itemReducer';
+import { getItems } from '../redux/itemReducer';
 
 
 class FrontPage extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      category: "all", //  add ability to change with dropdown choice
-      // admin: false, // just testing before we add admin's add item feature
-    }
+    // this.state = {
+    //   category: "all", //  add ability to change with dropdown choice
+    //   // admin: false, // just testing before we add admin's add item feature
+    // }
   }
-
-  componentDidMount() {
-    this.props.getItems(this.state.category);
+  componentWillMount() {
+    this.props.getItems("all");
   }
 
   render() {
-    const items = this.state.itemList || [];
+    // console.log('props', this.props)
+    // console.log('state', this.state)
+    const products = this.props.products || [];
+    console.log('products in render:', products)
 
     return (
       <div>
         <section>
           <div id="intro">
-            <div><img src="logo.png" /></div>
+            <div><img src="images/logo.png" /></div>
             <div id="intro-text">
               <h1>The Time Is Meow</h1>
               <br />
@@ -35,7 +37,7 @@ class FrontPage extends React.PureComponent {
             </div>
           </div>
         </section>
-        <ItemGrid items={items} />
+        <ItemGrid products={products} />
       </div>
     )
   }
@@ -43,12 +45,11 @@ class FrontPage extends React.PureComponent {
 
 const mapState = (state) => {
   return {
-    itemList: state.items,
+    products: state.items,
   };
 };
 
 const mapDispatch = (dispatch) => {
-  console.log('THis is mapDispatch');
   return (
     {
       getItems: (category) => dispatch(getItems(category)),

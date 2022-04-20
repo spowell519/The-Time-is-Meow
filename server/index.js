@@ -6,19 +6,20 @@ const app = express();
 //logging middleware
 app.use(morgan('dev'))
 
+//body parsing middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 //static middleware
 app.use(express.static(path.join(__dirname, '../public')));
 
-//body parsing middleware
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
 
 //this will lead to our routes!
-app.use('api', require('./api'))
+app.use('/api', require('./api'))
 
 //sends index.html for non-api requests
-app.get('*', (req,res) => {
-  res.sendFile(path.join(__dirname,'../public/index.html'))
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
 //error handling middlware

@@ -10,16 +10,13 @@ class ItemGrid extends React.PureComponent {
     super(props);
   }
   render() {
-    const items = this.props.itemList || [];
+    const products = this.props.products || [];
 
     return (
       <section>
         <h2>Our Products</h2>
         <div id="all-products">
-          {items.filter(item => {
-            if (item.inventory > 0)
-              return (<ItemPreview key="{`item_${item.id}`}" item={item} />)
-          })}
+          {products.map(product => <ItemPreview key={`product_${product.id}`} product={product} />)}
         </div>
       </section>
     )
