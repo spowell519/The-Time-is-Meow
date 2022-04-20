@@ -19,7 +19,7 @@ class Navbar extends React.PureComponent {
             </select>
           </li>
         </ul>
-        <ul clas="right-nav">
+        <ul class="right-nav">
           <li>
             <select>
               <option value="all"> Account</option>
