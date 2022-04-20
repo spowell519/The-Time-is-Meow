@@ -1,5 +1,5 @@
 const { green, red } = require("chalk");
-const { db, Product } = require("./server/db");
+const { db, Product, User } = require("./server/db");
 
 const items = [
   {
@@ -29,6 +29,77 @@ const items = [
     rating: 4.2,
     inventory: 1,
   },
+  {
+    title: "vampire mouse",
+    category: "toy",
+    price: 12.99,
+    imageUrl: "default.png",
+    description: "don't let it bite you!",
+    rating: 3.8,
+    inventory: 4,
+  },
+  {
+    title: "gay worm friend",
+    category: "toy",
+    price: 11.50,
+    imageUrl: "default.png",
+    description: "worm says gay rights!",
+    rating: 4.5,
+    inventory: 18
+  },
+  {
+    title: "kirby hat",
+    category: "clothing",
+    price: 22.99,
+    imageUrl: "default.png",
+    description: "cute, powerful, and round",
+    rating: 3.2,
+    inventory: 6
+  },
+  {
+    title: "flower crown",
+    category: "clothing",
+    price: 30.99,
+    imageUrl: "default.png",
+    description: "springtime is here!",
+    rating: 3.3,
+    inventory: 24
+  },
+  {
+    title: "martini cookie",
+    category: "treat",
+    price: 13.99,
+    imageUrl: "default.png",
+    description: "for ladies who lunch",
+    rating: 4.5,
+    inventory: 8
+  },
+  {
+    title: "dental chew",
+    category: "treat",
+    price: 24.99,
+    imageUrl: "default.png",
+    description: "it's this or brushing their teeth",
+    rating: 4.8,
+    inventory: 42
+  }
+]
+
+const users = [
+  {
+    firstName: "Claire",
+    lastName: "Coulter",
+    email: "clcoulter46@gmail.com",
+    password: "easy123",
+    isAdmin: true
+  },
+  {
+    firstName: "Archy",
+    lastName: "Coulter",
+    email: "smolbeans@gmail.com",
+    password: "easy123",
+    isAdmin: false
+  }
 ]
 
 const seed = async () => {
@@ -36,6 +107,9 @@ const seed = async () => {
     await db.sync({ force: true });
     await Promise.all(items.map(item => {
       return Product.create(item)
+    }))
+    await Promise.all(users.map(user => {
+      return User.create(user)
     }))
   } catch (err) {
     console.log(red(err));
