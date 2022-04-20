@@ -10,10 +10,10 @@ import { getItems } from '../redux/itemReducer';
 class FrontPage extends React.PureComponent {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   category: "all", //  add ability to change with dropdown choice
-    //   // admin: false, // just testing before we add admin's add item feature
-    // }
+    this.state = {
+      category: "all", //  add ability to change with dropdown choice
+      // admin: false, // just testing before we add admin's add item feature
+    }
   }
   componentWillMount() {
     this.props.getItems("all");
