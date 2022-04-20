@@ -23,8 +23,6 @@ export const getItems = (category) => {
 
 // reducers
 export default function itemReducer(state = [], action) {
-  if (action.type === GET_ITEMS) console.log('items', action.items)
-
   switch (action.type) {
     case GET_ITEMS:
       return action.items;
