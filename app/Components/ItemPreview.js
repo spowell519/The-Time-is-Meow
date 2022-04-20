@@ -6,14 +6,18 @@ import { connect } from 'react-redux';
 class ItemPreview extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.addToCart = this.addToCart.bind(this);
+  }
+  addToCart() {
+    console.log('put it in cart!')
   }
   render() {
-    const item = this.props.item || {};
+    const product = this.props.product || {};
     return (
       <div className="item-preview">
-        <div className="quick-add">{item.price}<a href="" onClick="">+</a></div>
-        <div className="thumbnail"><img src={item.imageURL} /></div>
-        <div className="info"><h4>{item.title}</h4></div>
+        <div className="quick-add"><span className="price">${product.price}</span><a href="" onClick={this.addToCart}>+</a></div>
+        <div className="thumbnail"><img src={'images/' + product.imageURL} /></div>
+        <div className="info"><h4>{product.title}</h4></div>
       </div>
     )
   }

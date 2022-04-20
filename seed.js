@@ -9,6 +9,7 @@ const items = [
     imageUrl: "default.png",
     description: "it’s a cute lil treat that’s safe for your pet to eat!",
     rating: 4.8,
+    inventory: 5,
   },
   {
     title: "super hair band",
@@ -17,6 +18,7 @@ const items = [
     imageUrl: "default.png",
     description: "hair elastic to play with, comes full of hair",
     rating: 1.8,
+    inventory: 27,
   },
   {
     title: "bunny ears",
@@ -25,6 +27,7 @@ const items = [
     imageUrl: "default.png",
     description: "put these ears on your cat and your cat will be mad",
     rating: 4.2,
+    inventory: 1,
   },
 ]
 

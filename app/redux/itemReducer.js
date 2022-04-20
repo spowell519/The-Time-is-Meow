@@ -17,13 +17,14 @@ export const getItems = (category) => {
   // later on filter by category
   return async (dispatch) => {
     const { data } = await axios.get('/api/products');
-    console.log('this is data', data);
     dispatch(_getItems(data))
   }
 };
 
 // reducers
 export default function itemReducer(state = [], action) {
+  if (action.type === GET_ITEMS) console.log('items', action.items)
+
   switch (action.type) {
     case GET_ITEMS:
       return action.items;
