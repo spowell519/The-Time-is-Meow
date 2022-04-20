@@ -17,8 +17,8 @@ const setAuth = auth => {
 
 export const me = () => async dispatch => {
     const token = window.localStorage.getItem(TOKEN)
-    if(token) {
-        const {data} = await axios.get('/api/users/auth/me', {
+    if (token) {
+        const { data } = await axios.get('/api/users/auth/me', {
             headers: {
                 authorization: token
             }
@@ -30,18 +30,26 @@ export const me = () => async dispatch => {
 export const authenticate = (email, password, method) => {
     return async (dispatch) => {
         try {
-            const res = await axios.post("api/users/login", {email, password})
+            const res = await axios.post("api/users/login", { email, password })
             window.localStorage.setItem(TOKEN, res.data.token)
             dispatch(me())
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
+    }
+}
+export const logout = () => {
+    window.localStorage.removeItem(TOKEN)
+    history.push('/login')
+    return {
+        type: SET_AUTH,
+        auth: {}
     }
 }
 
 //reducer
 
-export default function(state={}, action) {
+export default function (state = {}, action) {
     switch (action.type) {
         case SET_AUTH:
             return action.auth

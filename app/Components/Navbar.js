@@ -1,13 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Login from './LoginForm'
+import Login from './LoginForm';
+import { logout } from '../redux/authReducer';
 
 class Navbar extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state =
+      { authOption: '' };
+
   }
   render() {
+    console.log('this.state', this.state, 'this.props', this.props);
     return (
       <nav>
         <ul className="left-nav">
@@ -23,12 +28,20 @@ class Navbar extends React.PureComponent {
         </ul>
         <ul className="right-nav">
           <li>
-            <select>
-              <option value="all"> Account</option>
-              <option value="login"><Link to={'/login'}>"Log In"</Link></option>
-              <option value="register">Register</option>
-            </select>
+
+            {this.props.isLoggedIn ?
+              <select>
+                <option value="account"> Account</option>
+                <option value="logout"> Logout</option>
+              </select>
+              :
+              <select>
+                <option value="login"> Login</option>
+                <option value="register"> Register</option>
+              </select>}
+
           </li>
+          <li><a>Go</a></li>
           <li><a>Cart</a></li>
         </ul>
       </nav>
@@ -36,4 +49,18 @@ class Navbar extends React.PureComponent {
   }
 }
 
-export default Navbar;
+const mapState = state => {
+  return {
+    isLoggedIn: !!state.auth.id
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    handleClick() {
+      dispatch(logout())
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Navbar);
