@@ -30,6 +30,7 @@ class ProductPage extends React.PureComponent {
         <SingleProduct mode="edit" product={product} />
 
         {(this.state.admin)
+
           ? <CrupdateProduct mode="edit" product={product} />
           : <div />
         }

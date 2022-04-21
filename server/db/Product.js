@@ -27,11 +27,7 @@ module.exports = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    allowNull: false,
     defaultValue: 'example.png',
-    validate: {
-      notEmpty: true
-    }
   },
   description: {
     type: Sequelize.TEXT,
