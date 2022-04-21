@@ -11,18 +11,9 @@ class Navbar extends React.PureComponent {
       { authOption: '' };
     this.handleChange = this.handleChange.bind(this)
   }
-  // componentDidMount(){
-  //   if(this.props.isLoggedIn){
-  //     this.setState({authOption: 'account'})
-  //   } else{
-  //     console.log('does this hit every time?')
-  //     this.setState({authOption: 'login'})
-  //   }
-  // }
-    handleChange(e){
-      if(e.target.value !== ''){
-        this.setState({authOption: e.target.value})
-        console.log('the function hit here')
+  handleChange(e){
+    if(e.target.value !== ''){
+      this.setState({authOption: e.target.value})
       }
   }
   render() {
@@ -36,7 +27,7 @@ class Navbar extends React.PureComponent {
           <li>
             <select>
               <option value="all"> Categories</option>
-              <option value="treat">Treats</option>
+              <option value="treat">Treat</option>
               <option value="toy">Toys</option>
               <option value="clothing">Clothing</option>
             </select>
