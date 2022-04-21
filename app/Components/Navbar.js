@@ -12,26 +12,18 @@ class Navbar extends React.PureComponent {
     this.handleChange = this.handleChange.bind(this)
   }
   handleChange(e){
-    if(e.target.value !== ''){
+    if (e.target.value !== ''){
       this.setState({authOption: e.target.value})
     }
   }
+  // eslint-disable-next-line complexity
   render() {
     console.log('this.state', this.state);
     return (
       <nav>
         <ul className="left-nav">
-          <Link to='/'>
-            <li><a>Home</a></li>
-          </Link>
-          <li>
-            <select>
-              <option value="all"> Categories</option>
-              <option value="treat">Treat</option>
-              <option value="toy">Toys</option>
-              <option value="clothing">Clothing</option>
-            </select>
-          </li>
+          <li><Link to="/">Home</Link></li>
+          <li>Welcome{(this.props.isLoggedIn) ? " back" : ""}!</li>
         </ul>
         <ul className="right-nav">
           <li>
@@ -54,19 +46,19 @@ class Navbar extends React.PureComponent {
           {!this.props.isLoggedIn && this.state.authOption === 'login'
             ?
             <Link to="/login">
-              <li><a>Go</a></li>
+              <li>Go</li>
             </Link>
-            : (!this.props.isLoggedIn && this.state.authOption === 'register') 
+            : (!this.props.isLoggedIn && this.state.authOption === 'register')
             ?
             <Link to="/register">
-              <li><a>Go</a></li>
-            </Link> 
-            : (this.props.isLoggedIn && this.state.authOption === 'account') 
+              <li>Go</li>
+            </Link>
+            : (this.props.isLoggedIn && this.state.authOption === 'account')
             ?
             <Link to="/account">
-              <li><a>Go</a></li>
+              <li>Go</li>
             </Link>
-            : <li><a href="/" onclick={this.props.handleClick}>Go</a></li>
+            : <li><a href="/" onClick={this.props.handleClick}>Go</a></li>
             }
 
           <li><a>Cart</a></li>
