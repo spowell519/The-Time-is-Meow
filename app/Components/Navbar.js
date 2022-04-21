@@ -8,15 +8,20 @@ class Navbar extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state =
-      { authOption: '' };
-
+      { authOption: 'login' };
+    this.handleChange = this.handleChange.bind(this)
+  }
+  handleChange(e){
+    this.setState({authOption: e.target.value})
   }
   render() {
-    console.log('this.state', this.state, 'this.props', this.props);
+    console.log('this.state', this.state);
     return (
       <nav>
         <ul className="left-nav">
-          <li><a>Home</a></li>
+          <Link to='/'>
+            <li><a>Home</a></li>
+          </Link>
           <li>
             <select>
               <option value="all"> Categories</option>
@@ -41,9 +46,15 @@ class Navbar extends React.PureComponent {
               </select>}
 
           </li>
+          {!this.props.isLoggedIn && this.state.authOption === 'login' ? 
           <Link to="/login">
-            <li><a>Go</a></li>
-          </Link>
+          <li><a>Go</a></li>
+        </Link> :
+          <Link to="/register">
+          <li><a>Go</a></li>
+        </Link>
+          }
+          
           <li><a>Cart</a></li>
         </ul>
       </nav >

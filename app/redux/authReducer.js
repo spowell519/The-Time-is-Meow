@@ -27,12 +27,13 @@ export const me = () => async dispatch => {
     }
 }
 
-export const authenticate = (email, password, method) => {
+export const authenticate = (email, password, {history}) => {
     return async (dispatch) => {
         try {
             const res = await axios.post("api/users/login", { email, password })
             window.localStorage.setItem(TOKEN, res.data.token)
             dispatch(me())
+            history.push('/')
         } catch (err) {
             console.log(err)
         }

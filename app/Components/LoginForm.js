@@ -30,7 +30,7 @@ class LoginForm extends React.Component {
   }
 }
 
-const mapLogin = state => {
+const mapLogin = (state) => {
   return {
     name: 'login',
     displayName: 'Login',
@@ -38,14 +38,13 @@ const mapLogin = state => {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, history) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
-      const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(authenticate(email,password,formName))
+      dispatch(authenticate(email,password, history))
     }
   }
 }
