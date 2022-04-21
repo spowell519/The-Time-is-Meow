@@ -43,7 +43,7 @@ nav>ul {
 
 nav>ul>li {
   padding: 0 1rem;
-  display:inline-block;
+  display: inline;
 }
 nav>ul:first-child>li {
   padding-left: 1rem;
@@ -72,48 +72,61 @@ section {
   padding:2rem 0;
 }
 
-#header {
+.highlighted {
   background-color: #ffffffb0;
   border-radius: 3rem;
   display: flex;
   padding: 1rem;
 }
-#header img {
+.highlighted img {
   max-width: 12rem;
 }
-#header.div {
-  flex:auto;
+.highlighted>div:first-child {
+  flex: auto;
+  min-width: 12rem;
+  max-width: 12rem;
 }
-#header-text {
+.highlighted-text {
   padding-left:2rem;
 }
-#header h3 {
+.highlighted h2 {
+  background:none;
+  text-align: left;
+  padding:0;
+  margin:0;
+  font-size:2rem;
+}
+
+.highlighted h3 {
   text-align: center;
   margin-bottom:1.5rem;
 }
-/* Form */
+/* Form and product info */
 
-#header form {
+.highlighted form, .highlighted .info {
   width: 90%;
   margin: 0 2rem 0 0;
   padding-left: 10%;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
 }
-#header form>div {
+.highlighted form>div {
   flex:1 1 45%;
 }
-#header form>div.wide {
+.highlighted .info>div {
+  flex:1 1 30%;
+}
+.highlighted form>div.wide, .highlighted .info>div.wide {
   flex:1 1 95%;
 }
-#header label {
+.highlighted label {
   height: 1rem;
   font-size: 0.85rem;
   font-weight: bold;
   display: block;
-  /* border-bottom: 1px dotted limegreen; */
 }
-#header input, #header textarea {
+.highlighted input, .highlighted textarea {
   width: 90%;
   min-height: 1rem;
   padding: 0.25rem;
@@ -121,13 +134,13 @@ section {
   border: 2px solid #25CED1;
   background-color: #FCEADE;
 }
-#header div.wide input, #header textarea {
+.highlighted div.wide input, .highlighted textarea {
   width:95%;
 }
-#header textarea {
+.highlighted textarea {
   height:5rem;
 }
-#header select, #header button {
+.highlighted select, .highlighted button {
   height: 1.75rem;
   margin: 0.5rem 0 1rem 0;
   padding: 0.1rem 0.75rem;
@@ -137,8 +150,36 @@ section {
   color: #49306B;
   font-size: 1rem;
 }
+
+/* single page */
+.info p, .info p.label {
+  font-size:0.8rem;
+  margin:0.5rem 0;
+}
+.info p.label {
+  padding:0.5rem 0 0.5rem 0.5rem;
+}
+
+.info span.bubble, .info p.bubble {
+  background-color: #ffffffb0;
+  padding: 0.5rem;
+  margin:0.75rem 0;
+  border-radius: 3rem;
+  font-size: 1.5rem;
+}
+.info span.rating {
+  letter-spacing: 3px;
+  padding-left: 13px;
+}
+.info p.bubble {
+  font-size: 1.0rem;
+}
+
+.info h2 {
+  margin-bottom:0.8rem;
+}
 /* come back to this - featured product lewk 
-#header-text>.item-preview {
+.highlighted-text>.item-preview {
 
 } */
 
@@ -149,7 +190,7 @@ section {
 
 /* styling for elements in grid */
 
-#all-products>.item-preview, #header-text>.item-preview {
+#all-products>.item-preview, .highlighted-text>.item-preview {
   flex: 1 1 27%;
   display: flex;
   flex-direction: column;
@@ -210,4 +251,5 @@ section {
   body {
     background-color: lightblue;
   }
+
 }

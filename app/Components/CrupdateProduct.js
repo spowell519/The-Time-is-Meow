@@ -1,9 +1,11 @@
-// if user is logged in as admin, show this component in PageHeader
+// if user is logged in as admin, show this component
+// if in a grid view, uses productS reducer, single page uses product reducer
+
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { findProduct, getProducts, editProduct, addProduct } from '../redux/productsReducer';
-
+import { getProducts, addProductToList, editProductInList } from '../redux/productsReducer';
+import { getProduct, editProduct } from '../redux/productReducer';
 const emptyState = {
   title: '', category: '', price: '', imageUrl: '',
   description: '', rating: '', inventory: '',
@@ -12,17 +14,19 @@ const emptyState = {
 class CrupdateProduct extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = emptyState;
-    this.mode = 'add';
+    this.source = window.location.pathname.includes('/product/') ? 'single' : 'list';
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.resetForm = this.resetForm.bind(this);
+
   }
 
   // eslint-disable-next-line complexity
   componentDidUpdate() {
-    if (this.props.mode === 'edit' && this.state.title !== this.props.product.title) {
+    if (this.props.mode === 'edit' && this.state.id !== this.props.product.id) {
       const product = this.props.product;
       this.setState({
           title: product.title || '',
@@ -52,7 +56,9 @@ class CrupdateProduct extends React.Component {
     // refresh form and state
     (this.props.mode === 'add')
     ? this.resetForm()
-    : this.props.getProducts();
+    : (this.source === 'list')
+        ? this.props.getProducts()
+        : this.props.getProduct(this.state.product.id);
   }
 
   resetForm() {
@@ -62,12 +68,12 @@ class CrupdateProduct extends React.Component {
   render() {
     const { handleSubmit, handleChange } = this;
     const { title, category, price, imageUrl, description, rating, inventory } = this.state;
+
     return (
       <section>
-        <div id="header">
+        <div className="highlighted">
           <div>
             <h3>{(this.props.mode === 'add') ? "Add" : "Edit" } Product</h3>
-            <img src="images/logo.png" />
           </div>
           <div>
             <form id="product_crupdate" onSubmit={handleSubmit}>
@@ -122,17 +128,29 @@ class CrupdateProduct extends React.Component {
   }
 }
 
-const mapState = (state) => {
+const mapStateForList = (state) => {
   return {
     products: state.products,
   };
 };
 
-const mapDispatch = (dispatch) => ({
-  findProduct: (id) => dispatch(findProduct(id)),
+const mapStateForSingle = (state) => {
+  return {
+    product: state.product,
+  };
+};
+
+const mapDispatchForList = (dispatch) => ({
   getProducts: () => dispatch(getProducts()),
-  addProduct: (product) => dispatch(addProduct(product)),
+  addProduct: (product) => dispatch(addProductToList(product)),
+  editProduct: (product) => dispatch(editProductInList(product)),
+});
+
+const mapDispatchForSingle = (dispatch) => ({
+  getProduct: (id) => dispatch(getProduct(id)),
   editProduct: (product) => dispatch(editProduct(product)),
 });
 
-export default connect(mapState, mapDispatch)(CrupdateProduct);
+export default (window.location.pathname.includes('/product/') )
+  ? connect(mapStateForSingle, mapDispatchForSingle)(CrupdateProduct)
+  : connect(mapStateForList, mapDispatchForList)(CrupdateProduct)

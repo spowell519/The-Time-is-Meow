@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 
 import Navbar from './Navbar'
 import FrontPage from './FrontPage'
+import ProductPage from './ProductPage'
 import Login from './Login'
 
 const Routes = () => {
@@ -11,11 +12,11 @@ const Routes = () => {
       <main>
         <Navbar />
         <Route exact path="/" component={FrontPage} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/product/:id" component={ProductPage} />
+        {/* <Route exact path="/login" component={Login} /> */}
       </main>
     </Router>
   );
 };
 
 export default Routes;
-
