@@ -14,7 +14,7 @@ class Navbar extends React.PureComponent {
   handleChange(e){
     if(e.target.value !== ''){
       this.setState({authOption: e.target.value})
-      }
+    }
   }
   render() {
     console.log('this.state', this.state);
