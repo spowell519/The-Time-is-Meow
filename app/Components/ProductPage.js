@@ -24,13 +24,13 @@ class ProductPage extends React.PureComponent {
   render() {
     const product = this.props.product || {};
     const relatedProducts = this.props.products || [];
+    const { isAdmin } = this.props.auth;
 
     return (
       <div>
         <SingleProduct mode="edit" product={product} />
 
-        {(this.state.admin)
-
+        {( isAdmin )
           ? <CrupdateProduct mode="edit" product={product} />
           : <div />
         }
@@ -43,6 +43,7 @@ const mapState = (state) => {
   return {
     product: state.product,
     products: state.products,
+    auth: state.auth,
   };
 };
 

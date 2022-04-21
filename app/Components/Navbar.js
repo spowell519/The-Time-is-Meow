@@ -19,11 +19,12 @@ class Navbar extends React.PureComponent {
   // eslint-disable-next-line complexity
   render() {
     console.log('this.state', this.state);
+    console.log('auth?', this.props.auth)
     return (
       <nav>
         <ul className="left-nav">
           <li><Link to="/">Home</Link></li>
-          <li>Welcome{(this.props.isLoggedIn) ? " back" : ""}!</li>
+          <li>Welcome{(this.props.auth.firstName) ? ` back, ${this.props.auth.firstName}`  : ""}!</li>
         </ul>
         <ul className="right-nav">
           <li>

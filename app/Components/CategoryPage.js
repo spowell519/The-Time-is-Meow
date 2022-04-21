@@ -11,11 +11,11 @@ class CategoryPage extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            admin: false, // just for testing without auth
             mode: 'add',
             product: {},
         }
         this.editProduct = this.editProduct.bind(this);
+        this.category = this.props.match.params.category;
     }
 
     editProduct(product, evt) {
@@ -24,19 +24,20 @@ class CategoryPage extends React.PureComponent {
     }
 
     componentDidMount() {
-        this.props.getProducts(this.props.match.params.category);
+        this.props.getProducts(this.category);
     }
 
     render() {
         const products = this.props.products || [];
+        const { isAdmin } = this.props.auth;
 
         return (
             <div>
-                {(this.state.admin)
+                {(isAdmin)
                     ? <CrupdateProduct mode={this.state.mode} product={this.state.product} />
                     : <DefaultHeader />
                 }
-                <ItemGrid products={products} editProduct={this.editProduct} />
+                <ItemGrid products={products} editProduct={this.editProduct} category={this.category} />
             </div>
         )
     }
@@ -45,6 +46,7 @@ class CategoryPage extends React.PureComponent {
 const mapState = (state) => {
     return {
         products: state.products,
+        auth: state.auth,
     };
 };
 
