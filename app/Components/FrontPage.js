@@ -13,7 +13,7 @@ class FrontPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      admin: false, // just for testing without auth
+      // admin: true, // just for testing without auth
       mode: 'add',
       product: {},
     }
@@ -31,12 +31,13 @@ class FrontPage extends React.PureComponent {
 
   render() {
     const products = this.props.products || [];
-
+    const isAdmin = this.props.auth.isAdmin;
     return (
       <div>
-        {(this.state.admin)
+        <DefaultHeader />
+        {(isAdmin)
         ? <CrupdateProduct mode={this.state.mode} product={this.state.product} />
-        : <DefaultHeader />
+        : <div />
         }
         <ItemGrid products={products} editProduct={this.editProduct} />
       </div>
@@ -47,6 +48,7 @@ class FrontPage extends React.PureComponent {
 const mapState = (state) => {
   return {
     products: state.products,
+    auth: state.auth,
   };
 };
 

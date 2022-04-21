@@ -49,8 +49,10 @@ class CrupdateProduct extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault();
     // add or edit
+    const product = { ...this.state};
+    const user = this.props.auth;
     (this.props.mode === 'add')
-    ? this.props.addProduct({ ...this.state})
+    ? this.props.addProduct(product, user)
     : this.props.editProduct({...this.state});
 
     // refresh form and state
@@ -131,18 +133,20 @@ class CrupdateProduct extends React.Component {
 const mapStateForList = (state) => {
   return {
     products: state.products,
+    auth: state.auth,
   };
 };
 
 const mapStateForSingle = (state) => {
   return {
     product: state.product,
+    auth: state.auth,
   };
 };
 
 const mapDispatchForList = (dispatch) => ({
   getProducts: () => dispatch(getProducts()),
-  addProduct: (product) => dispatch(addProductToList(product)),
+  addProduct: (product, user) => dispatch(addProductToList(product, user)),
   editProduct: (product) => dispatch(editProductInList(product)),
 });
 

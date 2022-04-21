@@ -51,7 +51,7 @@ const mapDispatch = (dispatch, history) => {
       evt.preventDefault();
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(authenticate(email,password, history))
+      dispatch(authenticate(email, password, history))
     }
   }
 }

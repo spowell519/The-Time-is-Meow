@@ -46,7 +46,7 @@ export const getProducts = (category) => {
   }
 };
 
-export const addProductToList = (product) => {
+export const addProductToList = (product, user) => {
   return async (dispatch) => {
     const { data } = await axios.post('/api/products', product);
     dispatch(_addProduct(data))
