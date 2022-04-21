@@ -1,5 +1,6 @@
 // individual element in ItemGrid
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class ItemPreview extends React.PureComponent {
   constructor(props) {
@@ -24,8 +25,8 @@ class ItemPreview extends React.PureComponent {
           <button onClick={(evt) => edit(product, evt)} type="submit">🖌</button>
           <a href="" onClick={addToCart}>+</a>
         </div>
-        <div className="thumbnail"><img src={'images/' + product.imageUrl} /></div>
-        <div className="info"><h4>{product.title}</h4></div>
+        <div className="thumbnail"><img src={'/images/' + product.imageUrl} /></div>
+        <div className="info"><Link to={`/product/${product.id}`}><h4>{product.title}</h4></Link></div>
       </div>
     )
   }

@@ -11,8 +11,8 @@ class Navbar extends React.PureComponent {
       { authOption: 'login' };
     this.handleChange = this.handleChange.bind(this)
   }
-  handleChange(e){
-    this.setState({authOption: e.target.value})
+  handleChange(e) {
+    this.setState({ authOption: e.target.value })
   }
   render() {
     console.log('this.state', this.state);
@@ -25,7 +25,7 @@ class Navbar extends React.PureComponent {
           <li>
             <select>
               <option value="all"> Categories</option>
-              <option value="treat">Treats</option>
+              <option value="treat">Treat</option>
               <option value="toy">Toys</option>
               <option value="clothing">Clothing</option>
             </select>
