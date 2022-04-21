@@ -89,14 +89,14 @@ const users = [
   {
     firstName: "Claire",
     lastName: "Coulter",
-    email: "clcoulter46@gmail.com",
+    email: "admin@test.com",
     password: "easy123",
     isAdmin: true
   },
   {
     firstName: "Archy",
     lastName: "Coulter",
-    email: "smolbeans@gmail.com",
+    email: "test@test.com",
     password: "easy123",
     isAdmin: false
   }
