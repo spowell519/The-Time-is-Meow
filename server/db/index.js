@@ -1,8 +1,14 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 const db = require('./database')
 const User = require('./User')
 const Order = require('./Order')
 const Product = require('./Product')
 const Review = require('./Review')
+
+
+
 
 //define associations
 //a review can have one User
@@ -25,7 +31,6 @@ Review.belongsTo(Product)
 //Will deal with this later
 //Product.belongsToMany(Order, {through: 'completedOrders'})
 //Order.belongsToMany(Product)
-
 
 
 module.exports = {
