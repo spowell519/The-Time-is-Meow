@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const TOKEN = 'token'
+const USER = 'user'
 
 const SET_AUTH = 'SET_AUTH';
 
@@ -23,6 +24,7 @@ export const me = () => async dispatch => {
                 authorization: token
             }
         })
+        window.localStorage.setItem(USER, data.isAdmin)
         return dispatch(setAuth(data))
     }
 }
