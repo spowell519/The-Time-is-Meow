@@ -41,10 +41,12 @@ class Navbar extends React.PureComponent {
               </select>}
 
           </li>
-          <li><a>Go</a></li>
+          <Link to="/login">
+            <li><a>Go</a></li>
+          </Link>
           <li><a>Cart</a></li>
         </ul>
-      </nav>
+      </nav >
     )
   }
 }
