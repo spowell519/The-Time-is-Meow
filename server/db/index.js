@@ -6,8 +6,7 @@ const User = require('./User')
 const Order = require('./Order')
 const Product = require('./Product')
 const Review = require('./Review')
-
-
+const Product_orders = require('./Product_orders')
 
 
 //define associations
@@ -28,9 +27,10 @@ Review.belongsTo(Product)
 
 //A product can have many orders???
 //An order can have many products
-//Will deal with this later
-//Product.belongsToMany(Order, {through: 'completedOrders'})
-//Order.belongsToMany(Product)
+
+
+Product.belongsToMany(Order, {through: Product_orders})
+Order.hasMany(Product)
 
 
 module.exports = {
