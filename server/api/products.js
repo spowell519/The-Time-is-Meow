@@ -47,7 +47,6 @@ router.get('/category/:cat', async (req, res, next) => {
 
 // add product : gatekeep
 router.post('/', isAdmin, async (req, res, next) => {
-
   try {
     res.status(201).json(await Product.create(req.body));
   } catch (err) {

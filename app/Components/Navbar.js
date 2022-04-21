@@ -2,11 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Login from './LoginForm';
-import { logout } from '../redux/authReducer';
+import { me, logout } from '../redux/authReducer';
 
 class Navbar extends React.PureComponent {
   constructor(props) {
     super(props);
+    // look in localstorage to stay logged in
+    this.props.stayLoggedIn();
+
     this.state =
       { authOption: '' };
     this.handleChange = this.handleChange.bind(this)
@@ -80,7 +83,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    stayLoggedIn: () => dispatch(me()),
   }
 }
 
