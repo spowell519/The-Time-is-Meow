@@ -51,10 +51,9 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => {
-  return (
-    {
+  return ({
       getProducts: (category) => dispatch(getProducts(category)),
-    })
+  })
 }
 
 export default connect(mapState, mapDispatch)(FrontPage);
