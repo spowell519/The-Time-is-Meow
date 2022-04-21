@@ -1,2 +1,0 @@
-// if user is logged in as admin, show this component in PageHeader
-import React from 'react';

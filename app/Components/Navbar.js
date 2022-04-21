@@ -46,18 +46,20 @@ class Navbar extends React.PureComponent {
               </select>}
 
           </li>
-          {!this.props.isLoggedIn && this.state.authOption === 'login' ? 
-          <Link to="/login">
-          <li><a>Go</a></li>
-        </Link> :
-          <Link to="/register">
-          <li><a>Go</a></li>
-        </Link>
+          {!this.props.isLoggedIn && this.state.authOption === 'login'
+            ?
+            <Link to="/login">
+              <li><a>Go</a></li>
+            </Link>
+            :
+            <Link to="/register">
+              <li><a>Go</a></li>
+            </Link>
           }
-          
+
           <li><a>Cart</a></li>
         </ul>
-      </nav >
+      </nav>
     )
   }
 }
