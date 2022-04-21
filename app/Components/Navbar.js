@@ -8,11 +8,22 @@ class Navbar extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state =
-      { authOption: 'login' };
+      { authOption: '' };
     this.handleChange = this.handleChange.bind(this)
   }
-  handleChange(e){
-    this.setState({authOption: e.target.value})
+  // componentDidMount(){
+  //   if(this.props.isLoggedIn){
+  //     this.setState({authOption: 'account'})
+  //   } else{
+  //     console.log('does this hit every time?')
+  //     this.setState({authOption: 'login'})
+  //   }
+  // }
+    handleChange(e){
+      if(e.target.value !== ''){
+        this.setState({authOption: e.target.value})
+        console.log('the function hit here')
+      }
   }
   render() {
     console.log('this.state', this.state);
@@ -35,27 +46,37 @@ class Navbar extends React.PureComponent {
           <li>
 
             {this.props.isLoggedIn ?
-              <select>
-                <option value="account"> Account</option>
+              <select onChange={this.handleChange}>
+                <option> </option>
                 <option value="logout"> Logout</option>
+                <option value="account"> Account</option>
               </select>
               :
-              <select>
+              <select onChange={this.handleChange}>
+                <option> </option>
                 <option value="login"> Login</option>
                 <option value="register"> Register</option>
               </select>}
 
           </li>
+
           {!this.props.isLoggedIn && this.state.authOption === 'login'
             ?
             <Link to="/login">
               <li><a>Go</a></li>
             </Link>
-            :
+            : (!this.props.isLoggedIn && this.state.authOption === 'register') 
+            ?
             <Link to="/register">
               <li><a>Go</a></li>
+            </Link> 
+            : (this.props.isLoggedIn && this.state.authOption === 'account') 
+            ?
+            <Link to="/account">
+              <li><a>Go</a></li>
             </Link>
-          }
+            : <li><a href="/" onclick={this.props.handleClick}>Go</a></li>
+            }
 
           <li><a>Cart</a></li>
         </ul>

@@ -31,8 +31,7 @@ class ProductPage extends React.PureComponent {
 
         {(this.state.admin)
         ? <CrupdateProduct mode="edit" product={product} />
-        { <div /> /* related products (in future) */}
-        }
+        : <div /> }
       </div>
     )
   }
