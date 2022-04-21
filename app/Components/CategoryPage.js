@@ -11,7 +11,7 @@ class CategoryPage extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            admin: true, // just for testing without auth
+            admin: false, // just for testing without auth
             mode: 'add',
             product: {},
         }
@@ -24,7 +24,6 @@ class CategoryPage extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log('What is inside?', this.props.match.params);
         this.props.getProducts(this.props.match.params.category);
     }
 
