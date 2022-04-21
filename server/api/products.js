@@ -23,14 +23,25 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// one category
+router.get('/category/:cat', async (req, res, next) => {
+  try {
+    res.json(
+      await Product.findAll({
+        where: { category: req.params.cat }
+    })
+);
+} catch (err) {
+    next(err)
+}  
+});
+
 // add product
 router.post('/', async (req, res, next) => {
   try {
-    res.status(201).json(await Product.create(
-      req.body,
-    ));
-  } catch (e) {
-    next(e);
+    res.status(201).json(await Product.create(req.body));
+  } catch (err) {
+    next(err);
   }
 });
 
@@ -39,9 +50,11 @@ router.put('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     res.json(await product.update(req.body));
-  } catch (e) {
-    next(e)
+  } catch (err) {
+    next(err)
   }
 });
+
+
 
 module.exports = router

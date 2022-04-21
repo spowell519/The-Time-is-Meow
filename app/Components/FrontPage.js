@@ -13,24 +13,32 @@ class FrontPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      category: "all", //  add ability to change with dropdown choice
-      admin: false, // just for testing without auth
+      admin: true, // just for testing without auth
+      mode: 'add',
+      product: {},
     }
+    this.editProduct = this.editProduct.bind(this);
   }
-  componentWillMount() {
-    this.props.getProducts("all");
+
+  editProduct(product, evt) {
+    evt.preventDefault();
+    this.setState((state) => ({...state, mode: 'edit', product}))
+  }
+
+  componentDidMount() {
+    this.props.getProducts();
   }
 
   render() {
     const products = this.props.products || [];
-
+    console.log('products to render', products);
     return (
       <div>
         {(this.state.admin)
-        ? <CrupdateProduct />
+        ? <CrupdateProduct mode={this.state.mode} product={this.state.product} />
         : <DefaultHeader />
         }
-        <ItemGrid products={products} />
+        <ItemGrid products={products} editProduct={this.editProduct} />
       </div>
     )
   }

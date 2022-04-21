@@ -10,7 +10,7 @@ class Navbar extends React.PureComponent {
   render() {
     return (
       <nav>
-        <ul clas="left-nav">
+        <ul className="left-nav">
           <li><a>Home</a></li>
           <li>
             <select>
@@ -21,11 +21,11 @@ class Navbar extends React.PureComponent {
             </select>
           </li>
         </ul>
-        <ul class="right-nav">
+        <ul className="right-nav">
           <li>
             <select>
               <option value="all"> Account</option>
-              <option value="login"><Link to={Login}>"Log In"</Link></option>
+              {/* <option value="login"><Link to={Login}>"Log In"</Link></option> */}
               <option value="register">Register</option>
             </select>
           </li>
