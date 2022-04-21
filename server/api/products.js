@@ -2,6 +2,14 @@ const router = require('express').Router();
 // const Product = require('../db/Product')
 const { Product } = require('../db/');
 
+const isAdmin = (req, res, next) => {
+	if (!req.user.isAdmin) {
+		return res.status(403).send('You shall not pass!')
+	} else {
+		next()
+	}
+}
+
 // all products
 router.get('/', async (req, res, next) => {
   try {
@@ -37,8 +45,9 @@ router.get('/category/:cat', async (req, res, next) => {
 }  
 });
 
-// add product
-router.post('/', async (req, res, next) => {
+// add product : gatekeep
+router.post('/', isAdmin, async (req, res, next) => {
+
   try {
     res.status(201).json(await Product.create(req.body));
   } catch (err) {
@@ -46,7 +55,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-// update prodcut
+// update prodcut : gatekeep
 router.put('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
@@ -55,7 +64,6 @@ router.put('/:id', async (req, res, next) => {
     next(err)
   }
 });
-
 
 
 module.exports = router

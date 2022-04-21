@@ -70,7 +70,8 @@ class Navbar extends React.PureComponent {
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    auth: state.auth,
   }
 }
 

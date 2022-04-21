@@ -11,7 +11,7 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
-router.get('/auth/me', async(req,res,next) => {
+router.get('/auth/me', async(req, res, next) => {
   try {
     res.send(await User.byToken(req.headers.authorization))
   } catch (err) {
