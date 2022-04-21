@@ -26,6 +26,7 @@ router.get('/:id', async (req, res, next) => {
 // one category
 router.get('/category/:cat', async (req, res, next) => {
   try {
+    console.log('cat', req.params.cat)
     res.json(
       await Product.findAll({
         where: { category: req.params.cat }
