@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('./database')
 
-module.exports = db.define('product', {
+const Product = db.define('product', {
   title: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -17,8 +17,8 @@ module.exports = db.define('product', {
       isIn: [['treat', 'toy', 'clothing']]
     }
   },
-  price: {
-    type: Sequelize.DECIMAL,
+  price: { //price is input in pennies
+    type: Sequelize.NUMERIC(10,2),
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -47,4 +47,12 @@ module.exports = db.define('product', {
       min: 0
     }
   }
+})
+
+module.exports = Product
+
+Product.beforeCreate( async (product) => {
+  //figure out how to ensure two decimal points
+  const dollarPrice = product.price/100
+  product.price = dollarPrice
 })

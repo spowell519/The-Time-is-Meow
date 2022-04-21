@@ -5,7 +5,7 @@ const items = [
   {
     title: "avocado treat",
     category: "treat",
-    price: 7.99,
+    price: 799,
     imageUrl: "default.png",
     description: "it’s a cute lil treat that’s safe for your pet to eat!",
     rating: 4.8,
@@ -14,7 +14,7 @@ const items = [
   {
     title: "super hair band",
     category: "toy",
-    price: 27.99,
+    price: 2799,
     imageUrl: "default.png",
     description: "hair elastic to play with, comes full of hair",
     rating: 1.9,
@@ -23,7 +23,7 @@ const items = [
   {
     title: "bunny ears",
     category: "clothing",
-    price: 17.99,
+    price: 1799,
     imageUrl: "default.png",
     description: "put these ears on your cat and your cat will be mad",
     rating: 4.2,
@@ -32,7 +32,7 @@ const items = [
   {
     title: "vampire mouse",
     category: "toy",
-    price: 12.99,
+    price: 1299,
     imageUrl: "default.png",
     description: "don't let it bite you!",
     rating: 3.8,
@@ -41,7 +41,7 @@ const items = [
   {
     title: "gay worm friend",
     category: "toy",
-    price: 11.50,
+    price: 1150,
     imageUrl: "default.png",
     description: "worm says gay rights!",
     rating: 4.5,
@@ -50,7 +50,7 @@ const items = [
   {
     title: "kirby hat",
     category: "clothing",
-    price: 22.99,
+    price: 2299,
     imageUrl: "default.png",
     description: "cute, powerful, and round",
     rating: 3.2,
@@ -59,7 +59,7 @@ const items = [
   {
     title: "flower crown",
     category: "clothing",
-    price: 30.99,
+    price: 3099,
     imageUrl: "default.png",
     description: "springtime is here!",
     rating: 3.3,
@@ -68,7 +68,7 @@ const items = [
   {
     title: "martini cookie",
     category: "treat",
-    price: 13.99,
+    price: 1399,
     imageUrl: "default.png",
     description: "for ladies who lunch",
     rating: 4.5,
@@ -77,7 +77,7 @@ const items = [
   {
     title: "dental chew",
     category: "treat",
-    price: 24.99,
+    price: 2499,
     imageUrl: "default.png",
     description: "it's this or brushing their teeth",
     rating: 4.8,
