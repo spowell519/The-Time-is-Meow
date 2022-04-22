@@ -20,6 +20,19 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// one category
+router.get('/category/:cat', async (req, res, next) => {
+  try {
+    res.json(
+      await Product.findAll({
+        where: { category: req.params.cat }
+      })
+    );
+  } catch (err) {
+    next(err)
+  }
+});
+
 // one product
 router.get('/:id', async (req, res, next) => {
   try {
@@ -40,7 +53,7 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 });
 
-// update prodcut : gatekeep
+// update product : gatekeep
 router.put('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);

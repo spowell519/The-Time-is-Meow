@@ -102,13 +102,13 @@ User.authenticate = async ({ email, password }) => {
 };
 
 //CART METHODS
-User.prototype.addToCart(async user => {
-  console.log('added')
-})
+// User.prototype.addToCart(async user => {
+//   console.log('added')
+// })
 
-User.prototype.removeFromCart(async user => {
-  console.log('removed')
-})
+// User.prototype.removeFromCart(async user => {
+//   console.log('removed')
+// })
 
 
 //HOOKS
