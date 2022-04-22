@@ -105,12 +105,18 @@ const users = [
 const seed = async () => {
   try {
     await db.sync({ force: true });
-    await Promise.all(items.map(item => {
+    const [prod1,prod2,prod3,prod4,prod5,prod6,prod7,prod8,prod9] = await Promise.all(items.map(item => {
       return Product.create(item)
     }))
-    await Promise.all(users.map(user => {
+    const [claire, archy] = await Promise.all(users.map(user => {
       return User.create(user)
     }))
+
+    await archy.addToCart(prod1)
+    await archy.addToCart(prod2)
+    await archy.addToCart(prod3)
+    await archy.removeFromCart(prod2)
+
   } catch (err) {
     console.log(red(err));
   }

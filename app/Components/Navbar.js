@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Login from './LoginForm';
 import { me, logout } from '../redux/authReducer';
+import { fetchCart } from '../redux/cartReducer';
 
 class Navbar extends React.PureComponent {
   constructor(props) {
@@ -14,6 +15,11 @@ class Navbar extends React.PureComponent {
       { authOption: '' };
     this.handleChange = this.handleChange.bind(this)
   }
+  componentDidUpdate(){
+    if(this.props.isLoggedIn){
+      this.props.fetchCart();
+    }
+  }
   handleChange(e){
     if (e.target.value !== ''){
       this.setState({authOption: e.target.value})
@@ -22,7 +28,7 @@ class Navbar extends React.PureComponent {
   // eslint-disable-next-line complexity
   render() {
     console.log('this.state', this.state);
-    console.log('auth?', this.props.auth)
+     console.log('auth?', this.props.auth)
     return (
       <nav>
         <ul className="left-nav">
@@ -85,6 +91,7 @@ const mapDispatch = dispatch => {
       dispatch(logout())
     },
     stayLoggedIn: () => dispatch(me()),
+    fetchCart: () => dispatch(fetchCart)
   }
 }
 

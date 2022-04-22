@@ -1,13 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { fetchCart } from '../redux/cartReducer'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
+    // this.state = {
+    //   cart: {}
+    // }
+  }
+  componentDidMount(){
+    this.props.fetchCart
   }
 
   render(){
-    console.log(this.props)
+    console.log(this.props, "props")
     return(
       <div>
         placeholder text
@@ -33,4 +40,10 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(Cart)
+const mapDispatch = dispatch => {
+  return {
+    fetchCart: () => dispatch(fetchCart)
+  }
+}
+
+export default connect(mapState, mapDispatch)(Cart)

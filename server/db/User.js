@@ -2,6 +2,8 @@ const Sequelize = require('sequelize');
 const db = require('./database')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const Order = require('./Order')
+const Product = require('./Product')
 
 const User = db.define('user', {
   firstName: {
@@ -69,6 +71,42 @@ User.prototype.generateToken = function () {
   return token
 }
 
+
+
+
+
+//CART METHODS
+User.prototype.getCart = async function (){
+  const where = {
+    userId: this.id,
+    status: 'CART'
+  }
+  let cart = await Order.findOne({
+    where
+  })
+  if(!cart){
+    cart = await Order.create(where);
+  }
+  return Order.findByPk(cart.id,
+    {include: [
+      {model: Product}
+    ]})
+}
+
+User.prototype.addToCart = async function() {
+  const cart = await this.getCart();
+  console.log(cart)
+}
+
+User.prototype.removeFromCart = async function(product) {
+  const cart = await this.getCart();
+  console.log(cart, 'heres the cart', product, "here's the product")
+  console.log(Product.id===product.id,Product.id, product.id, "figuring some stuff out")
+  // const lineItem = cart.findOne(product.id === Product.id)
+  // console.log(lineItem, 'removed')
+  //lineItem.inventory--
+}
+
 User.byToken = async (token) => {
   try {
     const {id} = await jwt.verify(token, 'secret')
@@ -83,7 +121,6 @@ User.byToken = async (token) => {
     throw error
   }
 };
-
 
 User.authenticate = async ({ email, password }) => {
   const user = await User.findOne({
@@ -100,16 +137,6 @@ User.authenticate = async ({ email, password }) => {
   return user.generateToken()
 
 };
-
-//CART METHODS
-User.prototype.addToCart(async user => {
-  console.log('added')
-})
-
-User.prototype.removeFromCart(async user => {
-  console.log('removed')
-})
-
 
 //HOOKS
 User.beforeCreate(async (user) => {
