@@ -42,7 +42,6 @@ export const authenticate = (email, password, {history}) => {
     }
 }
 export const logout = ({history}) => {
-  // console.log(history)
     window.localStorage.removeItem(TOKEN)
     // history.push('/')
     return {
@@ -60,6 +59,7 @@ export default function (state = {}, action) {
               firstName: action.auth.firstName,
               email: action.auth.email,
               isAdmin: action.auth.isAdmin,
+              id: action.auth.id,
             }
         default:
             return state
