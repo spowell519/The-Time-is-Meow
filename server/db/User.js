@@ -58,6 +58,8 @@ const User = db.define('user', {
 module.exports = User
 const SECRET_KEY = process.env.JWT //currently ditched bc returning undefined
 
+//AUTH METHODS
+
 User.prototype.correctPassword = function (userPassword) {
   return bcrypt.compare(userPassword, this.password)
 }
@@ -99,7 +101,17 @@ User.authenticate = async ({ email, password }) => {
 
 };
 
+//CART METHODS
+User.prototype.addToCart(async user => {
+  console.log('added')
+})
 
+User.prototype.removeFromCart(async user => {
+  console.log('removed')
+})
+
+
+//HOOKS
 User.beforeCreate(async (user) => {
   const hashedPW = await bcrypt.hash(
     user.password,

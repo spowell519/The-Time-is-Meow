@@ -7,11 +7,18 @@ const db = require('./database');
 
 module.exports = db.define('order', {
   price: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.NUMERIC(10,2),
     allowNull: false,
     validate: {
       min: 0,
       notEmpty: true
+    }
+  },
+  status: {
+    type: Sequelize.STRING,
+    defaultValue: 'cart',
+    validate: {
+      isIn: [['cart', 'order']]
     }
   }
 })
