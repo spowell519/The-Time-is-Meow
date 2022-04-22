@@ -61,7 +61,7 @@ class Navbar extends React.PureComponent {
             : <li><a href="/" onClick={this.props.handleClick}>Go</a></li>
             }
 
-          <li><a>Cart</a></li>
+          <li><Link to="/cart">Cart</Link></li>
         </ul>
       </nav>
     )

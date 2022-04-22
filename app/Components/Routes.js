@@ -6,6 +6,7 @@ import Navbar from './Navbar'
 import FrontPage from './FrontPage'
 import ProductPage from './ProductPage'
 import Login from './LoginForm'
+import Cart from './Cart';
 
 const Routes = () => {
   return (
@@ -16,6 +17,7 @@ const Routes = () => {
         <Route exact path="/product/:id" component={ProductPage} />
         <Route exact path="/category/:category" component={CategoryPage} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/cart" component={Cart} />
       </main>
     </Router>
   );
