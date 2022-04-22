@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navbar from './Navbar'
 import ProductsPage from './ProductsPage'
 import ProductPage from './ProductPage'
-import Login from './LoginForm'
+// import Login from './LoginForm'
 import Cart from './Cart';
+import AccountPage from './User/AccountPage'
 
 const Routes = () => {
   return (
@@ -14,7 +15,8 @@ const Routes = () => {
         <Navbar />
         <Route exact path="/" component={ProductsPage} />
         <Route exact path="/product/:id" component={ProductPage} />
-        <Route exact path="/login" component={Login} />
+        {/* <Route exact path="/login" component={Login} /> */}
+        <Route exact path="/account" component={AccountPage} />
         <Route exact path="/cart" component={Cart} />
       </main>
     </Router>

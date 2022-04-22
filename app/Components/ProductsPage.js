@@ -13,7 +13,6 @@ class ProductsPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      // admin: true, // just for testing without auth
       mode: 'add',
       product: {},
       category: '',

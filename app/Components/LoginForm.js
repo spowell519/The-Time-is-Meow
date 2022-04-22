@@ -19,20 +19,13 @@ class LoginForm extends React.Component {
     const { onChange, onSubmit } = this;
     const { email, password } = this.state;
     return (
-      <section>
-      <div className="highlighted">
-        <div><img src="/images/logo.png" /></div>
-        <div>
-          <form onSubmit={this.props.handleSubmit}>
-            <label htmlFor="email" >Email Address: </label>
-            <input value={email} onChange={onChange} name="email" />
-            <label htmlFor="password" >Password: </label>
-            <input value={password} onChange={onChange} name="password" />
-            <button type="submit">Sign In</button>
-          </form>
-        </div>
-      </div>
-      </section>
+      <form onSubmit={this.props.handleSubmit}>
+        <label htmlFor="email" >Email Address: </label>
+        <input value={email} onChange={onChange} name="email" />
+        <label htmlFor="password" >Password: </label>
+        <input value={password} onChange={onChange} name="password" />
+        <button type="submit">Sign In</button>
+      </form>
     );
   }
 }
