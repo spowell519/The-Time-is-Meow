@@ -41,9 +41,9 @@ export const authenticate = (email, password, {history}) => {
         }
     }
 }
-export const logout = () => {
+export const logout = ({history}) => {
     window.localStorage.removeItem(TOKEN)
-    history.push('/login')
+    // history.push('/')
     return {
         type: SET_AUTH,
         auth: {}
@@ -59,6 +59,7 @@ export default function (state = {}, action) {
               firstName: action.auth.firstName,
               email: action.auth.email,
               isAdmin: action.auth.isAdmin,
+              id: action.auth.id,
             }
         default:
             return state

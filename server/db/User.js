@@ -72,9 +72,6 @@ User.prototype.generateToken = function () {
 }
 
 
-
-
-
 //CART METHODS
 User.prototype.getCart = async function (){
   const where = {
@@ -137,6 +134,7 @@ User.authenticate = async ({ email, password }) => {
   return user.generateToken()
 
 };
+
 
 //HOOKS
 User.beforeCreate(async (user) => {
