@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 // these don't exist yet:
 //import { getUser, editUser } from '../redux/userReducer';
