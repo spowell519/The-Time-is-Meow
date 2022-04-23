@@ -1,17 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import UserMenu from './UserMenu';
 import UserPanel from './UserPanel';
+import AnonPanel from './AnonPanel';
 
 const AccountPage = (props) => {
   return (
     <section>
-      <div className="highlighted">
-        <UserMenu />
-        <UserPanel />
-      </div>
+      {
+        (props.auth.id)
+        ?  <UserPanel />
+        :  <AnonPanel />
+      }
     </section>
   )
 }
+const mapState = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
 
-export default AccountPage;
+export default connect(mapState)(AccountPage);

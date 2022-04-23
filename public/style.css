@@ -87,7 +87,7 @@ section {
 
 .highlighted {
   background-color: #ffffffb0;
-  border-radius: 3rem;
+  border-radius: 1rem;
   display: flex;
   padding: 1rem;
 }
@@ -146,6 +146,9 @@ section {
   margin: 0.5rem 0 0.75rem 0;
   border: 2px solid #25CED1;
   background-color: #FCEADE;
+}
+.highlighted div.wide {
+  width:90%;
 }
 .highlighted div.wide input, .highlighted textarea {
   width:95%;
@@ -273,6 +276,8 @@ h3.bubble {
 div.menu {
   margin-right:1rem;
 }
+
+/* BOOTSTRAP OVERRIDES */
 .nav-tabs {
   border:0 !important;
 }
@@ -281,21 +286,29 @@ div.menu {
   margin:0 0.5rem 0 0 !important;
   border-top-left-radius: 1rem !important;
   border-top-right-radius: 1rem !important;
+  color: #49306B;
+}
+.nav-tabs .nav-link:hover {
+  color: #25CED1;
 }
 .nav-tabs .nav-link.active {
   background-color: #FCEADE !important;
 }
 
 div.tab-content {
-  min-width:90% !important;
+  /* min-width:80% !important; */
   padding-top:1rem;
-  border-color:lime !important;
-  border-top-right-radius: 3rem;
+  /* border-top-right-radius: 0.5rem; */
   background: rgb(252,234,222);
   background: linear-gradient(0deg, rgba(252,234,222,0) 0%, rgba(252,234,222,1) 100%);
 }
 
-
+tr:hover {
+  background-color: #25CED1;
+}
+thead>tr, thead>tr:hover {
+  background-color: #FCEADE;
+}
 @media only screen and (max-width: 550px) {
   body {
     background-color: lightblue;
