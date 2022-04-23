@@ -4,12 +4,20 @@ import { connect } from 'react-redux'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
+    this.handleRemove = this.handleRemove.bind(this)
+  }
+  handleRemove(e){
+    console.log(e, 'click event')
+    this.props.removeFromCart(e.product)
   }
 
   render(){
+    console.log(this.props, 'this.props in cart')
     const lineItems = this.props.cart.lineItems
     console.log(lineItems, 'cart lineItems')
     let itemCounter = 0
+    // let totalPrice
+    // console.log(totalPrice, 'total Price')
     return(
       <div>
         <h3>Your Cart</h3>
@@ -18,13 +26,13 @@ class Cart extends React.Component {
           {itemCounter++}
           return (
             <div key={itemCounter}>
-
+            {/* not sure what's up with the imageUrls */}
             <img src={item.product.imageUrl}/>
-            <div>{item.product.title}</div>
-            <div>{item.product.price}</div>
+            <div>Product: {item.product.title}</div>
+            <div>Price: ${item.product.price}</div>
 
-            <button>-</button>
-            <div>{item.quantity}</div>
+            <button onClick={this.handleRemove(item)}>-</button>
+            <div>Quantity: {item.quantity}</div>
             <button>+</button>
           </div>
           )

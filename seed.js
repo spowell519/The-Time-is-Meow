@@ -116,6 +116,7 @@ const seed = async () => {
     await archy.addToCart(prod2)
     await archy.addToCart(prod3)
     await archy.removeFromCart(prod2)
+    await archy.addToCart(prod3)
     // let barLineItem = (await archy.getCart()).lineItems
 
   } catch (err) {
