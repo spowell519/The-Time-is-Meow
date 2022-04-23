@@ -42,13 +42,15 @@ nav>ul {
 }
 
 nav>ul>li {
-  padding: 0 1rem;
+  padding: 0;
   display: inline;
 }
-nav>ul:first-child>li {
+nav>ul.left-nav:first-child>li {
   padding-left: 1rem;
 }
-
+nav>ul.right-nav:last-child>li {
+  padding-right: 1rem;
+}
 nav a, nav select {
   background:#E94967;
   border-radius: 1rem;
@@ -58,11 +60,21 @@ nav a, nav select {
   font-size: 1rem;
   text-decoration: none;
 }
+nav a:hover {
+  color:#FCEADE;
+  background:#25CED1;
+  border-color:#25CED1;
+
+}
+nav a>img {
+  max-height: 1.25rem;
+}
 nav select {
   margin:0;
   padding:0.1rem 0.75rem;
   border-width: 6px;
 }
+
 
 /* main sections */
 
@@ -75,7 +87,7 @@ section {
 
 .highlighted {
   background-color: #ffffffb0;
-  border-radius: 3rem;
+  border-radius: 1rem;
   display: flex;
   padding: 1rem;
 }
@@ -135,13 +147,16 @@ section {
   border: 2px solid #25CED1;
   background-color: #FCEADE;
 }
+.highlighted div.wide {
+  width:90%;
+}
 .highlighted div.wide input, .highlighted textarea {
   width:95%;
 }
 .highlighted textarea {
   height:5rem;
 }
-.highlighted select, .highlighted button {
+.highlighted select, .highlighted form button {
   height: 1.75rem;
   margin: 0.5rem 0 1rem 0;
   padding: 0.1rem 0.75rem;
@@ -258,11 +273,42 @@ h3.bubble {
   margin:0.75rem 0;
   border-radius: 3rem;
 }
-div.menu>ul {
-  margin-bottom:3rem;
+div.menu {
+  margin-right:1rem;
 }
 
+/* BOOTSTRAP OVERRIDES */
+.nav-tabs {
+  border:0 !important;
+}
+.nav-tabs .nav-link {
+  border:0 !important;
+  margin:0 0.5rem 0 0 !important;
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 1rem !important;
+  color: #49306B;
+}
+.nav-tabs .nav-link:hover {
+  color: #25CED1;
+}
+.nav-tabs .nav-link.active {
+  background-color: #FCEADE !important;
+}
 
+div.tab-content {
+  /* min-width:80% !important; */
+  padding-top:1rem;
+  /* border-top-right-radius: 0.5rem; */
+  background: rgb(252,234,222);
+  background: linear-gradient(0deg, rgba(252,234,222,0) 0%, rgba(252,234,222,1) 100%);
+}
+
+tr:hover {
+  background-color: #25CED1;
+}
+thead>tr, thead>tr:hover {
+  background-color: #FCEADE;
+}
 @media only screen and (max-width: 550px) {
   body {
     background-color: lightblue;
