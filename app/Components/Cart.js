@@ -9,29 +9,26 @@ class Cart extends React.Component {
   render(){
     const lineItems = this.props.cart.lineItems
     console.log(lineItems, 'cart lineItems')
+    let itemCounter = 0
     return(
       <div>
-        placeholder text
-        {/* {lineItems.map(lineItem => {
-          <div key={[lineItem.orderId, lineItem.productId]}>
-            <img src={lineItem.product.imageUrl}/>
-            <div>{lineItem.product.title}</div>
-            <div>{lineItem.product.price}</div>
+        <h3>Your Cart</h3>
+        <div>
+        {lineItems ? lineItems.map(item => {
+          {itemCounter++}
+          return (
+            <div key={itemCounter}>
+
+            <img src={item.product.imageUrl}/>
+            <div>{item.product.title}</div>
+            <div>{item.product.price}</div>
 
             <button>-</button>
-            <div>{lineItem.quantity}</div>
+            <div>{item.quantity}</div>
             <button>+</button>
           </div>
-        })} */}
-        <div className='singleCartItem'>
-          <img src='default.png'/>
-          <div>Product Name</div>
-          <div>Product Price</div>
-
-          {/* this half will need some formatting --> */}
-          <button>-</button>
-          <div>Product Quantity</div>
-          <button>+</button>
+          )
+        }): "There's nothing here yet! Check out some of our wonderful selection!" }
         </div>
       </div>
     )
