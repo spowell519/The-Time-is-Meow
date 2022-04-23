@@ -24,12 +24,21 @@ class Navbar extends React.PureComponent {
     return (
       <nav>
         <ul className="left-nav">
-          <li><Link to="/">Home</Link></li>
-          <li>Welcome{(this.props.auth.firstName) ? ` back ${this.props.auth.firstName}`  : ""}!</li>
+          <li><Link to="/"><img src="/images/home.png" alt="home" /></Link></li>
+          <li>
+          {
+            console.log('id', this.props.auth.id, 'name', this.props.auth.firstName) }
+          {
+            (this.props.auth.id)
+            ? `Welcome back ${(this.props.auth.firstName) ? this.props.auth.firstName : ''}!`
+            : ""
+          }
+          </li>
         </ul>
         <ul className="right-nav">
           <li><Link to="/account">Account</Link></li>
-          <li><Link to="/cart">Cart</Link></li>
+          {(this.props.auth.id) ? <li><Link to="/" onClick={this.props.logout}>Log Out</Link></li> : ""}
+          <li><Link to="/cart"><img src="/images/cart.png" alt="cart" /></Link></li>
         </ul>
       </nav>
     )
@@ -43,13 +52,11 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, history) => {
   return {
-    handleClick() {
-      dispatch(logout())
-    },
+    logout: () => dispatch(logout(history)),
     stayLoggedIn: () => dispatch(me()),
-  }
 }
+};
 
 export default connect(mapState, mapDispatch)(Navbar);
