@@ -13,6 +13,7 @@ router.get('/', async(req, res, next) => {
 
 router.post('/addToCart', async (req,res,next) => {
   try {
+
     const user = await User.ByToken(req.headers.authorization);
     console.log(req.body, 'req in addToCart route')
     res.send(await user.addToCart(req.body))
@@ -23,9 +24,10 @@ router.post('/addToCart', async (req,res,next) => {
 
 router.post('/removeFromCart', async (req,res,next) => {
   try {
+    console.log('got to removefromcart')
     const user = await User.ByToken(req.headers.authorization);
-    console.log(req.body, 'req in removeFromCart route')
-    res.send(await user.removeFromCart(req.body))
+    console.log(req.body, 'req in addToCart route')
+    res.send(await user.addToCart(req.body))
   } catch (err) {
     next(err)
   }

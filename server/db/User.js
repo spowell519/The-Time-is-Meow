@@ -58,7 +58,7 @@ const User = db.define('user', {
   }
 })
 
-module.exports = User
+
 const SECRET_KEY = process.env.JWT //currently ditched bc returning undefined
 
 //AUTH METHODS
@@ -74,7 +74,7 @@ User.prototype.generateToken = function () {
 
 
 //CART METHODS
-User.prototype.getCart = async function (){
+User.prototype.getCart = async function () {
   const where = {
     userId: this.id,
     status: 'CART'
@@ -82,19 +82,21 @@ User.prototype.getCart = async function (){
   let cart = await Order.findOne({
     where
   })
-  if(!cart){
+  if (!cart) {
     cart = await Order.create(where);
   }
   return Order.findByPk(cart.id,
-    {include: [
-      {model: LineItem, include: [Product]}
-    ]})
+    {
+      include: [
+        { model: LineItem, include: [Product] }
+      ]
+    })
 }
 
-User.prototype.addToCart = async function(product) {
+User.prototype.addToCart = async function (product) {
   const cart = await this.getCart();
-  let lineItem = cart.lineItems.find(lineItem=> lineItem.productId === product.id)
-  if(lineItem){
+  let lineItem = cart.lineItems.find(lineItem => lineItem.productId === product.id)
+  if (lineItem) {
     lineItem.quantity++
     await lineItem.save()
   } else {
@@ -106,11 +108,11 @@ User.prototype.addToCart = async function(product) {
   return this.getCart()
 }
 
-User.prototype.removeFromCart = async function(product) {
+User.prototype.removeFromCart = async function (product) {
   const cart = await this.getCart();
   const lineItem = await cart.lineItems.find(lineItem => lineItem.productId === product.id)
   lineItem.quantity--
-  if(lineItem.quantity){
+  if (lineItem.quantity) {
     await lineItem.save()
   } else {
     await lineItem.destroy()
@@ -119,8 +121,9 @@ User.prototype.removeFromCart = async function(product) {
 }
 
 User.byToken = async (token) => {
+  console.log('got into function')
   try {
-    const {id} = await jwt.verify(token, 'secret')
+    const { id } = await jwt.verify(token, 'secret')
     const user = User.findByPk(id)
     if (!user) {
       throw 'nooo'
@@ -160,3 +163,5 @@ User.beforeCreate(async (user) => {
   // stolen from stack overflow, also works:
   // user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, 10) : "";
 });
+
+module.exports = User

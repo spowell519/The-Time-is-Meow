@@ -12,11 +12,31 @@ const _fetchCart = (cart) => {
   }
 }
 
-//thunk
+//thunks
 
 export const fetchCart = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
   const res = await axios.get('/api/cart', {
+    headers: {
+      authorization: token
+    }
+  })
+  return dispatch(_fetchCart(res.data))
+}
+
+export const removeFromCart = (product) => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN)
+  const res = await axios.post('api/cart/removeFromCart', product, {
+    headers: {
+      authorization: token
+    }
+  })
+  return dispatch(_fetchCart(res.data))
+}
+
+export const addToCart = (product) => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN)
+  const res = await axios.post('api/cart/addToCart', product, {
     headers: {
       authorization: token
     }
