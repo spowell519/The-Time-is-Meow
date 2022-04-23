@@ -3,7 +3,8 @@ const db = require('./database')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Order = require('./Order')
-const Product = require('./Product')
+const Product = require('./Product');
+const LineItem = require('./LineItem');
 
 const User = db.define('user', {
   firstName: {
@@ -86,22 +87,35 @@ User.prototype.getCart = async function (){
   }
   return Order.findByPk(cart.id,
     {include: [
-      {model: Product}
+      {model: LineItem, include: [Product]}
     ]})
 }
 
-User.prototype.addToCart = async function() {
+User.prototype.addToCart = async function(product) {
   const cart = await this.getCart();
-  console.log(cart)
+  let lineItem = cart.lineItems.find(lineItem=> lineItem.productId === product.id)
+  if(lineItem){
+    lineItem.quantity++
+    await lineItem.save()
+  } else {
+    await LineItem.create({
+      productId: product.id,
+      orderId: cart.id
+    })
+  }
+  return this.getCart()
 }
 
 User.prototype.removeFromCart = async function(product) {
   const cart = await this.getCart();
-  console.log(cart, 'heres the cart', product, "here's the product")
-  console.log(Product.id===product.id,Product.id, product.id, "figuring some stuff out")
-  // const lineItem = cart.findOne(product.id === Product.id)
-  // console.log(lineItem, 'removed')
-  //lineItem.inventory--
+  const lineItem = await cart.lineItems.find(lineItem => lineItem.productId === product.id)
+  lineItem.quantity--
+  if(lineItem.quantity){
+    await lineItem.save()
+  } else {
+    await lineItem.destroy()
+  }
+  return this.getCart()
 }
 
 User.byToken = async (token) => {

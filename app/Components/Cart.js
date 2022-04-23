@@ -10,11 +10,11 @@ class Cart extends React.Component {
     // }
   }
   componentDidMount(){
-    this.props.fetchCart
+    this.props.fetchCart()
   }
 
   render(){
-    console.log(this.props, "props")
+    console.log(this.props, "props", this.state, "state")
     return(
       <div>
         placeholder text
@@ -35,14 +35,13 @@ class Cart extends React.Component {
 
 const mapState = (state) => {
   return {
-    //currently undefined, will be messing with it in backend
     orders: state.orders,
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchCart: () => dispatch(fetchCart)
+    fetchCart: () => dispatch(fetchCart())
   }
 }
 

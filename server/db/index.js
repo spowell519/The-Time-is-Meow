@@ -6,7 +6,6 @@ const User = require('./User')
 const Order = require('./Order')
 const Product = require('./Product')
 const Review = require('./Review')
-const Product_orders = require('./Product_orders')
 const LineItem = require('./LineItem')
 
 
