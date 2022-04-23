@@ -14,6 +14,9 @@ class Navbar extends React.PureComponent {
       { authOption: '' };
     this.handleChange = this.handleChange.bind(this)
   }
+  componentDidMount(){
+    this.props.fetchCart()
+  }
   componentDidUpdate(){
     if(this.props.isLoggedIn){
       this.props.fetchCart();
@@ -26,8 +29,9 @@ class Navbar extends React.PureComponent {
   }
   // eslint-disable-next-line complexity
   render() {
-    console.log('this.state', this.state);
-     console.log('auth?', this.props.auth)
+    console.log('this.state navbar', this.state);
+    console.log(this.props, 'this.props navbar')
+    console.log('auth?', this.props.auth)
 
     return (
       <nav>
@@ -48,6 +52,7 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
     auth: state.auth,
+    cart: state.cart
   }
 }
 
@@ -57,7 +62,7 @@ const mapDispatch = dispatch => {
       dispatch(logout())
     },
     stayLoggedIn: () => dispatch(me()),
-    fetchCart: () => dispatch(fetchCart)
+    fetchCart: () => dispatch(fetchCart())
   }
 }
 

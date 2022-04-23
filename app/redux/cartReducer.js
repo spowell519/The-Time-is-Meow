@@ -16,12 +16,12 @@ const _fetchCart = (cart) => {
 
 export const fetchCart = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
-  const {data} = await axios.get('/api/cart', {
+  const res = await axios.get('/api/cart', {
     headers: {
       authorization: token
     }
   })
-  return dispatch(_fetchCart)
+  return dispatch(_fetchCart(res.data))
 }
 
 //reducer

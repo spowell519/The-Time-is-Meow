@@ -5,16 +5,10 @@ import { fetchCart } from '../redux/cartReducer'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   cart: {}
-    // }
-  }
-  componentDidMount(){
-    this.props.fetchCart()
   }
 
   render(){
-    console.log(this.props, "props", this.state, "state")
+    console.log(this.props, "cart props", this.state, "cart state")
     return(
       <div>
         placeholder text
@@ -35,14 +29,17 @@ class Cart extends React.Component {
 
 const mapState = (state) => {
   return {
-    orders: state.orders,
+    cart: state.cart,
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchCart: () => dispatch(fetchCart())
+    //fetchCart: () => dispatch(fetchCart()),
+    removeFromCart: (product) => console.log(product)
   }
 }
 
 export default connect(mapState, mapDispatch)(Cart)
+
+
