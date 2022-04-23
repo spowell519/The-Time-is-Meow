@@ -17,11 +17,7 @@ class Navbar extends React.PureComponent {
   componentDidMount(){
     this.props.fetchCart()
   }
-  componentDidUpdate(){
-    if(this.props.isLoggedIn){
-      this.props.fetchCart();
-    }
-  }
+  //DO NOT PUT FETCHCART IN COMPONENTDIDUPDATE, it creates an infinite loop
   handleChange(e){
     if (e.target.value !== ''){
       this.setState({authOption: e.target.value})
@@ -52,7 +48,6 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
     auth: state.auth,
-    cart: state.cart
   }
 }
 

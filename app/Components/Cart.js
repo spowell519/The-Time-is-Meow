@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchCart } from '../redux/cartReducer'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -8,10 +7,22 @@ class Cart extends React.Component {
   }
 
   render(){
-    console.log(this.props, "cart props", this.state, "cart state")
+    const lineItems = this.props.cart.lineItems
+    console.log(lineItems, 'cart lineItems')
     return(
       <div>
         placeholder text
+        {/* {lineItems.map(lineItem => {
+          <div key={[lineItem.orderId, lineItem.productId]}>
+            <img src={lineItem.product.imageUrl}/>
+            <div>{lineItem.product.title}</div>
+            <div>{lineItem.product.price}</div>
+
+            <button>-</button>
+            <div>{lineItem.quantity}</div>
+            <button>+</button>
+          </div>
+        })} */}
         <div className='singleCartItem'>
           <img src='default.png'/>
           <div>Product Name</div>
