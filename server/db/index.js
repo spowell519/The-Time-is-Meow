@@ -7,6 +7,7 @@ const Order = require('./Order')
 const Product = require('./Product')
 const Review = require('./Review')
 const Product_orders = require('./Product_orders')
+const LineItem = require('./LineItem')
 
 
 //define associations
@@ -29,8 +30,11 @@ Review.belongsTo(Product)
 //An order can have many products
 
 
-Product.belongsToMany(Order, {through: Product_orders})
+Product.belongsToMany(Order, {through: LineItem})
 Order.hasMany(Product)
+LineItem.belongsTo(Product)
+LineItem.belongsTo(Order)
+Order.hasMany(LineItem)
 
 
 module.exports = {
@@ -38,5 +42,6 @@ module.exports = {
   User,
   Order,
   Product,
-  Review
+  Review,
+  LineItem
 }
