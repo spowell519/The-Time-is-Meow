@@ -1,11 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addToCart, removeFromCart } from '../redux/cartReducer'
+import { addToCart, fetchCart, removeFromCart } from '../redux/cartReducer'
 
 
 export const Cart = ({ cart, removeFromCart, addToCart }) => {
+  fetchCart()
   const lineItems = cart.lineItems || [];
   console.log(lineItems)
+
   return (
     <div>
       <ul>
@@ -36,7 +38,8 @@ const mapState = (state) => {
 const mapDispatch = dispatch => {
   return {
     removeFromCart: (product) => dispatch(removeFromCart(product)),
-    addToCart: (product) => dispatch(addToCart(product))
+    addToCart: (product) => dispatch(addToCart(product)),
+    fetchCart: () => dispatch(fetchCart())
   }
 }
 
