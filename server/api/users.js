@@ -18,6 +18,14 @@ router.get('/auth/me', async (req, res, next) => {
   }
 });
 
+router.get('/auth/admin', async (req, res, next) => {
+  try {
+    res.json(await User.findAll())
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const user = await User.create(req.body);
