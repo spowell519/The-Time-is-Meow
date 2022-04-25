@@ -7,11 +7,11 @@ export const Cart = ({ cart, removeFromCart, addToCart }) => {
   fetchCart()
   const lineItems = cart.lineItems || [];
   console.log(lineItems)
-  let totalPrice = 0
-  for(let i=0;i<lineItems.length;i++){
-    let itemPrice= lineItems[i].product.price
+  let totalPrice = 0;
+  for (let i = 0; i < lineItems.length; i++) {
+    let itemPrice = lineItems[i].product.price
     console.log(itemPrice, 'indiv itemPrice')
-    totalPrice = totalPrice + Number(itemPrice)*lineItems[i].quantity
+    totalPrice = totalPrice + Number(itemPrice) * lineItems[i].quantity
   }
 
   return (

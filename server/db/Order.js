@@ -7,7 +7,7 @@ const db = require('./database');
 
 module.exports = db.define('order', {
   price: {
-    type: Sequelize.NUMERIC(10,2),
+    type: Sequelize.NUMERIC(10, 2),
     validate: {
       min: 0,
     }

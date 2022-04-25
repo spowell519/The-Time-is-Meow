@@ -1,17 +1,17 @@
 const router = require('express').Router()
-const { user } = require('pg/lib/defaults')
+// const { user } = require('pg/lib/defaults')1
 const User = require('../db/User')
 
-router.get('/', async(req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const user = await User.byToken(req.headers.authorization)
     res.send(await user.getCart())
-  } catch(err) {
+  } catch (err) {
     next(err)
   }
 })
 
-router.post('/addToCart', async (req,res,next) => {
+router.post('/addToCart', async (req, res, next) => {
   try {
     const user = await User.byToken(req.headers.authorization);
     res.send(await user.addToCart(req.body))
@@ -20,7 +20,7 @@ router.post('/addToCart', async (req,res,next) => {
   }
 })
 
-router.post('/removeFromCart', async (req,res,next) => {
+router.post('/removeFromCart', async (req, res, next) => {
   try {
     const user = await User.byToken(req.headers.authorization);
     console.log(user)
@@ -30,4 +30,13 @@ router.post('/removeFromCart', async (req,res,next) => {
   }
 })
 
-module.exports = router
+router.put('/createOrder', async (req, res, next) => {
+  try {
+    const user = await User.byToken(req.headers.authorization);
+    res.send(await user.createOrder(req.body))
+  } catch (err) {
+    next(err)
+  }
+})
+
+module.exports = router;
