@@ -20,6 +20,15 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/categories', async (req, res, next) => {
+  try {
+    const allCategories = await Product.getCategories();
+    res.json(allCategories);
+  } catch (err) {
+    next(err)
+  }
+})
+
 // one category
 router.get('/category/:cat', async (req, res, next) => {
   try {

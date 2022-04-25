@@ -7,9 +7,12 @@ import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Card from "react-bootstrap/Card";
 import CreatableSelect from 'react-select/creatable';
+import { ActionMeta, OnChangeValue } from 'react-select';
 
 import { getProducts, addProductToList, editProductInList } from '../redux/productsReducer';
 import { getProduct, editProduct } from '../redux/productReducer';
+import { getCategories, _addCategory } from '../redux/categoryReducer';
+
 const emptyState = {
   title: '', category: [], price: '', imageUrl: '',
   description: '', inventory: '',
@@ -18,15 +21,18 @@ const emptyState = {
 class CrupdateProduct extends React.Component {
   constructor(props) {
     super(props);
-
+    this.tags = [];
     this.state = emptyState;
     this.source = window.location.pathname.includes('/product/') ? 'single' : 'list';
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleTagChange = this.handleTagChange.bind(this);
+    this.handleTagCreate = this.handleTagCreate.bind(this);
     this.resetForm = this.resetForm.bind(this);
 
+    this.props.getCategories();
   }
+
 
   // eslint-disable-next-line complexity
   componentDidUpdate() {
@@ -34,7 +40,7 @@ class CrupdateProduct extends React.Component {
       const product = this.props.product;
       this.setState({
           title: product.title || '',
-          category: product.category || '',
+          category: product.category || [],
           price: product.price || '',
           imageUrl: product.imageUrl || '',
           description: product.description || '',
@@ -43,17 +49,31 @@ class CrupdateProduct extends React.Component {
         });
     }
   }
+  handleTagChange(currTags) {
+    const tags = currTags.map(tag => tag.value)
+    console.log('input', currTags)
+    console.log('new category arr', tags)
+    this.setState((state) => ({...state, category: tags}))
+  }
+
+  handleTagCreate(input) {
+    this.props.addCategory(input)
+    const category = this.state.category
+    category.push(input)
+    this.setState((state) => ({...state, category}))
+  }
 
   handleChange(evt) {
-    const { name, value } = evt.target;
+    console.log('evt', evt)
+    const {name, value} = evt.target;
     this.setState((state) => ({...state, [name]: value}))
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
-    // add or edit
     const product = { ...this.state};
     const user = this.props.auth;
+    // add or edit
     (this.props.mode === 'add')
     ? this.props.addProduct(product, user)
     : this.props.editProduct({...this.state});
@@ -63,7 +83,7 @@ class CrupdateProduct extends React.Component {
     ? this.resetForm()
     : (this.source === 'list')
         ? this.props.getProducts()
-        : this.props.getProduct(this.state.product.id);
+        : this.props.getProduct(this.props.product.id);
   }
 
   resetForm() {
@@ -73,11 +93,8 @@ class CrupdateProduct extends React.Component {
   render() {
     const { handleSubmit, handleChange } = this;
     const { title, category, price, imageUrl, description, inventory } = this.state;
-    const catOptions = [
-      {value: "treat", label: "Treat", color: "#00B8D9", isFixed: false},
-      {value: "toy", label: "Toy", color: "#00B8D9", isFixed: false},
-      {value: "clothing", label: "Clothing", color: "#00B8D9", isFixed: false},
-    ]
+    const options = [];
+    this.props.categories.forEach(tag => options.push({value: tag, label: tag }))
 
     return (
       <section>
@@ -101,12 +118,13 @@ class CrupdateProduct extends React.Component {
 
                   <div className="wide">
                     <label htmlFor="category">Category</label>
-                    <CreatableSelect isMulti onChange={this.handleChange} options={catOptions} />
-                    {/* <select name="category" value={category} onChange={handleChange}>
-                      <option value="treat">Treats</option>
-                      <option value="toy">Toys</option>
-                      <option value="clothing">Clothing</option>
-                    </select> */}
+                    <CreatableSelect
+                      isMulti
+                      onChange={this.handleTagChange}
+                      onCreateOption={this.handleTagCreate}
+                      value={options.filter(option => category.includes(option.value))}
+                      options={options}
+                    />
                   </div>
 
                   <div>
@@ -154,6 +172,7 @@ const mapStateForSingle = (state) => {
   return {
     product: state.product,
     auth: state.auth,
+    categories: state.categories,
   };
 };
 
@@ -166,6 +185,8 @@ const mapDispatchForList = (dispatch) => ({
 const mapDispatchForSingle = (dispatch) => ({
   getProduct: (id) => dispatch(getProduct(id)),
   editProduct: (product) => dispatch(editProduct(product)),
+  getCategories: () => dispatch(getCategories()),
+  addCategory: (category) => dispatch(_addCategory(category)),
 });
 
 export default (window.location.pathname.includes('/product/') )

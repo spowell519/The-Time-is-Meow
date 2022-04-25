@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const SingleProduct = (props) => {
   const product = props.product || {};
-
+  const tags = props.product.category || []
   return (
     <section>
       <div className="highlighted">
@@ -28,7 +28,8 @@ const SingleProduct = (props) => {
           </div>
           <div className="wide">
             <p className="label">ABOUT</p>
-            <p className="bubble">{product.description}</p>
+            <p className="bubble">{product.description} </p>
+            tags: <ul>{tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
           </div>
           <button type="button" className="blue">add to cart</button>
         </div>

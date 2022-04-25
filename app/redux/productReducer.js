@@ -35,6 +35,7 @@ export const editProduct = (product) => {
   }
 };
 
+
 // reducer
 
 export default function productReducer(state = [], action) {
