@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { addToCart } from '../redux/cartReducer';
 
 const SingleProduct = (props) => {
   const product = props.product || {};
   const tags = props.product.category || []
+  const addToCart = props.addToCart
+  console.log(props)
 
   return (
     <section>
@@ -31,11 +35,17 @@ const SingleProduct = (props) => {
             <p className="bubble">{product.description} </p>
             tags: <ul>{tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
           </div>
-          <button type="button" className="blue">add to cart</button>
+          <button type="button" className="blue" onClick={()=> addToCart(product)}>add to cart</button>
         </div>
       </div>
     </section>
   )
 }
 
-export default SingleProduct;
+const mapDispatch = dispatch => {
+  return {
+    addToCart: (product) => dispatch(addToCart(product))
+  }
+}
+
+export default connect(null, mapDispatch)(SingleProduct);
