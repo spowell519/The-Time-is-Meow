@@ -121,9 +121,7 @@ User.prototype.removeFromCart = async function (product) {
 }
 
 User.byToken = async (token) => {
-  console.log('got into token function')
   try {
-    console.log(token)
     const { id } = await jwt.verify(token, 'secret')
     const user = User.findByPk(id)
     if (!user) {
@@ -156,6 +154,16 @@ User.authenticate = async ({ email, password }) => {
 
 //HOOKS
 User.beforeCreate(async (user) => {
+  const hashedPW = await bcrypt.hash(
+    user.password,
+    10, // salt rounds
+  );
+  user.password = hashedPW;
+  // stolen from stack overflow, also works:
+  // user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, 10) : "";
+});
+
+User.beforeUpdate(async (user) => {
   const hashedPW = await bcrypt.hash(
     user.password,
     10, // salt rounds
