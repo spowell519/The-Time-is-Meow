@@ -75,7 +75,7 @@ class UserSettings extends React.Component {
         <input value={lastName} onChange={handleChange} name="lastName" />
 
         <label htmlFor="password" >Password</label>
-        <input type="password" value={password} onChange={handleChange} name="password" />
+        <input type="password" value={password} onChange={handleChange} autoComplete="current-password" name="password" />
 
         <label htmlFor="email" >Email</label>
         <input value={email} onChange={handleChange} name="email" />
