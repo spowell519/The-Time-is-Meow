@@ -296,6 +296,12 @@ div.menu {
   margin-right:1rem;
 }
 
+/* styles for cart */
+td.big {
+  font-size:1.2rem;
+  
+}
+
 /* BOOTSTRAP OVERRIDES */
 .card, .card-header {
   background: none !important;
