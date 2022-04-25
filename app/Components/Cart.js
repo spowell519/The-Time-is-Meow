@@ -7,10 +7,13 @@ import Table from 'react-bootstrap/Table';
 export const Cart = ({ cart, removeFromCart, addToCart }) => {
   fetchCart()
   const lineItems = cart.lineItems || [];
+  lineItems.sort((a, b) => a.product.title.localeCompare(b.product.title))
+
+  console.log('li', lineItems)
   let totalPrice = 0
-  for(let i=0;i<lineItems.length;i++){
-    let itemPrice= lineItems[i].product.price
-    totalPrice = totalPrice + Number(itemPrice)*lineItems[i].quantity
+  for (let i = 0; i < lineItems.length; i++){
+    let itemPrice = lineItems[i].product.price
+    totalPrice = totalPrice + Number(itemPrice) * lineItems[i].quantity
   }
 
   return (
@@ -40,7 +43,7 @@ export const Cart = ({ cart, removeFromCart, addToCart }) => {
                     &nbsp; {item.quantity} &nbsp;
                     <button type="button" className="blue" key={`add_${item.product.id}`} onClick={() => addToCart(item.product)}>+</button>
                   </td>
-                  <td>{item.product.price}</td>
+                  <td>{item.product.price * item.quantity}</td>
                 </tr>
               </tbody>
             )
