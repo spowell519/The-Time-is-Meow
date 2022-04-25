@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
 
-const { Product } = require('../db/');
+const { Product, User } = require('../db/');
 
 const isAdmin = (req, res, next) => {
   if (!req.user.isAdmin) {
@@ -80,5 +80,13 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // add product to cart
+router.post('/addToCart', async (req, res, next) => {
+  try{
+    const user = await User.byToken(req.headers.authorization)
+    res.send(user.addToCart(req.body))
+  } catch (err) {
+    next(err)
+  }
+})
 
 module.exports = router

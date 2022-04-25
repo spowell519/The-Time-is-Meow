@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const TOKEN = 'token'
-const USER = 'user'
 const SET_CART = 'SET_CART'
 
 //action
@@ -36,9 +35,7 @@ export const removeFromCart = (product) => async dispatch => {
 }
 
 export const addToCart = (product) => async dispatch => {
-  console.log('in addtocart thunk')
   const token = window.localStorage.getItem(TOKEN)
-  console.log('got addtocart token')
   const res = await axios.post('api/cart/addToCart', product, {
     headers: {
       authorization: token
