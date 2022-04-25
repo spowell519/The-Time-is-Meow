@@ -18,7 +18,7 @@ class UserPanel extends React.Component {
   render() {
     return (
       <div className="highlighted">
-        <div className="menu">
+        <div className="menu left">
           <img src="/images/logo.png" />
         </div>
         <div className="wide">

@@ -4,7 +4,7 @@ const { db, Product, User } = require("./server/db");
 const items = [
   {
     title: "avocado treat",
-    category: "treat",
+    category: ["treat"],
     price: 799,
     imageUrl: "default.png",
     description: "it’s a cute lil treat that’s safe for your pet to eat!",
@@ -13,7 +13,7 @@ const items = [
   },
   {
     title: "super hair band",
-    category: "toy",
+    category: ["toy"],
     price: 2799,
     imageUrl: "default.png",
     description: "hair elastic to play with, comes full of hair",
@@ -22,7 +22,7 @@ const items = [
   },
   {
     title: "bunny ears",
-    category: "clothing",
+    category: ["clothing"],
     price: 1799,
     imageUrl: "default.png",
     description: "put these ears on your cat and your cat will be mad",
@@ -31,7 +31,7 @@ const items = [
   },
   {
     title: "vampire mouse",
-    category: "toy",
+    category: ["toy"],
     price: 1299,
     imageUrl: "default.png",
     description: "don't let it bite you!",
@@ -40,7 +40,7 @@ const items = [
   },
   {
     title: "gay worm friend",
-    category: "toy",
+    category: ["toy"],
     price: 1150,
     imageUrl: "default.png",
     description: "worm says gay rights!",
@@ -49,7 +49,7 @@ const items = [
   },
   {
     title: "kirby hat",
-    category: "clothing",
+    category: ["clothing"],
     price: 2299,
     imageUrl: "default.png",
     description: "cute, powerful, and round",
@@ -58,7 +58,7 @@ const items = [
   },
   {
     title: "flower crown",
-    category: "clothing",
+    category: ["clothing"],
     price: 3099,
     imageUrl: "default.png",
     description: "springtime is here!",
@@ -67,7 +67,7 @@ const items = [
   },
   {
     title: "martini cookie",
-    category: "treat",
+    category: ["treat"],
     price: 1399,
     imageUrl: "default.png",
     description: "for ladies who lunch",
@@ -76,12 +76,30 @@ const items = [
   },
   {
     title: "dental chew",
-    category: "treat",
+    category: ["treat"],
     price: 2499,
     imageUrl: "default.png",
     description: "it's this or brushing their teeth",
     rating: 4.8,
     inventory: 42
+  },
+  {
+    title: "edible mouse",
+    category: ["treat", "toy"],
+    price: 195,
+    imageUrl: "default.png",
+    description: "is it for eating or playing? your cat will decide",
+    rating: 4.8,
+    inventory: 32
+  },
+  {
+    title: "Cat-ctus",
+    category: ["tree", "toy"],
+    price: 10195,
+    imageUrl: "default.png",
+    description: "A cactus cat tree with cute flowers to play with",
+    rating: 4.8,
+    inventory: 32
   }
 ]
 

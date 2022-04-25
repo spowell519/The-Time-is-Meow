@@ -94,7 +94,7 @@ section {
 .highlighted img {
   max-width: 12rem;
 }
-.highlighted>div:first-child {
+.highlighted>div.left {
   flex: auto;
   min-width: 12rem;
   max-width: 12rem;
@@ -156,7 +156,9 @@ section {
 .highlighted textarea {
   height:5rem;
 }
-.highlighted select, .highlighted form button {
+.highlighted select, .highlighted button.blue,
+.highlighted form button,
+.highlighted .card button {
   height: 1.75rem;
   margin: 0.5rem 0 1rem 0;
   padding: 0.1rem 0.75rem;
@@ -165,6 +167,14 @@ section {
   border: 0;
   color: #49306B;
   font-size: 1rem;
+}
+.highlighted button.blue:hover,
+.highlighted form button:hover,
+.highlighted .card button:hover {
+  background: #FF8A5B;
+}
+.card button {
+  margin:0 !important;
 }
 
 /* single page */
@@ -239,31 +249,40 @@ section {
   padding:0 0 0 0;
   z-index:3;
   background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0) 35%, rgba(255,255,255,1) 100%);
-  min-height:2rem;
+  min-height:2.25rem;
   font-size: 1.8rem;
   line-height: 1.75rem;
   text-align:right;
 }
-.price, .item-preview button {
+.price, .item-preview button img {
   font-size: 1.0rem;
   padding-right: 0.5rem;
   position: relative;
-  bottom: 0.15rem;
+  bottom: 0.4rem;
+  left: 0.1rem;
+}
+.quick-add img {
+  max-height: 1.1rem;
 }
 .item-preview button {
-  border:1px solid #FF8A5B;
-  background-color: #FF8A5B;
+  background-color: #E94967;
+  border:1px solid #E94967;
   border-radius: 1.5rem;
   width:1.75rem;
   height:1.75rem;
   padding:0.15rem;
+  margin: 0.25rem 0.25rem 0 0;
 }
-.item-preview>.quick-add a {
-  text-decoration: none;
-  margin-right:0.5rem;
+.item-preview button:hover {
+  background-color: #25CED1;
+  border-color: #25CED1;
 }
+
 .info a {
   text-decoration: none;
+}
+.info a:hover {
+  color: #E94967;
 }
 
 /* styles for account page */
@@ -278,6 +297,12 @@ div.menu {
 }
 
 /* BOOTSTRAP OVERRIDES */
+.card, .card-header {
+  background: none !important;
+  border:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+}
 .nav-tabs {
   border:0 !important;
 }
@@ -306,9 +331,24 @@ div.tab-content {
 tr:hover {
   background-color: #25CED1;
 }
+
 thead>tr, thead>tr:hover {
   background-color: #FCEADE;
 }
+
+/* Select overrides */
+.css-b62m3t-container {
+  margin-top:0.5rem;
+  width:95%;
+  /* border: 2px solid #25CED1; */
+}
+
+.css-1s2u09g-control {
+  border: 2px solid #25CED1 !important;
+  border-radius: 0 !important;
+  background-color: #FCEADE !important;
+}
+
 @media only screen and (max-width: 550px) {
   body {
     background-color: lightblue;

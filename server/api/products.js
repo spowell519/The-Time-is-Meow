@@ -1,5 +1,6 @@
 const router = require('express').Router();
-// const Product = require('../db/Product')
+const { Op } = require('sequelize');
+
 const { Product } = require('../db/');
 
 const isAdmin = (req, res, next) => {
@@ -20,22 +21,38 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// all category tags in use
+router.get('/categories', async (req, res, next) => {
+  try {
+    console.log('/categories')
+    const allCategories = await Product.getCategories();
+    res.json(allCategories);
+  } catch (err) {
+    next(err)
+  }
+})
+
 // one category
 router.get('/category/:cat', async (req, res, next) => {
   try {
     res.json(
       await Product.findAll({
-        where: { category: req.params.cat }
+        where: {
+          category: {
+            [Op.contains]: [req.params.cat]
+          }
+        }
       })
-    );
-  } catch (err) {
-    next(err)
-  }
-});
+      );
+    } catch (err) {
+      next(err)
+    }
+  });
 
-// one product
-router.get('/:id', async (req, res, next) => {
-  try {
+  // one product
+  router.get('/:id', async (req, res, next) => {
+    try {
+      console.log('one product')
     res.json(
       await Product.findByPk(req.params.id)
     );
