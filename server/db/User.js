@@ -76,7 +76,7 @@ User.prototype.generateToken = function () {
 //CART METHODS
 User.prototype.createOrder = async function () {
   const cart = await this.getCart();
-  cart.status = 'ORDER';
+  cart.status = 'PENDING';
   await cart.save();
   return this.getCart();
 };
