@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {addToCart} from '../redux/cartReducer'
 
 class ItemPreview extends React.PureComponent {
   constructor(props) {
@@ -11,7 +12,8 @@ class ItemPreview extends React.PureComponent {
 
   addToCart(evt) {
     evt.preventDefault();
-    console.log('put it in cart!')
+    console.log(evt)
+    // this.props.addToCart(evt.target)
   }
 
   render() {
@@ -41,4 +43,10 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState)(ItemPreview);
+const mapDispatch = (dispatch) => {
+  return {
+    addToCart: (product) => dispatch(addToCart(product))
+  }
+}
+
+export default connect(mapState,mapDispatch)(ItemPreview);

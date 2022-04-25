@@ -1,14 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addToCart, removeFromCart } from '../redux/cartReducer'
+import { addToCart, fetchCart, removeFromCart } from '../redux/cartReducer'
 
 
 export const Cart = ({ cart, removeFromCart, addToCart }) => {
+  fetchCart()
   const lineItems = cart.lineItems || [];
   console.log(lineItems)
+  let totalPrice = 0
+  for(let i=0;i<lineItems.length;i++){
+    let itemPrice= lineItems[i].product.price
+    console.log(itemPrice, 'indiv itemPrice')
+    totalPrice = totalPrice + Number(itemPrice)*lineItems[i].quantity
+  }
+
   return (
     <div>
-      <ul>
+      <ul><strong>Items in Cart: </strong>
         {lineItems.map(item => {
           return (
             <li key={item.product.id}>
@@ -23,6 +31,10 @@ export const Cart = ({ cart, removeFromCart, addToCart }) => {
           )
         })}
       </ul>
+      <br />
+      <br />
+      <h5>Total Price: ${totalPrice.toFixed(2)}</h5>
+      <button>Checkout</button>
     </div>
   )
 }
@@ -36,7 +48,8 @@ const mapState = (state) => {
 const mapDispatch = dispatch => {
   return {
     removeFromCart: (product) => dispatch(removeFromCart(product)),
-    addToCart: (product) => dispatch(addToCart(product))
+    addToCart: (product) => dispatch(addToCart(product)),
+    fetchCart: () => dispatch(fetchCart())
   }
 }
 

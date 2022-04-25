@@ -14,7 +14,7 @@ const Product = db.define('product', {
     defaultValue: [],
   },
   price: { //price is input in pennies
-    type: Sequelize.NUMERIC(10,2),
+    type: Sequelize.NUMERIC(10, 2),
     allowNull: false,
     validate: {
       notEmpty: true,
