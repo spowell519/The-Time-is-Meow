@@ -2,7 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 
-const OrderList = (props) => {
+import { getOrders } from '../../redux/ordersReducer';
+
+export const OrderList = ({orders, getOrders}) => {
+  // getOrders()
+  const orderList = orders || []
+  // console.log('orders', orderList)
   return (
     <Table borderless hover>
       <thead>
@@ -14,24 +19,16 @@ const OrderList = (props) => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1011</td>
-          <td>4/20/2022</td>
-          <td>$420.00</td>
-          <td>Unfulfilled</td>
-        </tr>
-        <tr>
-          <td>1006</td>
-          <td>3/10/2022</td>
-          <td>$37.89</td>
-          <td>Shipped</td>
-        </tr>
-        <tr>
-          <td>1003</td>
-          <td>2/08/22</td>
-          <td>$10.80</td>
-          <td>Shipped</td>
-        </tr>
+        {/* {orderList.map(order => {
+          return (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.date}</td>
+              <td>{order.price}</td>
+              <td>{order.status}</td>
+            </tr>
+          )
+        })} */}
       </tbody>
     </Table>
   )
@@ -40,8 +37,14 @@ const OrderList = (props) => {
 
 const mapState = (state) => {
   return {
-    auth: state.auth,
+    orders: state.orders,
   };
 };
 
-export default connect(mapState, null)(OrderList);
+const mapDispatch = (dispatch) => {
+  return {
+    getOrders: () => dispatch(getOrders()),
+  }
+}
+
+export default connect(mapState, mapDispatch)(OrderList);

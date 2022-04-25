@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { DataTypes } = require('sequelize');
 const db = require('./database');
 
 //many products belong to an order
@@ -17,6 +18,12 @@ module.exports = db.define('order', {
     defaultValue: 'CART',
     validate: {
       isIn: [['CART', 'PENDING', 'SHIPPED']]
+    }
+  },
+  date: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.createdAt
     }
   }
 })

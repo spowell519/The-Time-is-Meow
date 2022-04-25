@@ -6,10 +6,10 @@ import Table from 'react-bootstrap/Table';
 
 export const Cart = ({ cart, removeFromCart, addToCart, changeStatus }) => {
   fetchCart()
+  console.log(cart)
   const lineItems = cart.lineItems || [];
   lineItems.sort((a, b) => a.product.title.localeCompare(b.product.title))
 
-  console.log('li', lineItems)
   let totalPrice = 0
   for (let i = 0; i < lineItems.length; i++){
     let itemPrice = lineItems[i].product.price
@@ -33,21 +33,21 @@ export const Cart = ({ cart, removeFromCart, addToCart, changeStatus }) => {
               </tr>
             </thead>
 
-          {lineItems.map(item => {
-            return (
-              <tbody key={item.product.title}>
-                <tr key={item.product.id}>
-                  <td key={`title_${item.product.id}`}>{item.product.title}</td>
-                  <td className="big">
-                    <button type="button" className="blue" key={`remove_${item.product.id}`} onClick={() => removeFromCart(item.product)}>-</button>
-                    &nbsp; {item.quantity} &nbsp;
-                    <button type="button" className="blue" key={`add_${item.product.id}`} onClick={() => addToCart(item.product)}>+</button>
-                  </td>
-                  <td>{item.product.price * item.quantity}</td>
-                </tr>
-              </tbody>
-            )
-          })}
+            <tbody>
+              {lineItems.map(item => {
+                return (
+                  <tr key={item.product.id}>
+                    <td key={`title_${item.product.id}`}>{item.product.title}</td>
+                    <td className="big">
+                      <button type="button" className="blue" key={`remove_${item.product.id}`} onClick={() => removeFromCart(item.product)}>-</button>
+                      &nbsp; {item.quantity} &nbsp;
+                      <button type="button" className="blue" key={`add_${item.product.id}`} onClick={() => addToCart(item.product)}>+</button>
+                    </td>
+                    <td>{item.product.price * item.quantity}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
 
             <thead>
               <tr>
