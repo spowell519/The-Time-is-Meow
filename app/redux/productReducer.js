@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GET_PRODUCT = 'GET_PRODUCT';
 const EDIT_PRODUCT = 'EDIT_PRODUCT';
+const CLEAR_PRODUCT = 'CLEAR_PRODUCT';
 
 // actions
 
@@ -18,6 +19,12 @@ const _editProduct = (product) => {
     product
   }
 };
+
+export const _clearProduct = () => {
+  return {
+    type: CLEAR_PRODUCT,
+  }
+}
 
 // thunks
 
@@ -46,6 +53,8 @@ export default function productReducer(state = [], action) {
     case EDIT_PRODUCT:
       return action.product;
 
+      case CLEAR_PRODUCT:
+        return []
     default:
       return state;
   }
