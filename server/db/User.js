@@ -2,6 +2,9 @@ const Sequelize = require('sequelize');
 const db = require('./database')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const Order = require('./Order')
+const Product = require('./Product');
+const LineItem = require('./LineItem');
 
 const User = db.define('user', {
   firstName: {
@@ -55,7 +58,7 @@ const User = db.define('user', {
   }
 })
 
-module.exports = User
+
 const SECRET_KEY = process.env.JWT //currently ditched bc returning undefined
 
 //AUTH METHODS
@@ -69,9 +72,59 @@ User.prototype.generateToken = function () {
   return token
 }
 
+
+//CART METHODS
+User.prototype.getCart = async function () {
+  const where = {
+    userId: this.id,
+    status: 'CART'
+  }
+  let cart = await Order.findOne({
+    where
+  })
+  if (!cart) {
+    cart = await Order.create(where);
+  }
+  return Order.findByPk(cart.id,
+    {
+      include: [
+        { model: LineItem, include: [Product] }
+      ]
+    })
+}
+
+User.prototype.addToCart = async function (product) {
+  const cart = await this.getCart();
+  let lineItem = cart.lineItems.find(lineItem => lineItem.productId === product.id)
+  if (lineItem) {
+    lineItem.quantity++
+    await lineItem.save()
+  } else {
+    await LineItem.create({
+      productId: product.id,
+      orderId: cart.id
+    })
+  }
+  return this.getCart()
+}
+
+User.prototype.removeFromCart = async function (product) {
+  const cart = await this.getCart();
+  const lineItem = await cart.lineItems.find(lineItem => lineItem.productId === product.id)
+  lineItem.quantity--
+  if (lineItem.quantity) {
+    await lineItem.save()
+  } else {
+    await lineItem.destroy()
+  }
+  return this.getCart()
+}
+
 User.byToken = async (token) => {
+  console.log('got into token function')
   try {
-    const {id} = await jwt.verify(token, 'secret')
+    console.log(token)
+    const { id } = await jwt.verify(token, 'secret')
     const user = User.findByPk(id)
     if (!user) {
       throw 'nooo'
@@ -83,7 +136,6 @@ User.byToken = async (token) => {
     throw error
   }
 };
-
 
 User.authenticate = async ({ email, password }) => {
   const user = await User.findOne({
@@ -101,15 +153,6 @@ User.authenticate = async ({ email, password }) => {
 
 };
 
-//CART METHODS
-// User.prototype.addToCart(async user => {
-//   console.log('added')
-// })
-
-// User.prototype.removeFromCart(async user => {
-//   console.log('removed')
-// })
-
 
 //HOOKS
 User.beforeCreate(async (user) => {
@@ -121,3 +164,5 @@ User.beforeCreate(async (user) => {
   // stolen from stack overflow, also works:
   // user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, 10) : "";
 });
+
+module.exports = User
