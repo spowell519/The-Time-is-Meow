@@ -16,7 +16,7 @@ module.exports = db.define('order', {
     type: Sequelize.STRING,
     defaultValue: 'CART',
     validate: {
-      isIn: [['CART', 'ORDER']]
+      isIn: [['CART', 'PENDING', 'SHIPPED']]
     }
   }
 })
