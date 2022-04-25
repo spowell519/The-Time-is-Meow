@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { me, logout } from '../redux/authReducer';
+import { fetchCart } from '../redux/cartReducer';
 
 class Navbar extends React.PureComponent {
   constructor(props) {
@@ -13,6 +14,10 @@ class Navbar extends React.PureComponent {
       { authOption: '' };
     this.handleChange = this.handleChange.bind(this)
   }
+  componentDidMount(){
+    this.props.fetchCart()
+  }
+  //DO NOT PUT FETCHCART IN COMPONENTDIDUPDATE, it creates an infinite loop
   handleChange(e){
     if (e.target.value !== ''){
       this.setState({authOption: e.target.value})
@@ -20,14 +25,11 @@ class Navbar extends React.PureComponent {
   }
   // eslint-disable-next-line complexity
   render() {
-
     return (
       <nav>
         <ul className="left-nav">
           <li><Link to="/"><img src="/images/home.png" alt="home" /></Link></li>
           <li>
-          {
-            console.log('id', this.props.auth.id, 'name', this.props.auth.firstName) }
           {
             (this.props.auth.id)
             ? `Welcome back ${(this.props.auth.firstName) ? this.props.auth.firstName : ''}!`
@@ -56,7 +58,8 @@ const mapDispatch = (dispatch, history) => {
   return {
     logout: () => dispatch(logout(history)),
     stayLoggedIn: () => dispatch(me()),
-}
+    fetchCart: () => dispatch(fetchCart())
+  }
 };
 
 export default connect(mapState, mapDispatch)(Navbar);
