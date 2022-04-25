@@ -20,7 +20,6 @@ router.get('/user', async(req, res, next) => {
     const user = await User.byToken(req.headers.authorization)
     console.log('auth success')
     res.json(await Order.findAll({
-      //where user is user and status is !cart
       where: {
         userId: user.id,
         [Op.not]:

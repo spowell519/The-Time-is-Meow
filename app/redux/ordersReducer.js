@@ -31,7 +31,7 @@ export const getOrdersAdmin = () => async dispatch => {
   return dispatch(_getOrders(data))
 }
 
-export default function ordersReducer(state = {}, action) {
+export default function ordersReducer(state = [], action) {
   switch (action.type) {
     case GET_ORDERS:
       return action.orders

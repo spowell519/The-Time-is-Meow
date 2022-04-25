@@ -23,7 +23,7 @@ module.exports = db.define('order', {
   date: {
     type: DataTypes.VIRTUAL,
     get() {
-      return this.createdAt
+      return this.updatedAt
     }
   }
 })
