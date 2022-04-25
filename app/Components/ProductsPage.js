@@ -37,8 +37,8 @@ class ProductsPage extends React.PureComponent {
   render() {
     const products = this.state.category
       ? this.props.products.filter((product) => product.category === this.state.category)
-      : this.props.products;
-    console.log({ products, propsProducts: this.props.products, category: this.state.category });
+      : this.props.products.sort((a, b) => a.title.localeCompare(b.title));
+    // console.log({ products, propsProducts: this.props.products, category: this.state.category });
     const isAdmin = this.props.auth.isAdmin;
     return (
       <div>

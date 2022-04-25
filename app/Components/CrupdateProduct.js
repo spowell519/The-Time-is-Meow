@@ -8,8 +8,8 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Card from "react-bootstrap/Card";
 import CreatableSelect from 'react-select/creatable';
 
-import { getProducts, addProductToList, editProductInList } from '../redux/productsReducer';
-import { getProduct, editProduct } from '../redux/productReducer';
+import { getProducts, addProductToList, editProductInList, clearProducts } from '../redux/productsReducer';
+import { getProduct, editProduct, clearProduct } from '../redux/productReducer';
 import { getCategories, _addCategory } from '../redux/categoryReducer';
 
 const emptyState = {
@@ -48,6 +48,10 @@ class CrupdateProduct extends React.Component {
         });
     }
   }
+  componentWillUnmount() {
+    //
+  }
+
   handleTagChange(currTags) {
     const tags = currTags.map(tag => tag.value)
     this.setState((state) => ({...state, category: tags}))
@@ -74,6 +78,9 @@ class CrupdateProduct extends React.Component {
     ? this.props.addProduct(product, user)
     : this.props.editProduct({...this.state});
 
+    console.log('>>', this.props.mode, this.source);
+    console.log('getProds', this.props.getProducts);
+    console.log('getProd', this.props.getProduct);
     // refresh form and state
     (this.props.mode === 'add')
     ? this.resetForm()
@@ -178,11 +185,13 @@ const mapDispatchForList = (dispatch) => ({
   addProduct: (product, user) => dispatch(addProductToList(product, user)),
   editProduct: (product) => dispatch(editProductInList(product)),
   getCategories: () => dispatch(getCategories()),
+  addCategory: (category) => dispatch(_addCategory(category)),
 });
 
 const mapDispatchForSingle = (dispatch) => ({
   getProduct: (id) => dispatch(getProduct(id)),
   editProduct: (product) => dispatch(editProduct(product)),
+  clearProduct: () => dispatch(clearProduct()),
   getCategories: () => dispatch(getCategories()),
   addCategory: (category) => dispatch(_addCategory(category)),
 });

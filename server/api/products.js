@@ -52,7 +52,6 @@ router.get('/category/:cat', async (req, res, next) => {
   // one product
   router.get('/:id', async (req, res, next) => {
     try {
-      console.log('one product')
     res.json(
       await Product.findByPk(req.params.id)
     );
@@ -80,5 +79,6 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
+// add product to cart
 
 module.exports = router
