@@ -7,7 +7,6 @@ import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Card from "react-bootstrap/Card";
 import CreatableSelect from 'react-select/creatable';
-import { ActionMeta, OnChangeValue } from 'react-select';
 
 import { getProducts, addProductToList, editProductInList } from '../redux/productsReducer';
 import { getProduct, editProduct } from '../redux/productReducer';
@@ -51,8 +50,6 @@ class CrupdateProduct extends React.Component {
   }
   handleTagChange(currTags) {
     const tags = currTags.map(tag => tag.value)
-    console.log('input', currTags)
-    console.log('new category arr', tags)
     this.setState((state) => ({...state, category: tags}))
   }
 
@@ -64,7 +61,6 @@ class CrupdateProduct extends React.Component {
   }
 
   handleChange(evt) {
-    console.log('evt', evt)
     const {name, value} = evt.target;
     this.setState((state) => ({...state, [name]: value}))
   }
@@ -165,6 +161,7 @@ const mapStateForList = (state) => {
   return {
     products: state.products,
     auth: state.auth,
+    categories: state.categories,
   };
 };
 
@@ -180,6 +177,7 @@ const mapDispatchForList = (dispatch) => ({
   getProducts: () => dispatch(getProducts()),
   addProduct: (product, user) => dispatch(addProductToList(product, user)),
   editProduct: (product) => dispatch(editProductInList(product)),
+  getCategories: () => dispatch(getCategories()),
 });
 
 const mapDispatchForSingle = (dispatch) => ({

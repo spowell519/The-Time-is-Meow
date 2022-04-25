@@ -20,8 +20,10 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// all category tags in use
 router.get('/categories', async (req, res, next) => {
   try {
+    console.log('/categories')
     const allCategories = await Product.getCategories();
     res.json(allCategories);
   } catch (err) {
@@ -30,21 +32,22 @@ router.get('/categories', async (req, res, next) => {
 })
 
 // one category
-router.get('/category/:cat', async (req, res, next) => {
-  try {
-    res.json(
-      await Product.findAll({
-        where: { category: req.params.cat }
-      })
-    );
-  } catch (err) {
-    next(err)
-  }
-});
+// router.get('/category/:cat', async (req, res, next) => {
+//   try {
+//     res.json(
+//       await Product.findAll({
+//         where: { category: req.params.cat }
+//       })
+//       );
+//     } catch (err) {
+//       next(err)
+//     }
+//   });
 
-// one product
-router.get('/:id', async (req, res, next) => {
-  try {
+  // one product
+  router.get('/:id', async (req, res, next) => {
+    try {
+      console.log('one product')
     res.json(
       await Product.findByPk(req.params.id)
     );

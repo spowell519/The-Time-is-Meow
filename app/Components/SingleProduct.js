@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 const SingleProduct = (props) => {
   const product = props.product || {};
   const tags = props.product.category || []
+
   return (
     <section>
       <div className="highlighted">
