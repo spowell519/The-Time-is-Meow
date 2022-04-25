@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addToCart, fetchCart, removeFromCart } from '../redux/cartReducer'
+import { addToCart, fetchCart, removeFromCart, changeStatus } from '../redux/cartReducer'
 import Table from 'react-bootstrap/Table';
 
 
-export const Cart = ({ cart, removeFromCart, addToCart }) => {
+export const Cart = ({ cart, removeFromCart, addToCart, changeStatus }) => {
   fetchCart()
   const lineItems = cart.lineItems || [];
   lineItems.sort((a, b) => a.product.title.localeCompare(b.product.title))
@@ -18,20 +18,20 @@ export const Cart = ({ cart, removeFromCart, addToCart }) => {
 
   return (
     <section>
-    <div className="highlighted">
-      <div className="left">
-        <img src="/images/logo.png" />
-      </div>
+      <div className="highlighted">
+        <div className="left">
+          <img src="/images/logo.png" />
+        </div>
 
-      <div className="info">
-        <Table borderless>
-                <thead>
-                  <tr>
-                    <td>Product</td>
-                    <td>Quantity</td>
-                    <td>Price</td>
-                  </tr>
-                </thead>
+        <div className="info">
+          <Table borderless>
+            <thead>
+              <tr>
+                <td>Product</td>
+                <td>Quantity</td>
+                <td>Price</td>
+              </tr>
+            </thead>
 
           {lineItems.map(item => {
             return (
@@ -49,30 +49,30 @@ export const Cart = ({ cart, removeFromCart, addToCart }) => {
             )
           })}
 
-          <thead>
-            <tr>
-              <td colSpan="2"> </td>
-              <td className="big">Subtotal</td>
-            </tr>
-          </thead>
+            <thead>
+              <tr>
+                <td colSpan="2"> </td>
+                <td className="big">Subtotal</td>
+              </tr>
+            </thead>
 
-          <tbody>
-            <tr>
-              <td colSpan="2"> </td>
-              <td className="big">${totalPrice.toFixed(2)}</td>
-            </tr>
-          </tbody>
+            <tbody>
+              <tr>
+                <td colSpan="2"> </td>
+                <td className="big">${totalPrice.toFixed(2)}</td>
+              </tr>
+            </tbody>
 
-          <thead>
-            <tr>
-              <td colSpan="2"> </td>
-              <td className="big"><button type="submit" className="blue">Checkout</button></td>
-            </tr>
-          </thead>
+            <thead>
+              <tr>
+                <td colSpan="2"> </td>
+                <td className="big"><button onClick={() => changeStatus()} type="submit" className="blue">Checkout</button></td>
+              </tr>
+            </thead>
 
-        </Table>
+          </Table>
+        </div>
       </div>
-    </div>
     </section>
   )
 }
@@ -87,7 +87,9 @@ const mapDispatch = dispatch => {
   return {
     removeFromCart: (product) => dispatch(removeFromCart(product)),
     addToCart: (product) => dispatch(addToCart(product)),
-    fetchCart: () => dispatch(fetchCart())
+    fetchCart: () => dispatch(fetchCart()),
+    changeStatus: () => dispatch(changeStatus())
+
   }
 }
 
