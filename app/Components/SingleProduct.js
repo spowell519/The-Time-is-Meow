@@ -7,7 +7,7 @@ const SingleProduct = (props) => {
   return (
     <section>
       <div className="highlighted">
-        <div>
+        <div className="left">
           <img src={`/images/${product.imageUrl}`} alt={`image of ${product.title}`} />
         </div>
         <div className="info">
@@ -30,7 +30,7 @@ const SingleProduct = (props) => {
             <p className="label">ABOUT</p>
             <p className="bubble">{product.description}</p>
           </div>
-          <button type="button">add to cart</button>
+          <button type="button" className="blue">add to cart</button>
         </div>
       </div>
     </section>

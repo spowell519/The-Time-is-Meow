@@ -3,12 +3,16 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import Accordion from 'react-bootstrap/Accordion';
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
+import Card from "react-bootstrap/Card";
+import CreatableSelect from 'react-select/creatable';
 
 import { getProducts, addProductToList, editProductInList } from '../redux/productsReducer';
 import { getProduct, editProduct } from '../redux/productReducer';
 const emptyState = {
-  title: '', category: '', price: '', imageUrl: '',
-  description: '', rating: '', inventory: '',
+  title: '', category: [], price: '', imageUrl: '',
+  description: '', inventory: '',
 }
 
 class CrupdateProduct extends React.Component {
@@ -34,7 +38,6 @@ class CrupdateProduct extends React.Component {
           price: product.price || '',
           imageUrl: product.imageUrl || '',
           description: product.description || '',
-          rating: product.rating || '',
           inventory: product.inventory || '',
           id: product.id,
         });
@@ -69,60 +72,70 @@ class CrupdateProduct extends React.Component {
 
   render() {
     const { handleSubmit, handleChange } = this;
-    const { title, category, price, imageUrl, description, rating, inventory } = this.state;
+    const { title, category, price, imageUrl, description, inventory } = this.state;
+    const catOptions = [
+      {value: "treat", label: "Treat", color: "#00B8D9", isFixed: false},
+      {value: "toy", label: "Toy", color: "#00B8D9", isFixed: false},
+      {value: "clothing", label: "Clothing", color: "#00B8D9", isFixed: false},
+    ]
 
     return (
       <section>
         <div className="highlighted">
-          <div>
-            <h3>{(this.props.mode === 'add') ? "Add" : "Edit" } Product</h3>
+          <div className="left">
+            <h3>ADMIN</h3>
           </div>
           <div>
-            <form id="product_crupdate" onSubmit={handleSubmit}>
-              <div className="wide">
-                <label htmlFor="title">Product Name</label>
-                <input name="title" value={title} onChange={handleChange} />
-              </div>
+          <Accordion flush>
+            <Card>
+              <Card.Header>
+                <CustomToggle eventKey="0">{(this.props.mode === 'add') ? "Add" : "Edit" } Product</CustomToggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                <form id="product_crupdate" onSubmit={handleSubmit}>
+                  <div className="wide">
+                    <label htmlFor="title">Product Name</label>
+                    <input name="title" value={title} onChange={handleChange} />
+                  </div>
 
-              <div>
-                <label htmlFor="category">Category</label>
-                <select name="category" value={category} onChange={handleChange}>
-                  <option value="treat">Treats</option>
-                  <option value="toy">Toys</option>
-                  <option value="clothing">Clothing</option>
-                </select>
-              </div>
+                  <div className="wide">
+                    <label htmlFor="category">Category</label>
+                    <CreatableSelect isMulti onChange={this.handleChange} options={catOptions} />
+                    {/* <select name="category" value={category} onChange={handleChange}>
+                      <option value="treat">Treats</option>
+                      <option value="toy">Toys</option>
+                      <option value="clothing">Clothing</option>
+                    </select> */}
+                  </div>
 
-              <div>
-                <label htmlFor="inventory">Inventory Quantity</label>
-                <input name="inventory" value={inventory} onChange={handleChange} />
-              </div>
+                  <div>
+                    <label htmlFor="inventory">Inventory Quantity</label>
+                    <input name="inventory" value={inventory} onChange={handleChange} />
+                  </div>
 
-              <div>
-                <label htmlFor="price">Price</label>
-                <input name="price" value={price} onChange={handleChange} />
-              </div>
+                  <div>
+                    <label htmlFor="price">Price</label>
+                    <input name="price" value={price} onChange={handleChange} />
+                  </div>
 
-              <div>
-                <label htmlFor="rating">Rating</label>
-                <input name="rating" value={rating} onChange={handleChange} />
-              </div>
+                  <div className="wide">
+                    <label htmlFor="imageUrl">Product Photo URL</label>
+                    <input name="imageUrl" value={imageUrl} onChange={handleChange} />
+                  </div>
 
-              <div className="wide">
-                <label htmlFor="imageUrl">Product Photo URL</label>
-                <input name="imageUrl" value={imageUrl} onChange={handleChange} />
-              </div>
+                  <div className="wide">
+                    <label htmlFor="description">Description</label>
+                    <textarea name="description" value={description} onChange={handleChange} />
+                  </div>
 
-              <div className="wide">
-                <label htmlFor="description">Description</label>
-                <textarea name="description" value={description} onChange={handleChange} />
-              </div>
+                  <div><button type="submit">Submit</button></div>
 
-              <div>
-                <button type="submit">Submit</button>
-              </div>
-
-            </form>
+                </form>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
           </div>
         </div>
       </section>
@@ -158,3 +171,14 @@ const mapDispatchForSingle = (dispatch) => ({
 export default (window.location.pathname.includes('/product/') )
   ? connect(mapStateForSingle, mapDispatchForSingle)(CrupdateProduct)
   : connect(mapStateForList, mapDispatchForList)(CrupdateProduct)
+
+
+  function CustomToggle({ children, eventKey }) {
+    const decoratedOnClick = useAccordionButton(eventKey, () =>
+      console.log("toggle clicked"));
+    return (
+      <button type="button" onClick={decoratedOnClick}>
+        {children}
+      </button>
+    );
+  }

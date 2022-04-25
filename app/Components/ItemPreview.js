@@ -23,12 +23,13 @@ class ItemPreview extends React.PureComponent {
     return (
       <div className="item-preview">
         <div className="quick-add">
-          <span className="price">${product.price}</span>
-          {(isAdmin) ? <button onClick={(evt) => edit(product, evt)} type="submit">🖌</button> : ' ' }
-          <a href="" onClick={addToCart}>+</a>
+          {(isAdmin) ? <button onClick={(evt) => edit(product, evt)} type="submit"><img src="/images/edit.png" /></button> : ' ' }
+          <button onClick={(evt) => edit(product, evt)} type="submit"><img src="/images/add-cart.png" /></button>
         </div>
         <div className="thumbnail"><img src={'/images/' + product.imageUrl} /></div>
-        <div className="info"><Link to={`/product/${product.id}`}><h4>{product.title}</h4></Link></div>
+        <div className="info"><Link to={`/product/${product.id}`}><h4>{product.title}</h4></Link>
+          <span className="price">${product.price}</span>
+        </div>
       </div>
     )
   }
