@@ -6,7 +6,6 @@ import { addToCart, fetchCart, removeFromCart } from '../redux/cartReducer'
 export const Cart = ({ cart, removeFromCart, addToCart }) => {
   fetchCart()
   const lineItems = cart.lineItems || [];
-  console.log(lineItems)
 
   return (
     <div>

@@ -121,7 +121,7 @@ User.prototype.removeFromCart = async function (product) {
 }
 
 User.byToken = async (token) => {
-  console.log('got into function')
+  console.log('got into token function')
   try {
     console.log(token)
     const { id } = await jwt.verify(token, 'secret')
