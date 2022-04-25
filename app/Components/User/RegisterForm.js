@@ -1,10 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import { addUser } from '../../redux/userReducer';
 
 class RegisterForm extends React.Component {
   constructor() {
     super();
     this.state = {
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       passwordAgain: '',
@@ -18,19 +21,23 @@ class RegisterForm extends React.Component {
   }
   onSubmit(evt) {
     evt.preventDefault();
-    this.props.addUser({...this.state});
+    this.props.addUser({ ...this.state });
   }
-render() {
+  render() {
     const { onChange, onSubmit } = this;
-    const { email, password, passwordAgain } = this.state;
+    const { firstName, lastName, email, password, passwordAgain } = this.state;
     return (
       <form onSubmit={onSubmit}>
+        <label htmlFor="firstName" >First Name: </label>
+        <input value={firstName} onChange={onChange} name="firstName" autoComplete="firstName" />
+        <label htmlFor="lastName" >Last Name: </label>
+        <input value={lastName} onChange={onChange} name="lastName" autoComplete="lastName" />
         <label htmlFor="email" >Email Address: </label>
         <input value={email} onChange={onChange} name="email" autoComplete="email" />
         <label htmlFor="password" >Password: </label>
-        <input value={password} onChange={onChange} name="password" type="password" autoComplete="password"/>
+        <input value={password} onChange={onChange} name="password" type="password" autoComplete="password" />
         <label htmlFor="password" >Password Once More With Feeling: </label>
-        <input value={passwordAgain} onChange={onChange} name="passwordAgain" type="password" autoComplete="password"/>
+        <input value={passwordAgain} onChange={onChange} name="passwordAgain" type="password" autoComplete="password" />
         <button type="submit">Register</button>
       </form>
     );
@@ -42,8 +49,8 @@ render() {
 //     user: state.user,
 //   }
 // }
-  const mapDispatch = (dispatch) => ({
-    addUser: (user) => dispatch(addUser(user)),
-  });
+const mapDispatch = (dispatch) => ({
+  addUser: (user) => dispatch(addUser(user)),
+});
 
 export default connect(null, mapDispatch)(RegisterForm)

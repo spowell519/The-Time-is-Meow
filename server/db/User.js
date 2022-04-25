@@ -165,4 +165,14 @@ User.beforeCreate(async (user) => {
   // user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, 10) : "";
 });
 
+User.beforeUpdate(async (user) => {
+  const hashedPW = await bcrypt.hash(
+    user.password,
+    10, // salt rounds
+  );
+  user.password = hashedPW;
+  // stolen from stack overflow, also works:
+  // user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, 10) : "";
+});
+
 module.exports = User
