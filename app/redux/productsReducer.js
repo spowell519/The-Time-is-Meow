@@ -35,6 +35,7 @@ const _editProduct = (product) => {
   }
 };
 
+
 // thunks
 
 export const getProducts = (category) => {

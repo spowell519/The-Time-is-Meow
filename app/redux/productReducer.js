@@ -1,7 +1,11 @@
 import axios from 'axios';
+import { fetchCart } from './cartReducer';
+
+const TOKEN = 'token'
 
 const GET_PRODUCT = 'GET_PRODUCT';
 const EDIT_PRODUCT = 'EDIT_PRODUCT';
+const CLEAR_PRODUCT = 'CLEAR_PRODUCT';
 
 // actions
 
@@ -19,6 +23,12 @@ const _editProduct = (product) => {
   }
 };
 
+export const _clearProduct = () => {
+  return {
+    type: CLEAR_PRODUCT,
+  }
+}
+
 // thunks
 
 export const getProduct = (id) => {
@@ -35,6 +45,16 @@ export const editProduct = (product) => {
   }
 };
 
+export const addProductToCart = (product) => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN)
+  const { data } = await axios.post('/api/products/addToCart', product, {
+    headers: {
+      authorization: token
+    }
+  })
+  return dispatch(fetchCart(product))
+}
+
 
 // reducer
 
@@ -46,6 +66,8 @@ export default function productReducer(state = [], action) {
     case EDIT_PRODUCT:
       return action.product;
 
+    case CLEAR_PRODUCT:
+      return []
     default:
       return state;
   }

@@ -10,10 +10,10 @@ class ItemPreview extends React.PureComponent {
     this.addToCart = this.addToCart.bind(this);
   }
 
-  addToCart(evt) {
+  addToCart(product, evt) {
     evt.preventDefault();
-    console.log(evt)
-    // this.props.addToCart(evt.target)
+    console.log(product)
+    this.props.addToCart(product)
   }
 
   render() {
@@ -26,7 +26,7 @@ class ItemPreview extends React.PureComponent {
       <div className="item-preview">
         <div className="quick-add">
           {(isAdmin) ? <button onClick={(evt) => edit(product, evt)} type="submit"><img src="/images/edit.png" /></button> : ' ' }
-          <button onClick={(evt) => edit(product, evt)} type="submit"><img src="/images/add-cart.png" /></button>
+          <button onClick={(evt) => addToCart(product, evt)} type="submit"><img src="/images/add-cart.png" /></button>
         </div>
         <div className="thumbnail"><img src={'/images/' + product.imageUrl} /></div>
         <div className="info"><Link to={`/product/${product.id}`}><h4>{product.title}</h4></Link>
