@@ -7,7 +7,7 @@ import { getOrdersAdmin } from '../../redux/ordersAdminReducer';
 export const OrderManagement = ({ordersAdmin, fetchOrders}) => {
   useEffect(() => {fetchOrders()}, []);
   const allOrders = ordersAdmin.sort((a, b) => a.id - b.id) || [];
-  console.log(allOrders[0])
+  console.log('admin', ordersAdmin)
   return (
     <Table borderless hover>
       <thead>

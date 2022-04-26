@@ -19,7 +19,6 @@ class CategoryPage extends React.PureComponent {
 
     render() {
         const products = this.props.products || [];
-        console.log('products', products);
         return (
             <div>
                 <DefaultHeader />

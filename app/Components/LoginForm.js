@@ -25,7 +25,7 @@ class LoginForm extends React.Component {
     return (this.state.emailValid && this.state.passwordValid)
   }
   render() {
-    const { onChange, onSubmit } = this;
+    const { onChange } = this;
     const { email, password, emailValid, passwordValid } = this.state;
     return (
       <form onSubmit={this.props.handleSubmit}>
@@ -58,4 +58,4 @@ const mapDispatch = (dispatch, history) => {
   }
 }
 
-export default connect(mapLogin,mapDispatch)(LoginForm)
+export default connect(mapLogin, mapDispatch)(LoginForm)

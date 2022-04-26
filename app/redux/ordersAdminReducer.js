@@ -2,11 +2,11 @@ import axios from 'axios'
 
 const TOKEN = 'token'
 
-const GET_ORDERS = 'GET_ORDERS';
+const GET_ORDERS_ADMIN = 'GET_ORDERS_ADMIN';
 
 const _getOrders = (orders) => {
   return {
-    type: GET_ORDERS,
+    type: GET_ORDERS_ADMIN,
     orders
   }
 }
@@ -21,9 +21,9 @@ export const getOrdersAdmin = () => async dispatch => {
   return dispatch(_getOrders(data))
 }
 
-export default function ordersReducer(state = [], action) {
+export default function ordersAdminReducer(state = [], action) {
   switch (action.type) {
-    case GET_ORDERS:
+    case GET_ORDERS_ADMIN:
       return action.orders
 
     default:

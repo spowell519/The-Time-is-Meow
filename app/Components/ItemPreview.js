@@ -12,7 +12,6 @@ class ItemPreview extends React.PureComponent {
 
   addToCart(product, evt) {
     evt.preventDefault();
-    console.log(product)
     this.props.addToCart(product)
   }
 
@@ -49,4 +48,4 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState,mapDispatch)(ItemPreview);
+export default connect(mapState, mapDispatch)(ItemPreview);

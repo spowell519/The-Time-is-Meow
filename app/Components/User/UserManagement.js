@@ -7,7 +7,7 @@ import { getUsersAdmin } from '../../redux/usersReducer';
 export const UserManagement = ({users, fetchUsers}) => {
   useEffect(() => {fetchUsers()}, []);
   const allUsers = users || [];
-  console.log('users', allUsers);
+
   return (
     <Table borderless hover>
       <thead>

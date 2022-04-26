@@ -5,9 +5,8 @@ import { addToCart, fetchCart, removeFromCart, changeStatus } from '../redux/car
 import Table from 'react-bootstrap/Table';
 
 
-export const Cart = ({ cart, removeFromCart, addToCart, changeStatus }) => {
-  fetchCart()
-  console.log(cart)
+export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus }) => {
+  if (auth.id) fetchCart()
   const lineItems = cart.lineItems || [];
   lineItems.sort((a, b) => a.product.title.localeCompare(b.product.title))
 
@@ -81,6 +80,7 @@ export const Cart = ({ cart, removeFromCart, addToCart, changeStatus }) => {
 const mapState = (state) => {
   return {
     cart: state.cart,
+    auth: state.auth,
   }
 }
 

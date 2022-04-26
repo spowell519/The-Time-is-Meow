@@ -20,7 +20,7 @@ class Navbar extends React.PureComponent {
     this.props.getCategories();
   }
   componentDidMount(){
-    this.props.fetchCart()
+    if (this.props.auth.id) this.props.fetchCart()
   }
   //DO NOT PUT FETCHCART IN COMPONENTDIDUPDATE, it creates an infinite loop
   handleChange(e){
@@ -69,7 +69,7 @@ const mapDispatch = (dispatch, history) => {
     logout: () => dispatch(logout(history)),
     stayLoggedIn: () => dispatch(me()),
     fetchCart: () => dispatch(fetchCart()),
-    getCategories: () => dispatch(getCategories()),    
+    getCategories: () => dispatch(getCategories()),
   }
 };
 
