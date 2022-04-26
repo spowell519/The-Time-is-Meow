@@ -7,7 +7,6 @@ import { getOrders } from '../../redux/ordersReducer';
 export const OrderList = ({orders, fetchOrders}) => {
   useEffect(() => {fetchOrders()}, []);
   const myOrders = orders || [];
-  console.log('user', orders)
 
   return (
     <Table borderless hover>

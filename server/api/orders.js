@@ -5,9 +5,7 @@ const { Op } = require('sequelize');
 // all order (for admin)
 router.get('/', async (req, res, next) => {
   try {
-    console.log('admin order get')
     const user = await User.byToken(req.headers.authorization);
-    console.log('is admin?', user.isAdmin);
     (user.isAdmin)
     ?
         res.json(await Order.findAll({

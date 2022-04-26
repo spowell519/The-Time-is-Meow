@@ -37,10 +37,7 @@ class RegisterForm extends React.Component {
   }
   onSubmit(evt) {
     evt.preventDefault();
-    if (this.formValid) {
-      console.log("add this new user!")
-      this.props.addUser({ ...this.state });
-    }
+    if (this.formValid) this.props.addUser({ ...this.state });
   }
   formValid() {
     return (this.state.firstNameValid && this.state.lastNameValid && this.state.emailValid && this.state.passwordValid)
