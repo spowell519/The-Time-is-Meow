@@ -46,7 +46,7 @@ export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus }) =>
                       &nbsp; {item.quantity} &nbsp;
                       <button type="button" className="blue" key={`add_${item.product.id}`} onClick={() => addToCart(item.product)}>+</button>
                     </td>
-                    <td>{item.product.price * item.quantity}</td>
+                    <td>{(item.product.price * item.quantity).toFixed(2)}</td>
                   </tr>
                 )
               })}
