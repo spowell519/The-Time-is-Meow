@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import validator from 'validator';
 
 import { getUser, editUser } from '../../redux/userReducer';
 
@@ -7,6 +8,8 @@ import { getUser, editUser } from '../../redux/userReducer';
 const emptyState = {
   firstName: '', lastName: '', password: '',
   email: '', shippingAddress: '', billingAddress: '',
+  firstNameValid: true, lastNameValid: true, passwordValid: true,
+  emailValid: true,
 }
 
 class UserSettings extends React.Component {
@@ -16,6 +19,7 @@ class UserSettings extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.formValid = this.formValid.bind(this);
   }
 
   componentDidMount() {
@@ -32,7 +36,8 @@ class UserSettings extends React.Component {
   componentDidUpdate() {
     if (this.state.id !== this.props.user.id) {
       const user = this.props.user;
-      this.setState({
+      this.setState((state) => ({
+        ...state,
         firstName: user.firstName || '',
         lastName: user.lastName || '',
         password: user.password || '',
@@ -41,18 +46,23 @@ class UserSettings extends React.Component {
         billingAddress: user.billingAddress || '',
         inventory: user.inventory || '',
         id: user.id,
-      });
+      }));
     }
   }
 
   handleChange(evt) {
     const { name, value } = evt.target;
+    (name === 'email')
+    ? this.setState((state) => ({...state, emailValid: validator.isEmail(value)}))
+    : this.setState((state) => ({...state, [`${name}Valid`]: value.length > 0 }))
+
     this.setState((state) => ({ ...state, [name]: value }))
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
     const { firstName, lastName, email, password, shippingAddress, billingAddress } = this.state;
+
     this.props.editUser({
       firstName,
       lastName,
@@ -63,21 +73,28 @@ class UserSettings extends React.Component {
     }, this.props.user.id);
   }
 
+  formValid() {
+    return (this.state.firstNameValid && this.state.lastNameValid && this.state.emailValid && this.state.passwordValid)
+  }
+
   render() {
-    const { firstName, lastName, password, email, shippingAddress, billingAddress } = this.state;
+    const { firstName, lastName, password, email,
+            firstNameValid, lastNameValid, passwordValid, emailValid,
+            shippingAddress, billingAddress } = this.state;
+
     const { handleSubmit, handleChange } = this;
     return (
       <form id="userSettingsUpdate" onSubmit={handleSubmit}>
-        <label htmlFor="firstName" >First Name</label>
+        <label htmlFor="firstName" >First Name: <span className={(firstNameValid) ? 'valid' : 'required'}>required</span></label>
         <input value={firstName} onChange={handleChange} name="firstName" />
 
-        <label htmlFor="lastName" >Last Name</label>
+        <label htmlFor="lastName" >Last Name: <span className={(lastNameValid) ? 'valid' : 'required'}>required</span></label>
         <input value={lastName} onChange={handleChange} name="lastName" />
 
-        <label htmlFor="password" >Password</label>
+        <label htmlFor="password" >Password: <span className={(passwordValid) ? 'valid' : 'required'}>required</span></label>
         <input type="password" value={password} onChange={handleChange} autoComplete="current-password" name="password" />
 
-        <label htmlFor="email" >Email</label>
+        <label htmlFor="email" >Email: <span className={(emailValid) ? 'valid' : 'required'}>required</span></label>
         <input value={email} onChange={handleChange} name="email" />
 
         <label htmlFor="shippingAddress" >Shipping Address</label>
@@ -86,7 +103,7 @@ class UserSettings extends React.Component {
         <label htmlFor="billingAddress" >Billing Address</label>
         <input value={billingAddress} onChange={handleChange} name="billingAddress" />
 
-        <button type="submit">Save</button>
+        <button type="submit" disabled={!this.formValid()}>Save</button>
       </form>
     )
   }
