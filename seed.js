@@ -107,14 +107,42 @@ const users = [
   {
     firstName: "Claire",
     lastName: "Coulter",
-    email: "admin@test.com",
+    email: "claire@test.com",
     password: "easy123",
     isAdmin: true
   },
   {
     firstName: "Archy",
     lastName: "Coulter",
-    email: "test@test.com",
+    email: "archy@test.com",
+    password: "easy123",
+    isAdmin: false
+  },
+  {
+    firstName: "Stephanie",
+    lastName: "Powell",
+    email: "stephanie@test.com",
+    password: "easy123",
+    isAdmin: true
+  },
+  {
+    firstName: "Kyzer",
+    lastName: "Powell",
+    email: "kyzer@test.com",
+    password: "easy123",
+    isAdmin: false
+  },
+  {
+    firstName: "Mab",
+    lastName: "Benedetto",
+    email: "mab@test.com",
+    password: "easy123",
+    isAdmin: true
+  },
+  {
+    firstName: "Chair",
+    lastName: "Benedetto",
+    email: "chair@test.com",
     password: "easy123",
     isAdmin: false
   }
@@ -126,17 +154,31 @@ const seed = async () => {
     const [prod1,prod2,prod3,prod4,prod5,prod6,prod7,prod8,prod9] = await Promise.all(items.map(item => {
       return Product.create(item)
     }))
-    const [claire, archy] = await Promise.all(users.map(user => {
+    const [claire, archy, stephanie,kyzer, mab, chair] = await Promise.all(users.map(user => {
       return User.create(user)
     }))
 
+    //creating a pending order for archy
     await archy.addToCart(prod1)
     await archy.addToCart(prod2)
     await archy.addToCart(prod3)
     await archy.removeFromCart(prod2)
     await archy.addToCart(prod3)
-    // let barLineItem = (await archy.getCart()).lineItems
+    await archy.createOrder()
 
+    //creating a cart for archy
+    await archy.addToCart(prod4)
+    await archy.addToCart(prod5)
+
+    //creating a pending order for claire
+    await claire.addToCart(prod6)
+    await claire.addToCart(prod6)
+    await claire.addToCart(prod6)
+    await claire.createOrder()
+
+    //creating a cart for claire
+    await claire.addToCart(prod7)
+    await claire.addToCart(prod7)
   } catch (err) {
     console.log(red(err));
   }
