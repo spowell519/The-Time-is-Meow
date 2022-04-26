@@ -35,7 +35,7 @@ class Navbar extends React.PureComponent {
         <ul className="right-nav">
           <li><Link to="/account">Account</Link></li>
           {(this.props.auth.id) ? <li><Link to="/" onClick={this.props.logout}>Log Out</Link></li> : ""}
-          <li><Link to="/cart"><img src="/images/cart.png" alt="cart" /></Link></li>
+          <li><Link to="/cart"># <img src="/images/cart.png" alt="cart" /></Link></li>
         </ul>
       </nav>
     )

@@ -64,8 +64,9 @@ router.get('/category/:cat', async (req, res, next) => {
 });
 
 // add product : gatekeep
-router.post('/', isAdmin, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
+    
     res.status(201).json(await Product.create(req.body));
   } catch (err) {
     next(err);
@@ -73,10 +74,19 @@ router.post('/', isAdmin, async (req, res, next) => {
 });
 
 // update product : gatekeep
-router.put('/:id', isAdmin, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id);
-    res.json(await product.update(req.body));
+    console.log('made it this far')
+    const user = await User.byToken(req.headers.authorization);
+    console.log('made it further')
+    const product = (user.isAdmin)
+    ? await Product.findByPk(req.params.id)
+    : null;
+
+    (product)
+    ? res.json(await product.update(req.body))
+    : res.status(403).send('You shall not pass!')
+
   } catch (err) {
     next(err)
   }

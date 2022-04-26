@@ -12,7 +12,10 @@ class ItemPreview extends React.PureComponent {
 
   addToCart(product, evt) {
     evt.preventDefault();
-    this.props.addToCart(product)
+    console.log('user?', this.props.auth.id);
+    (this.props.auth.id)
+      ? this.props.addToCart(product)
+      : console.log('put in local storage')
   }
 
   render() {
