@@ -21,7 +21,7 @@ class AnonPanel extends React.Component {
           <h3>Sign in or sign up!</h3>
         </div>
         <div>
-          <Tabs defaultActiveKey="register" id="notLoggedIn">
+          <Tabs defaultActiveKey="login" id="notLoggedIn">
             <Tab eventKey="login" title="Log In">
             <LoginForm />
             </Tab>
@@ -41,10 +41,4 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch, history) => {
-  return {
-    logout: () => dispatch(logout(history)),
-  }
-};
-
-export default connect(mapState, mapDispatch)(AnonPanel);
+export default connect(mapState)(AnonPanel);

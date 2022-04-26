@@ -60,8 +60,8 @@ class RegisterForm extends React.Component {
         <label htmlFor="password" >Password: <span className={(passwordValid) ? 'valid' : 'required'}>required</span> </label>
         <input value={password} onChange={onChange} name="password" type="password" autoComplete="password" />
         <label htmlFor="password" >Password Once More With Feeling: <span className={(passwordValid) ? 'valid' : 'required'}>required</span> </label>
-        <input value={passwordAgain} onChange={onChange} name="passwordAgain" type="password" autoComplete="password" />
         <button type="submit" disabled={!this.formValid()}>Register</button>
+        <input value={passwordAgain} onChange={onChange} name="passwordAgain" type="password" autoComplete="password" />
       </form>
     );
   }
