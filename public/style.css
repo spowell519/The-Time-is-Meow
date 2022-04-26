@@ -139,6 +139,14 @@ section {
   font-weight: bold;
   display: block;
 }
+label span.required {
+  font-weight: bold;
+  color: #E94967;
+}
+label span.valid {
+  font-weight: normal;
+  color: #25CED1;
+}
 .highlighted input, .highlighted textarea {
   width: 90%;
   min-height: 1rem;
@@ -173,6 +181,10 @@ section {
 .highlighted .card button:hover {
   background: #FF8A5B;
 }
+.highlighted form button:disabled, .highlighted form button:disabled:hover {
+  background-color: rgb(199, 199, 199);
+}
+
 .card button {
   margin:0 !important;
 }
@@ -271,7 +283,7 @@ section {
   width:1.75rem;
   height:1.75rem;
   padding:0.15rem;
-  margin: 0.25rem 0.25rem 0 0;
+  margin: 0.25rem 0.5rem 0 0;
 }
 .item-preview button:hover {
   background-color: #25CED1;
@@ -300,6 +312,9 @@ div.menu {
 td.big {
   font-size:1.2rem;
   
+}
+th.right, td.right {
+  text-align: right;
 }
 
 /* BOOTSTRAP OVERRIDES */
@@ -340,6 +355,23 @@ tr:hover {
 
 thead>tr, thead>tr:hover {
   background-color: #FCEADE;
+}
+
+.filter>button#dropdown-basic-button {
+  color: #FCEADE;
+  background-color: #E94967;
+  border:0;
+  border-radius: 2rem;
+}
+.filter>button#dropdown-basic-button:hover {
+  background-color: #25CED1;
+}
+.dropdown-menu {
+  background-color: #FCEADE !important;
+}
+a.dropdown-item:hover {
+  color: #FCEADE;
+  background-color: #E94967;
 }
 
 /* Select overrides */

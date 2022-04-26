@@ -7,11 +7,10 @@ const ItemGrid = (props) => {
   const products = (props) ? props.products : [];
   const edit = (props) ? props.editProduct : [];
 
-  const category = props.category.slice(0, 1).toUpperCase() + props.category.slice(1);
-
+  const PRODUCT = (products.length === 1) ? 'Product' : 'Products'
   return (
     <section>
-      <h2>Our {category ? category : "Product"}{(products.length > 1 && category !== 'clothing') ? 's' : ''}</h2>
+      <h2>{(props.category) ? `Our ${PRODUCT} tagged 	\u275D ${props.category} \u275E` : `Our ${PRODUCT}` }</h2>
       <div id="all-products">
         {products.map(product => <ItemPreview key={`product_${product.id}`} product={product} edit={edit} />)}
       </div>

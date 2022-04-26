@@ -39,12 +39,10 @@ const _editProduct = (product) => {
 // thunks
 
 export const getProducts = (category) => {
-  // console.log('cat in thunk?', category);
   return async (dispatch) => {
-    // const { data } = (!category)
-    //   ? await axios.get('/api/products')
-    //   : await axios.get(`/api/products/category/${category}`)
-    const { data } = await axios.get('/api/products')
+    const { data } = (!category)
+      ? await axios.get('/api/products')
+      : await axios.get(`/api/products/category/${category}`)
     dispatch(_getProducts(data))
   }
 };

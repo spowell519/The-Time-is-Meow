@@ -1,30 +1,39 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import validator from 'validator';
+
 import { authenticate } from '../redux/authReducer';
 
 class LoginForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: ''
+      email: '', emailValid: false,
+      password: '', passwordValid: false,
     };
     this.onChange = this.onChange.bind(this);
+    this.formValid = this.formValid.bind(this);
   }
-  onChange(ev) {
-    this.setState({ [ev.target.name]: ev.target.value });
+  onChange(evt) {
+    const {name, value} = evt.target;
+    (name === 'email')
+      ? this.setState((state) => ({...state, emailValid: validator.isEmail(value)}))
+      : this.setState((state) => ({...state, passwordValid: value.length > 0 }))
+    this.setState({ [name]: value });
   }
-
+  formValid() {
+    return (this.state.emailValid && this.state.passwordValid)
+  }
   render() {
     const { onChange, onSubmit } = this;
-    const { email, password } = this.state;
+    const { email, password, emailValid, passwordValid } = this.state;
     return (
       <form onSubmit={this.props.handleSubmit}>
-        <label htmlFor="email" >Email Address: </label>
+        <label htmlFor="email" >Email Address: <span className={(emailValid) ? 'valid' : 'required'}>required</span></label>
         <input value={email} onChange={onChange} name="email" />
-        <label htmlFor="password" >Password: </label>
+        <label htmlFor="password" >Password: <span className={(passwordValid) ? 'valid' : 'required'}>required</span></label>
         <input value={password} onChange={onChange} name="password" />
-        <button type="submit">Sign In</button>
+        <button type="submit" disabled={!this.formValid()}>Sign In</button>
       </form>
     );
   }
