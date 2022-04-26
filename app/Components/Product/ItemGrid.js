@@ -21,12 +21,17 @@ const ItemGrid = (props) => {
           <h2>{(props.category) ? `Our ${PRODUCT} tagged 	\u275D ${props.category} \u275E` : `Our ${PRODUCT}` } </h2>
         </div>
         <div className="right">
+        {(!props.category)
+        ?
           <DropdownButton className="filter" id="dropdown-basic-button" title="Filter">
               {tags.map(tag => {
                 return (<Dropdown.Item key={tag} href={`/category/${tag}`}>{tag}</Dropdown.Item>
                 )
               })}
           </DropdownButton>
+        : <div />
+        }
+        
         </div>
       </div>
       <div id="all-products">
