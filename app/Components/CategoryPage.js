@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 
 import { DefaultHeader } from './DefaultHeader';
 import ItemGrid from './ItemGrid';
-import { getCategoryProducts } from '../redux/productsReducer';
+import { getProducts } from '../redux/productsReducer';
 
 
 class CategoryPage extends React.PureComponent {
     constructor(props) {
         super(props);
         this.category = this.props.match.params.id;
-        console.log('cat', this.category);
     }
 
 
@@ -38,7 +37,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
     return ({
-        getProducts: (category) => dispatch(getCategoryProducts(category)),
+        getProducts: (category) => dispatch(getProducts(category)),
     })
 }
 
