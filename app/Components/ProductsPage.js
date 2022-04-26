@@ -15,10 +15,8 @@ class ProductsPage extends React.PureComponent {
     this.state = {
       mode: 'add',
       product: {},
-      category: '',
     }
     this.editProduct = this.editProduct.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
   }
 
   editProduct(product, evt) {
@@ -26,20 +24,15 @@ class ProductsPage extends React.PureComponent {
     this.setState((state) => ({ ...state, mode: 'edit', product }))
   }
 
-  handleCategoryChange(event) {
-    this.setState({ category: event.target.value })
-  }
 
   componentDidMount() {
     this.props.getProducts();
   }
 
   render() {
-    const products = this.state.category
-      ? this.props.products.filter((product) => product.category === this.state.category)
-      : this.props.products.sort((a, b) => a.title.localeCompare(b.title));
-    // console.log({ products, propsProducts: this.props.products, category: this.state.category });
+    const products = this.props.products.sort((a, b) => a.title.localeCompare(b.title));
     const isAdmin = this.props.auth.isAdmin;
+
     return (
       <div>
         <DefaultHeader handleCategoryChange={this.handleCategoryChange} />
@@ -47,7 +40,7 @@ class ProductsPage extends React.PureComponent {
           ? <CrupdateProduct mode={this.state.mode} product={this.state.product} />
           : <div />
         }
-        <ItemGrid products={products} editProduct={this.editProduct} category={this.state.category} />
+        <ItemGrid products={products} editProduct={this.editProduct} />
       </div>
     )
   }
@@ -62,7 +55,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return ({
-    getProducts: (category) => dispatch(getProducts(category)),
+    getProducts: () => dispatch(getProducts()),
   })
 }
 

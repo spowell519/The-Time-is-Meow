@@ -345,6 +345,23 @@ thead>tr, thead>tr:hover {
   background-color: #FCEADE;
 }
 
+.filter>button#dropdown-basic-button {
+  color: #FCEADE;
+  background-color: #E94967;
+  border:0;
+  border-radius: 2rem;
+}
+.filter>button#dropdown-basic-button:hover {
+  background-color: #25CED1;
+}
+.dropdown-menu {
+  background-color: #FCEADE !important;
+}
+a.dropdown-item:hover {
+  color: #FCEADE;
+  background-color: #E94967;
+}
+
 /* Select overrides */
 .css-b62m3t-container {
   margin-top:0.5rem;

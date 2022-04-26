@@ -2,26 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { DefaultHeader } from './DefaultHeader';
-import CrupdateProduct from './CrupdateProduct';
 import ItemGrid from './ItemGrid';
-import { getProducts } from '../redux/productsReducer';
+import { getCategoryProducts } from '../redux/productsReducer';
 
 
 class CategoryPage extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            mode: 'add',
-            product: {},
-        }
-        this.editProduct = this.editProduct.bind(this);
-        this.category = this.props.match.params.category;
+        this.category = this.props.match.params.id;
+        console.log('cat', this.category);
     }
 
-    editProduct(product, evt) {
-        evt.preventDefault();
-        this.setState((state) => ({ ...state, mode: 'edit', product }))
-    }
 
     componentDidMount() {
         this.props.getProducts(this.category);
@@ -29,15 +20,11 @@ class CategoryPage extends React.PureComponent {
 
     render() {
         const products = this.props.products || [];
-        const { isAdmin } = this.props.auth;
-
+        console.log('products', products);
         return (
             <div>
-                {(isAdmin)
-                    ? <CrupdateProduct mode={this.state.mode} product={this.state.product} />
-                    : <DefaultHeader />
-                }
-                <ItemGrid products={products} editProduct={this.editProduct} category={this.category} />
+                <DefaultHeader />
+                <ItemGrid products={products} category={this.category} />
             </div>
         )
     }
@@ -46,13 +33,12 @@ class CategoryPage extends React.PureComponent {
 const mapState = (state) => {
     return {
         products: state.products,
-        auth: state.auth,
     };
 };
 
 const mapDispatch = (dispatch) => {
     return ({
-        getProducts: (category) => dispatch(getProducts(category)),
+        getProducts: (category) => dispatch(getCategoryProducts(category)),
     })
 }
 
