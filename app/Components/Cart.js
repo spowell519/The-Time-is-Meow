@@ -6,7 +6,10 @@ import Table from 'react-bootstrap/Table';
 
 
 export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus }) => {
-  if (auth.id) fetchCart()
+  (auth.id)
+    ? fetchCart()
+    : console.log("pull from local storage")
+
   const lineItems = cart.lineItems || [];
   lineItems.sort((a, b) => a.product.title.localeCompare(b.product.title))
 

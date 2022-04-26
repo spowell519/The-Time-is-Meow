@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {addToCart} from '../redux/cartReducer'
+import {addToCart} from '../../redux/cartReducer'
 
 class ItemPreview extends React.PureComponent {
   constructor(props) {

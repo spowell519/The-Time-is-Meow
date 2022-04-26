@@ -3,10 +3,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { DefaultHeader } from './DefaultHeader';
+import { DefaultHeader } from '../DefaultHeader';
 import CrupdateProduct from './CrupdateProduct';
 import ItemGrid from './ItemGrid';
-import { getProducts } from '../redux/productsReducer';
+import { getProducts } from '../../redux/productsReducer';
 
 
 class ProductsPage extends React.PureComponent {

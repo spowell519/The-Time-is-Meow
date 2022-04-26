@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { DefaultHeader } from './DefaultHeader';
+import { DefaultHeader } from '../DefaultHeader';
 import ItemGrid from './ItemGrid';
-import { getProducts } from '../redux/productsReducer';
+import { getProducts } from '../../redux/productsReducer';
 
 
 class CategoryPage extends React.PureComponent {

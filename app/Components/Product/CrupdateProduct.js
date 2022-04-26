@@ -8,9 +8,9 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Card from "react-bootstrap/Card";
 import CreatableSelect from 'react-select/creatable';
 
-import { getProducts, addProductToList, editProductInList, clearProducts } from '../redux/productsReducer';
-import { getProduct, editProduct, clearProduct } from '../redux/productReducer';
-import { getCategories, _addCategory } from '../redux/categoryReducer';
+import { getProducts, addProductToList, editProductInList, clearProducts } from '../../redux/productsReducer';
+import { getProduct, editProduct, clearProduct } from '../../redux/productReducer';
+import { getCategories, _addCategory } from '../../redux/categoryReducer';
 
 const emptyState = {
   title: '', category: [], price: '', imageUrl: '',
