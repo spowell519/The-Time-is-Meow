@@ -18,8 +18,11 @@ router.get('/auth/me', async (req, res, next) => {
   }
 });
 
-router.get('/auth/admin', async (req, res, next) => {
+router.get('/admin', async (req, res, next) => {
   try {
+    const user = await User.byToken(req.headers.authorization)
+    // if user isAdmin
+    console.log('admin?', user.isAdmin);
     res.json(await User.findAll())
   } catch (err) {
     next(err)

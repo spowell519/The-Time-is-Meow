@@ -11,16 +11,15 @@ const _getOrders = (orders) => {
   }
 }
 
-export const getOrders = () => async dispatch => {
+export const getOrdersAdmin = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
-  const { data } = await axios.get('/api/orders/user', {
+  const { data } = await axios.get('/api/orders/', {
     headers: {
       authorization: token
     }
   })
   return dispatch(_getOrders(data))
 }
-
 
 export default function ordersReducer(state = [], action) {
   switch (action.type) {

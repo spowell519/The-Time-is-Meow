@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import UserPanel from './UserPanel';
+import AdminPanel from './AdminPanel';
 import AnonPanel from './AnonPanel';
 
 const AccountPage = (props) => {
@@ -9,7 +10,9 @@ const AccountPage = (props) => {
     <section>
       {
         (props.auth.id)
-        ?  <UserPanel />
+        ?  (props.auth.isAdmin)
+          ? <AdminPanel />
+          : <UserPanel />
         :  <AnonPanel />
       }
     </section>
