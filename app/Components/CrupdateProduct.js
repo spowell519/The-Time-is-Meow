@@ -78,9 +78,6 @@ class CrupdateProduct extends React.Component {
     ? this.props.addProduct(product, user)
     : this.props.editProduct({...this.state});
 
-    console.log('>>', this.props.mode, this.source);
-    console.log('getProds', this.props.getProducts);
-    console.log('getProd', this.props.getProduct);
     // refresh form and state
     (this.props.mode === 'add')
     ? this.resetForm()

@@ -24,7 +24,6 @@ router.get('/', async (req, res, next) => {
 // all category tags in use
 router.get('/categories', async (req, res, next) => {
   try {
-    console.log('/categories')
     const allCategories = await Product.getCategories();
     res.json(allCategories);
   } catch (err) {
@@ -81,7 +80,7 @@ router.put('/:id', async (req, res, next) => {
 
 // add product to cart
 router.post('/addToCart', async (req, res, next) => {
-  try{
+  try {
     const user = await User.byToken(req.headers.authorization)
     res.send(user.addToCart(req.body))
   } catch (err) {
