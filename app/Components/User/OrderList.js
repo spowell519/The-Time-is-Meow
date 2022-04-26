@@ -13,8 +13,8 @@ export const OrderList = ({orders, fetchOrders}) => {
       <thead>
         <tr>
           <th>Order Number</th>
+          <th className="right">Total</th>
           <th>Order Date</th>
-          <th>Total</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -23,8 +23,8 @@ export const OrderList = ({orders, fetchOrders}) => {
           return (
             <tr key={order.id}>
               <td>{order.id}</td>
+              <td className="right">${order.price}</td>
               <td>{order.date}</td>
-              <td>{order.price}</td>
               <td>{order.status}</td>
             </tr>
           )

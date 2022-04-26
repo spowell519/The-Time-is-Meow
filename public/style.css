@@ -301,6 +301,9 @@ td.big {
   font-size:1.2rem;
   
 }
+th.right, td.right {
+  text-align: right;
+}
 
 /* BOOTSTRAP OVERRIDES */
 .card, .card-header {
