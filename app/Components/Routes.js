@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Navbar from './Navbar'
@@ -7,8 +8,9 @@ import ProductPage from './ProductPage'
 // import Login from './LoginForm'
 import Cart from './Cart';
 import AccountPage from './User/AccountPage'
+import Checkout from '../Components/Checkout';
 
-const Routes = () => {
+const Routes = (props) => {
   return (
     <Router>
       <main>
@@ -18,10 +20,17 @@ const Routes = () => {
         {/* <Route exact path="/login" component={Login} /> */}
         <Route exact path="/account" component={AccountPage} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout" component={props.auth && props.auth.id ? Checkout : AccountPage} />
       </main>
     </Router>
   );
 };
 
-export default Routes;
+const mapState = (state) => {
+  return {
+    auth: state.auth,
+  }
+}
+
+export default connect(mapState, null)(Routes)
 
