@@ -21,7 +21,7 @@ class AnonPanel extends React.Component {
           <h3>Sign in or sign up!</h3>
         </div>
         <div>
-          <Tabs defaultActiveKey="login" id="notLoggedIn">
+          <Tabs defaultActiveKey="register" id="notLoggedIn">
             <Tab eventKey="login" title="Log In">
             <LoginForm />
             </Tab>

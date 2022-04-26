@@ -139,6 +139,14 @@ section {
   font-weight: bold;
   display: block;
 }
+label span.required {
+  font-weight: bold;
+  color: #E94967;
+}
+label span.valid {
+  font-weight: normal;
+  color: #25CED1;
+}
 .highlighted input, .highlighted textarea {
   width: 90%;
   min-height: 1rem;
@@ -173,6 +181,10 @@ section {
 .highlighted .card button:hover {
   background: #FF8A5B;
 }
+.highlighted form button:disabled, .highlighted form button:disabled:hover {
+  background-color: rgb(199, 199, 199);
+}
+
 .card button {
   margin:0 !important;
 }
