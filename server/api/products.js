@@ -3,11 +3,15 @@ const { Op } = require('sequelize');
 
 const { Product, User } = require('../db/');
 
-const isAdmin = (req, res, next) => {
-  if (!req.user.isAdmin) {
-    return res.status(403).send('You shall not pass!')
+const isAdmin = async (req, res, next) => {
+  const user = await User.byToken(req.headers.authorization);
+  if (!user.isAdmin) {
+    const err = new Error();
+    err.message = 'You shall not pass!'
+    err.status = 401
+    return next(err)
   } else {
-    next()
+    return next()
   }
 }
 
@@ -69,7 +73,7 @@ router.post('/', isAdmin, async (req, res, next) => {
 });
 
 // update product : gatekeep
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     res.json(await product.update(req.body));

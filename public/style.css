@@ -11,10 +11,18 @@ body {
 
 /* div {border:1px dotted orange} */
 
-h2 {
+.grid-header {
   background-color: #ffffffb0;
   border-radius: 1rem;
   padding: 0.5rem 0.75rem;
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+.grid-header>div {
+  display:flex;
 }
 
 /* nav bar */

@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 
 import CrupdateProduct from './CrupdateProduct';
 import SingleProduct from './SingleProduct';
-import ItemGrid from './ItemGrid';
 
-import { getProduct } from '../redux/productReducer';
-import { getProducts } from '../redux/productsReducer';
+import { getProduct } from '../../redux/productReducer';
+import { getProducts } from '../../redux/productsReducer';
 
 class ProductPage extends React.PureComponent {
   constructor(props) {
@@ -23,7 +22,6 @@ class ProductPage extends React.PureComponent {
 
   render() {
     const product = this.props.product || {};
-    const relatedProducts = this.props.products || [];
     const { isAdmin } = this.props.auth;
 
     return (

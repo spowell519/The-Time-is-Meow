@@ -1,12 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import { me, logout } from '../redux/authReducer';
 import { fetchCart } from '../redux/cartReducer';
-import { getCategories } from '../redux/categoryReducer';
 
 class Navbar extends React.PureComponent {
   constructor(props) {
@@ -17,7 +14,6 @@ class Navbar extends React.PureComponent {
     this.state =
       { authOption: '' };
     this.handleChange = this.handleChange.bind(this)
-    this.props.getCategories();
   }
   componentDidMount(){
     if (this.props.auth.id) this.props.fetchCart()
@@ -30,22 +26,12 @@ class Navbar extends React.PureComponent {
   }
   // eslint-disable-next-line complexity
   render() {
-    const tags = this.props.categories || []
-
     return (
       <nav>
         <ul className="left-nav">
           <li><Link to="/"><img src="/images/home.png" alt="home" /></Link></li>
-          <li>
-            <DropdownButton className="filter" id="dropdown-basic-button" title="Filter">
-            {tags.map(tag => {
-              return (<Dropdown.Item key={tag} href={`/category/${tag}`}>{tag}</Dropdown.Item>
-              )
-            })}
-            </DropdownButton>
-
-          </li>
         </ul>
+
         <ul className="right-nav">
           <li><Link to="/account">Account</Link></li>
           {(this.props.auth.id) ? <li><Link to="/" onClick={this.props.logout}>Log Out</Link></li> : ""}
@@ -60,7 +46,6 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
     auth: state.auth,
-    categories: state.categories,
   }
 }
 
@@ -69,7 +54,6 @@ const mapDispatch = (dispatch, history) => {
     logout: () => dispatch(logout(history)),
     stayLoggedIn: () => dispatch(me()),
     fetchCart: () => dispatch(fetchCart()),
-    getCategories: () => dispatch(getCategories()),
   }
 };
 
