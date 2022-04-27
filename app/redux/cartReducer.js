@@ -6,6 +6,7 @@ const SET_CART = 'SET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const CHANGE_CART_STATUS = 'CHANGE_CART_STATUS'
+const CHECKOUT_CART = 'CHECKOUT_CART'
 
 //action
 
@@ -36,6 +37,13 @@ const _changeStatus = (cart) => {
     cart
   }
 };
+
+const _checkoutCart = (cart) => {
+  return {
+    type: CHECKOUT_CART,
+    cart
+  }
+}
 
 //thunks
 
@@ -145,19 +153,32 @@ export const addToCart = (product) => async dispatch => {
   }
 };
 
-export const changeStatus = (history, total) => async dispatch => {
+export const changeStatus = (total, { history }) => async dispatch => {
+  //this should only go off on successful payment, need to figure out how to do that
   const token = window.localStorage.getItem(TOKEN)
   const { data } = await axios.put('api/cart/createOrder', null, {
     headers: {
       authorization: token,
-      total: total, // this should be tucked in somewhere better than headers, but it's 2AM
+      total: total,
     }
   })
   history.push('/checkout')
-  // this ends up being a new cart
-  // after the last one gets pushed to being an order
   return dispatch(_changeStatus(data))
 };
+
+export const checkoutCart = (total, {history}) => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN)
+  const { data } = await axios.put('api/cart', null, {
+    headers: {
+      authorization: token,
+      total: total,
+    }
+  })
+  history.push('/checkout')
+  return dispatch(_checkoutCart(data))
+}
+
+
 
 //reducer
 
@@ -165,10 +186,10 @@ export default function productReducer(state = [], action) {
   switch (action.type) {
     case SET_CART:
       return action.cart
-
     case CHANGE_CART_STATUS:
       return action.cart
-
+    case CHECKOUT_CART:
+      return action.cart
     default:
       return state
   }

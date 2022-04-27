@@ -26,7 +26,7 @@ const Order = db.define('order', {
   }
 })
 
-Order.beforeSave(async (order) => {
+Order.beforeUpdate(async (order) => {
   const cartItems = await LineItem.findAll({
     where: {
       orderId: order.id

@@ -79,7 +79,17 @@ router.post('/create-checkout-session', async (req, res) => {
 router.put('/createOrder', async (req, res, next) => {
   try {
     const user = await User.byToken(req.headers.authorization);
-    res.send(await user.createOrder(req.headers.total))
+    res.send(await user.createOrder(req.body))
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    const user = await User.byToken(req.headers.authorization);
+    res.send(user)
+
   } catch (err) {
     next(err)
   }
