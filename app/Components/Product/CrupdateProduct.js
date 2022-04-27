@@ -79,11 +79,12 @@ class CrupdateProduct extends React.Component {
     : this.props.editProduct({...this.state});
 
     // refresh form and state
+    // fix single page coming from main - no props or mode :(
     (this.props.mode === 'add')
     ? this.resetForm()
     : (this.source === 'list')
         ? this.props.getProducts()
-        : this.props.getProduct(this.props.product.id);
+        : (this.props.getProduct) ? this.props.getProduct(product.id) : console.log(' ')
   }
 
   resetForm() {
@@ -200,7 +201,7 @@ export default (window.location.pathname.includes('/product/') )
 
   function CustomToggle({ children, eventKey }) {
     const decoratedOnClick = useAccordionButton(eventKey, () =>
-      console.log("toggle clicked"));
+      console.log("toggle crupdate panel"));
     return (
       <button type="button" onClick={decoratedOnClick}>
         {children}

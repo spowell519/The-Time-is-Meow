@@ -63,22 +63,20 @@ router.get('/category/:cat', async (req, res, next) => {
   }
 });
 
-// add product : gatekeep
+// add product : with gatekeeping
 router.post('/', async (req, res, next) => {
   try {
-    
-    res.status(201).json(await Product.create(req.body));
+    const user = await User.byToken(req.headers.authorization);
+    if (user.isAdmin) res.status(201).json(await Product.create(req.body));
   } catch (err) {
     next(err);
   }
 });
 
-// update product : gatekeep
+// update product : with gatekeeping
 router.put('/:id', async (req, res, next) => {
   try {
-    console.log('made it this far')
     const user = await User.byToken(req.headers.authorization);
-    console.log('made it further')
     const product = (user.isAdmin)
     ? await Product.findByPk(req.params.id)
     : null;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+const TOKEN = 'token'
 
 const GET_PRODUCT = 'GET_PRODUCT';
 const EDIT_PRODUCT = 'EDIT_PRODUCT';
@@ -36,8 +37,14 @@ export const getProduct = (id) => {
 };
 
 export const editProduct = (product) => {
+  const token = window.localStorage.getItem(TOKEN)
+
   return async (dispatch) => {
-    const { data } = await axios.put(`/api/products/${product.id}`, product);
+    const { data } = await axios.put(`/api/products/${product.id}`, product, {
+      headers: {
+        authorization: token,
+      }
+    });
     dispatch(_editProduct(data))
   }
 };

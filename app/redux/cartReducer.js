@@ -151,7 +151,6 @@ export const addToCart = (product) => async dispatch => {
 
 export const changeStatus = (history, total) => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
-  console.log('total', total)
   const { data } = await axios.put('api/cart/createOrder', null, {
     headers: {
       authorization: token,
