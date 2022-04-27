@@ -3,6 +3,7 @@ import axios from 'axios'
 const TOKEN = 'token'
 const SET_CART = 'SET_CART'
 const CHANGE_CART_STATUS = 'CHANGE_CART_STATUS'
+const CHECKOUT_CART = 'CHECKOUT_CART'
 
 //action
 
@@ -19,6 +20,13 @@ const _changeStatus = (cart) => {
     cart
   }
 };
+
+const _checkoutCart = (cart) => {
+  return {
+    type: CHECKOUT_CART,
+    cart
+  }
+}
 
 //thunks
 
@@ -62,6 +70,16 @@ export const changeStatus = (cart) => async dispatch => {
   return dispatch(_changeStatus(res.data))
 };
 
+export const checkoutCart = (cart) => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN)
+  const res = await axios.post('/api/cart/create-checkout-session', cart, {
+    headers: {
+      authorization: token
+    }
+  })
+  return dispatch(_checkoutCart(res.data))
+}
+
 //reducer
 
 export default function productReducer(state = {}, action) {
@@ -69,6 +87,8 @@ export default function productReducer(state = {}, action) {
     case SET_CART:
       return action.cart
     case CHANGE_CART_STATUS:
+      return action.cart
+    case CHECKOUT_CART:
       return action.cart
     default:
       return state
