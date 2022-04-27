@@ -1,4 +1,5 @@
 import axios from 'axios';
+const TOKEN = 'token'
 
 const GET_PRODUCTS = 'GET_PRODUCTS';
 const FIND_PRODUCT = 'FIND_PRODUCT';
@@ -47,16 +48,28 @@ export const getProducts = (category) => {
   }
 };
 
-export const addProductToList = (product, user) => {
+export const addProductToList = (product) => {
+  const token = window.localStorage.getItem(TOKEN)
+
   return async (dispatch) => {
-    const { data } = await axios.post('/api/products', product);
+    const { data } = await axios.post('/api/products', product, {
+      headers: {
+        authorization: token,
+      }
+    });
     dispatch(_addProduct(data))
   }
 };
 
 export const editProductInList = (product) => {
+  const token = window.localStorage.getItem(TOKEN)
+
   return async (dispatch) => {
-    const { data } = await axios.put(`/api/products/${product.id}`, product);
+    const { data } = await axios.put(`/api/products/${product.id}`, product, {
+      headers: {
+        authorization: token,
+      }
+    });
     dispatch(_editProduct(data))
   }
 };

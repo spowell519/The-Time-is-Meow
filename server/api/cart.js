@@ -14,6 +14,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/addToCart', async (req, res, next) => {
   try {
+    console.log('** hit ADD route')
     const user = await User.byToken(req.headers.authorization);
     if (user) res.send(await user.addToCart(req.body))
   } catch (err) {
@@ -55,8 +56,12 @@ router.post('/create-checkout-session', async (req, res, next) => {
 router.put('/createOrder', async (req, res, next) => {
   try {
     const user = await User.byToken(req.headers.authorization);
+<<<<<<< HEAD
     res.send(await user.createOrder(req.body))
     history.push('/checkout')
+=======
+    res.send(await user.createOrder(req.headers.total))
+>>>>>>> 053a2aaf5f05cda7db4e158c4f5ce212157fcbb1
   } catch (err) {
     next(err)
   }

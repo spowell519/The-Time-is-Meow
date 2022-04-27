@@ -27,10 +27,18 @@ export const CheckoutForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <PaymentElement />
-      <button disabled={!stripe}>Submit</button>
-    </form>
+    <section>
+      <div className="highlighted">
+      <div><img src="/images/logo.png" /></div>
+        <div className="highlighted-text">
+          <h1>Checkout</h1>
+          <form onSubmit={handleSubmit}>
+            <PaymentElement />
+            <button disabled={!stripe}>Submit</button>
+          </form>
+        </div>
+      </div>
+    </section>
   )
 }
 

@@ -15,7 +15,7 @@ const items = [
     title: "super hair band",
     category: ["toy"],
     price: 2799,
-    imageUrl: "default.png",
+    imageUrl: "hairtie.png",
     description: "hair elastic to play with, comes full of hair",
     rating: 1.9,
     inventory: 27,

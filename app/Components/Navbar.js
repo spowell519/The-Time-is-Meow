@@ -10,13 +10,13 @@ class Navbar extends React.PureComponent {
     super(props);
     // look in localstorage to stay logged in
     this.props.stayLoggedIn();
-
     this.state =
       { authOption: '' };
     this.handleChange = this.handleChange.bind(this)
+    this.totalItemsInCart = this.totalItemsInCart.bind(this)
   }
   componentDidMount(){
-    if (this.props.auth.id) this.props.fetchCart()
+    this.props.fetchCart()
   }
   //DO NOT PUT FETCHCART IN COMPONENTDIDUPDATE, it creates an infinite loop
   handleChange(e){
@@ -24,8 +24,16 @@ class Navbar extends React.PureComponent {
       this.setState({authOption: e.target.value})
     }
   }
+  totalItemsInCart() {
+    return (this.props.cart.length)
+      ? this.props.cart.reduce((acc, product) => acc + (product.quantity), 0)
+      : 0
+  }
+
   // eslint-disable-next-line complexity
   render() {
+    const cartQuantity = this.totalItemsInCart();
+
     return (
       <nav>
         <ul className="left-nav">
@@ -35,7 +43,7 @@ class Navbar extends React.PureComponent {
         <ul className="right-nav">
           <li><Link to="/account">Account</Link></li>
           {(this.props.auth.id) ? <li><Link to="/" onClick={this.props.logout}>Log Out</Link></li> : ""}
-          <li><Link to="/cart"><img src="/images/cart.png" alt="cart" /></Link></li>
+          <li><Link to="/cart">{cartQuantity} <img src="/images/cart.png" alt="cart" /></Link></li>
         </ul>
       </nav>
     )
@@ -46,6 +54,7 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
     auth: state.auth,
+    cart: state.cart,
   }
 }
 
