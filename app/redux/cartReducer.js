@@ -60,25 +60,18 @@ export const addToCart = (product) => async dispatch => {
   return dispatch(_fetchCart(res.data))
 };
 
-export const changeStatus = (cart) => async dispatch => {
+export const changeStatus = (cart, {history}) => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
   const res = await axios.put('api/cart/createOrder', cart, {
     headers: {
       authorization: token
     }
   })
+  history.push('/checkout')
   return dispatch(_changeStatus(res.data))
 };
 
-export const checkoutCart = (cart) => async dispatch => {
-  const token = window.localStorage.getItem(TOKEN)
-  const res = await axios.post('/api/cart/create-checkout-session', cart, {
-    headers: {
-      authorization: token
-    }
-  })
-  return dispatch(_checkoutCart(res.data))
-}
+
 
 //reducer
 

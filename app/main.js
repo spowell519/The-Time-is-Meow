@@ -11,15 +11,17 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx')
 
-function App() {
-  const options = {
-    clientSecret: '{{CLIENT_SECRET}}'
-  }
-}
+// function App() {
+//   const options = {
+//     clientSecret: '{{CLIENT_SECRET}}'
+//   }
+// }
 
 render(
-  <Provider stripe={stripePromise} store={store}>
-    <Routes />
+  <Provider store={store}>
+    <Elements stripe={stripePromise}>
+      <Routes />
+    </Elements>
   </Provider>,
   document.getElementById('app')
 )

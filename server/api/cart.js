@@ -30,6 +30,7 @@ router.post('/removeFromCart', async (req, res, next) => {
   }
 })
 
+//not being used right now, might be for stripe
 router.post('/create-checkout-session', async (req, res, next) => {
   try{
     console.log(req.body, 'req.body')
@@ -37,7 +38,7 @@ router.post('/create-checkout-session', async (req, res, next) => {
       line_items: [
         {
           //need to figure out how total is passed through
-          price: '',
+          price: req.body.price,
           currency: "usd"
         }
       ]
@@ -55,6 +56,7 @@ router.put('/createOrder', async (req, res, next) => {
   try {
     const user = await User.byToken(req.headers.authorization);
     res.send(await user.createOrder(req.body))
+    history.push('/checkout')
   } catch (err) {
     next(err)
   }

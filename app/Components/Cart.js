@@ -69,7 +69,7 @@ export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus }) =>
             <thead>
               <tr>
                 <td colSpan="2"> </td>
-                <td className="big"><button onClick={() => changeStatus()} type="submit" className="blue"><Link to="/checkout">Checkout</Link></button></td>
+                <td className="big"><button onClick={() => changeStatus(cart)} type="submit" className="blue"><Link to="/checkout">Checkout</Link></button></td>
               </tr>
             </thead>
 
@@ -87,12 +87,12 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, history) => {
   return {
     removeFromCart: (product) => dispatch(removeFromCart(product)),
     addToCart: (product) => dispatch(addToCart(product)),
     fetchCart: () => dispatch(fetchCart()),
-    changeStatus: () => dispatch(changeStatus())
+    changeStatus: (cart) => dispatch(changeStatus(cart, history))
 
   }
 }
