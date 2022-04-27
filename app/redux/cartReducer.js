@@ -32,6 +32,7 @@ const _changeStatus = (cart) => {
 //thunks
 
 export const fetchCart = () => async dispatch => {
+  console.log('fetching cart')
   const token = window.localStorage.getItem(TOKEN)
   console.log('token:', token)
   if (token !== null) {
@@ -40,9 +41,10 @@ export const fetchCart = () => async dispatch => {
         authorization: token
       }
     })
-    return dispatch(_fetchCart(data))
+    return dispatch(_fetchCart(data.lineItems))
   }
   else {
+    console.log('pull local cart')
     let localCart = [];
     if (localStorage.getItem(CART)) {
       console.log('stuff in cart')
@@ -53,25 +55,67 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
+//todo
 export const removeFromCart = (product) => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
-  const res = await axios.post('api/cart/removeFromCart', product, {
-    headers: {
-      authorization: token
-    }
-  })
-  return dispatch(_fetchCart(res.data))
-}
-
-export const addToCart = (product) => async dispatch => {
-  const token = window.localStorage.getItem(TOKEN);
-  const { data } = await axios.post('api/cart/addToCart', product, {
+  if (token) {
+    const res = await axios.post('api/cart/removeFromCart', product, {
       headers: {
         authorization: token
       }
     })
-    return dispatch(_fetchCart(data))
-
+    return dispatch(_fetchCart(res.data))
+  }
+  else {
+    // find item in localstorage cart and decrement quantity/remove from list
+    let localCart = [];
+    if (localStorage.getItem(CART)) {
+      localCart = JSON.parse(localStorage.getItem(CART));
+      for (let i = 0; i < localCart.length; i++) {
+        if (localCart[i].product.title === product.title) {
+          (localCart[i].quantity > 1)
+          ? localCart[i].quantity--
+          : localCart.splice(i, 1)
+        }
+      }
+      (localCart.length > 0)
+      ? localStorage.setItem(CART, JSON.stringify(localCart))
+      : localStorage.removeItem(CART)
+    }
+    return dispatch(_fetchCart(localCart))
+  }
+}
+//todo check if state still ok for logged in
+export const addToCart = (product) => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN);
+  if (token) {
+    const { data } = await axios.post('api/cart/addToCart', product, {
+        headers: {
+          authorization: token
+        }
+      })
+      return dispatch(_fetchCart(data))
+  }
+  else {
+    // find item in localstorage cart and increment quantity
+    let localCart = [];
+    if (localStorage.getItem(CART)) {
+      localCart = JSON.parse(localStorage.getItem(CART));
+      let found = false;
+      for (let i = 0; i < localCart.length; i++) {
+        if (localCart[i].product.title === product.title) {
+          localCart[i].quantity++;
+          found = true
+        }
+      }
+      if (!found) { // this should never happen
+        console.log('i see you there messing with my data')
+        localCart.push({quantity: 1, product: product})
+      }
+      localStorage.setItem(CART, JSON.stringify(localCart));
+    }
+    return dispatch(_fetchCart(localCart))
+  }
 };
 
 export const addProductToCart = (product) => async dispatch => {
@@ -82,22 +126,36 @@ export const addProductToCart = (product) => async dispatch => {
         authorization: token
       }
     })
+    return dispatch(fetchCart(product))
   }
   else {
     let localCart = [];
+
     if (localStorage.getItem(CART)) {
-      console.log('stuff in cart')
+      // load from local storage and add item or increase quantity
       localCart = JSON.parse(localStorage.getItem(CART));
+      let found = false; // checking to see if item already there
+      for (let i = 0; i < localCart.length; i++){
+        if (localCart[i].product.title === product.title) {
+          localCart[i].quantity++;
+          found = true;
+        }
+      }
+      if (!found) localCart.push({quantity: 1, product: product})
     }
-    console.log('local', localCart)
-    localCart.push(product)
+    else { // add first item to local storage
+      localCart.push({quantity: 1, product: product})
+    }
     localStorage.setItem(CART, JSON.stringify(localCart));
+    // change to action
+    // return dispatch(fetchCart(localCart))
+    return dispatch(_fetchCart(localCart))
   }
-  return dispatch(_addToCart(product))
 }
 
 export const changeStatus = (cart) => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
+  // also send total with rest of order
   const res = await axios.put('api/cart/createOrder', cart, {
     headers: {
       authorization: token
@@ -108,18 +166,18 @@ export const changeStatus = (cart) => async dispatch => {
 
 //reducer
 
-export default function productReducer(state = {}, action) {
+export default function productReducer(state = [], action) {
   switch (action.type) {
     case SET_CART:
       return action.cart
 
-      case ADD_TO_CART:
+    case ADD_TO_CART:
       return [...state, action.product]
 
     case CHANGE_CART_STATUS:
       return action.cart
 
-      default:
+    default:
       return state
   }
 }

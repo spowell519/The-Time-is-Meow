@@ -7,7 +7,6 @@ const SingleProduct = (props) => {
   const tags = props.product.category || []
   const addToCart = props.addProductToCart
 
-  console.log("cart:", props.cart, 'quant:', props.cart.length);
   return (
     <section>
       <div className="highlighted">

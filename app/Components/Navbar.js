@@ -10,10 +10,10 @@ class Navbar extends React.PureComponent {
     super(props);
     // look in localstorage to stay logged in
     this.props.stayLoggedIn();
-
     this.state =
       { authOption: '' };
     this.handleChange = this.handleChange.bind(this)
+    this.totalItemsInCart = this.totalItemsInCart.bind(this)
   }
   componentDidMount(){
     this.props.fetchCart()
@@ -24,9 +24,19 @@ class Navbar extends React.PureComponent {
       this.setState({authOption: e.target.value})
     }
   }
+  totalItemsInCart() {
+    for (let i=0; i < this.props.cart.length; i++) {
+      console.log(`[${i}]`, this.props.cart[i].quantity, this.props.cart[i].product.title)
+    }
+    return (this.props.cart)
+      ? this.props.cart.reduce((acc, product) => acc + (product.quantity), 0)
+      : 0
+  }
+
   // eslint-disable-next-line complexity
   render() {
-    const cartQuantity = this.props.cart.length || ''
+    const cartQuantity = this.totalItemsInCart();
+
     return (
       <nav>
         <ul className="left-nav">

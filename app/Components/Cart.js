@@ -7,18 +7,15 @@ import Table from 'react-bootstrap/Table';
 
 export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus, fetchCart }) => {
   useEffect(() => {fetchCart()}, []);
-
-  console.log('state.cart', cart)
-  console.log('cart lineItems', cart.lineItems)
-  const lineItems = cart.lineItems || [];
-  lineItems.sort((a, b) => a.product.title.localeCompare(b.product.title))
+  const lineItems = cart.sort((a, b) => a.product.title.localeCompare(b.product.title)) || [];
+  console.log('cart lineItems', lineItems)
 
   let totalPrice = 0
   for (let i = 0; i < lineItems.length; i++) {
     let itemPrice = lineItems[i].product.price
     totalPrice = totalPrice + Number(itemPrice) * lineItems[i].quantity
   }
-  console.log('cart quant', cart.length);
+
   return (
     <section>
       <div className="highlighted">
