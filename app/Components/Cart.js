@@ -1,24 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { addToCart, fetchCart, removeFromCart, changeStatus } from '../redux/cartReducer';
 import Table from 'react-bootstrap/Table';
 
 
-export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus }) => {
-  (auth.id)
-    ? fetchCart()
-    : console.log("pull from local storage")
+export const Cart = ({ history, cart, auth, removeFromCart, addToCart, changeStatus, fetchCart }) => {
+  useEffect(() => {fetchCart()}, []);
+  const lineItems = cart.sort((a, b) => a.product.title.localeCompare(b.product.title)) || [];
 
-  const lineItems = cart.lineItems || [];
-  lineItems.sort((a, b) => a.product.title.localeCompare(b.product.title))
-
+  // this is also summed up in the backend
+  // so help me if they don't match up
   let totalPrice = 0
   for (let i = 0; i < lineItems.length; i++) {
     let itemPrice = lineItems[i].product.price
     totalPrice = totalPrice + Number(itemPrice) * lineItems[i].quantity
   }
-
   return (
     <section>
       <div className="highlighted">
@@ -69,7 +67,12 @@ export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus }) =>
             <thead>
               <tr>
                 <td colSpan="2"> </td>
-                <td className="big"><button onClick={() => changeStatus()} type="submit" className="blue"><Link to="/checkout">Checkout</Link></button></td>
+                <td className="big">
+                  <button
+                    onClick={() => changeStatus(history, totalPrice)} type="submit" className="blue">
+                    Checkout
+                  </button>
+                </td>
               </tr>
             </thead>
 
@@ -92,7 +95,7 @@ const mapDispatch = dispatch => {
     removeFromCart: (product) => dispatch(removeFromCart(product)),
     addToCart: (product) => dispatch(addToCart(product)),
     fetchCart: () => dispatch(fetchCart()),
-    changeStatus: () => dispatch(changeStatus())
+    changeStatus: (history, total) => dispatch(changeStatus(history, total))
 
   }
 }

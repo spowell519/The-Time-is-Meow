@@ -63,33 +63,31 @@ router.get('/category/:cat', async (req, res, next) => {
   }
 });
 
-// add product : gatekeep
-router.post('/', isAdmin, async (req, res, next) => {
+// add product : with gatekeeping
+router.post('/', async (req, res, next) => {
   try {
-    res.status(201).json(await Product.create(req.body));
+    const user = await User.byToken(req.headers.authorization);
+    if (user.isAdmin) res.status(201).json(await Product.create(req.body));
   } catch (err) {
     next(err);
   }
 });
 
-// update product : gatekeep
-router.put('/:id', isAdmin, async (req, res, next) => {
+// update product : with gatekeeping
+router.put('/:id', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id);
-    res.json(await product.update(req.body));
+    const user = await User.byToken(req.headers.authorization);
+    const product = (user.isAdmin)
+    ? await Product.findByPk(req.params.id)
+    : null;
+
+    (product)
+    ? res.json(await product.update(req.body))
+    : res.status(403).send('You shall not pass!')
+
   } catch (err) {
     next(err)
   }
 });
-
-// add product to cart
-router.post('/addToCart', async (req, res, next) => {
-  try {
-    const user = await User.byToken(req.headers.authorization)
-    res.send(user.addToCart(req.body))
-  } catch (err) {
-    next(err)
-  }
-})
 
 module.exports = router

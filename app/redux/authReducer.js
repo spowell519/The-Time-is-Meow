@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { fetchLocalCart } from './cartReducer';
+
 const TOKEN = 'token'
 const USER = 'user'
 
@@ -32,7 +34,6 @@ export const me = () => async dispatch => {
                 authorization: token
             }
         })
-        window.localStorage.setItem(USER, data.isAdmin)
         return dispatch(setAuth(data))
     }
 }
@@ -43,7 +44,9 @@ export const authenticate = (email, password, { history }) => {
             const res = await axios.post("api/users/login", { email, password })
             window.localStorage.setItem(TOKEN, res.data.token)
             dispatch(me())
-            history.push('/')
+            // move any localStorage cart to user's cart
+            await dispatch(fetchLocalCart())
+            // history.push('/')
         } catch (err) {
             console.log(err);
             dispatch(authFailed(err))

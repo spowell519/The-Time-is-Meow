@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { fetchCart } from './cartReducer';
-
 const TOKEN = 'token'
 
 const GET_PRODUCT = 'GET_PRODUCT';
@@ -39,21 +37,17 @@ export const getProduct = (id) => {
 };
 
 export const editProduct = (product) => {
+  const token = window.localStorage.getItem(TOKEN)
+
   return async (dispatch) => {
-    const { data } = await axios.put(`/api/products/${product.id}`, product);
+    const { data } = await axios.put(`/api/products/${product.id}`, product, {
+      headers: {
+        authorization: token,
+      }
+    });
     dispatch(_editProduct(data))
   }
 };
-
-export const addProductToCart = (product) => async dispatch => {
-  const token = window.localStorage.getItem(TOKEN)
-  const { data } = await axios.post('/api/products/addToCart', product, {
-    headers: {
-      authorization: token
-    }
-  })
-  return dispatch(fetchCart(product))
-}
 
 
 // reducer
