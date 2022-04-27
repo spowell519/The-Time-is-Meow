@@ -1,8 +1,9 @@
 import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
 import React from 'react';
+import { connect } from 'react-redux';
+import { changeStatus } from '../redux/cartReducer'
 
-
-export const CheckoutForm = () => {
+export const CheckoutForm = ({ changeStatus }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -34,11 +35,19 @@ export const CheckoutForm = () => {
           <h1>Checkout</h1>
           <form onSubmit={handleSubmit}>
             <PaymentElement />
-            <button disabled={!stripe}>Submit</button>
+            <button disabled={!stripe} onClick={()=>changeStatus()}>Submit</button>
           </form>
         </div>
       </div>
     </section>
   )
 }
+
+const mapDispatch = dispatch => {
+  return {
+    changeStatus: (history, total) => dispatch(changeStatus(history, total))
+  }
+}
+
+export default connect (null, mapDispatch)(CheckoutForm)
 

@@ -39,7 +39,7 @@ router.post('/create-checkout-session', async (req, res, next) => {
       line_items: [
         {
           //need to figure out how total is passed through
-          price: req.body.price,
+          price: headers.authorization.total,
           currency: "usd"
         }
       ]
@@ -56,12 +56,17 @@ router.post('/create-checkout-session', async (req, res, next) => {
 router.put('/createOrder', async (req, res, next) => {
   try {
     const user = await User.byToken(req.headers.authorization);
-<<<<<<< HEAD
     res.send(await user.createOrder(req.body))
-    history.push('/checkout')
-=======
-    res.send(await user.createOrder(req.headers.total))
->>>>>>> 053a2aaf5f05cda7db4e158c4f5ce212157fcbb1
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    const user = await User.byToken(req.headers.authorization);
+    res.send(user)
+
   } catch (err) {
     next(err)
   }
