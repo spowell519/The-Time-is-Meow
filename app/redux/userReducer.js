@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { authenticate } from './authReducer';
 
 //action types
 const GOT_USER = 'GOT_USER';
@@ -31,9 +32,10 @@ export const getUser = (token) => async (dispatch) => {
     dispatch(gotUser(data));
 };
 
-export const addUser = (user) => async (dispatch) => {
+export const addUser = (user, history) => async (dispatch) => {
     const { data } = await axios.post('/api/users/', user);
     dispatch(addedUser(data));
+    dispatch(authenticate(user.email, user.password, history))
 };
 
 export const editUser = (user, id) => async (dispatch) => {

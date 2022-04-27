@@ -10,7 +10,7 @@ class RegisterForm extends React.Component {
     this.state = {
       firstName: '', firstNameValid: false,
       lastName: '', lastNameValid: false,
-      email: '',  emailValid: false,
+      email: '', emailValid: false,
       password: '', passwordValid: false,
       passwordAgain: '',
 
@@ -23,15 +23,17 @@ class RegisterForm extends React.Component {
     const { name, value } = evt.target;
     if (name !== 'password' && name !== 'passwordAgain') {
       (name === 'email')
-      ? this.setState((state) => ({...state, emailValid: validator.isEmail(value)}))
-      : this.setState((state) => ({...state, [`${name}Valid`]: value.length > 0 }))
+        ? this.setState((state) => ({ ...state, emailValid: validator.isEmail(value) }))
+        : this.setState((state) => ({ ...state, [`${name}Valid`]: value.length > 0 }))
     }
     if (name === 'password' || name === 'passwordAgain') {
-      this.setState((state) => ({...state,
+      this.setState((state) => ({
+        ...state,
         passwordValid:
-        (name === 'password')
-        ? value === this.state.passwordAgain
-        : value === this.state.password}))
+          (name === 'password')
+            ? value === this.state.passwordAgain
+            : value === this.state.password
+      }))
     }
     this.setState({ [name]: value });
   }
@@ -45,7 +47,7 @@ class RegisterForm extends React.Component {
   render() {
     const { onChange, onSubmit } = this;
     const { firstName, lastName, email, password, passwordAgain,
-            firstNameValid, lastNameValid, emailValid, passwordValid} = this.state;
+      firstNameValid, lastNameValid, emailValid, passwordValid } = this.state;
     return (
       <form onSubmit={onSubmit}>
         <label htmlFor="firstName" >First Name: <span className={(firstNameValid) ? 'valid' : 'required'}>required</span></label>
@@ -69,8 +71,8 @@ class RegisterForm extends React.Component {
 //     user: state.user,
 //   }
 // }
-const mapDispatch = (dispatch) => ({
-  addUser: (user) => dispatch(addUser(user)),
+const mapDispatch = (dispatch, history) => ({
+  addUser: (user) => dispatch(addUser(user), history),
 });
 
 export default connect(null, mapDispatch)(RegisterForm)

@@ -38,7 +38,7 @@ export const me = () => async dispatch => {
     }
 }
 
-export const authenticate = (email, password, { history }) => {
+export const authenticate = (email, password, history) => {
     return async (dispatch) => {
         try {
             const res = await axios.post("api/users/login", { email, password })
@@ -46,7 +46,7 @@ export const authenticate = (email, password, { history }) => {
             dispatch(me())
             // move any localStorage cart to user's cart
             await dispatch(fetchLocalCart())
-            // history.push('/')
+            history.push('/')
         } catch (err) {
             console.log(err);
             dispatch(authFailed(err))
