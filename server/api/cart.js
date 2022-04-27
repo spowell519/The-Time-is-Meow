@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/addToCart', async (req, res, next) => {
   try {
-    console.log('hit route')
+    console.log('** hit ADD route')
     const user = await User.byToken(req.headers.authorization);
     if (user) res.send(await user.addToCart(req.body))
   } catch (err) {

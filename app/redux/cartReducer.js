@@ -54,7 +54,6 @@ export const fetchCart = () => async dispatch => {
     if (localStorage.getItem(CART)) {
       localCart = JSON.parse(localStorage.getItem(CART));
     }
-    console.log('local', localCart)
     return dispatch(_fetchCart(localCart))
   }
 }
@@ -62,7 +61,6 @@ export const fetchCart = () => async dispatch => {
 // called from authReducer to pull from localstorage
 // and store cart items in a cart on server for user
 export const fetchLocalCart = () => async dispatch => {
-  console.log('dump localstorage into cart yah')
   const token = window.localStorage.getItem(TOKEN)
   let localCart = [];
   if (localStorage.getItem(CART)) {
@@ -70,17 +68,15 @@ export const fetchLocalCart = () => async dispatch => {
   }
   let cart = []
   for (let i = 0; i < localCart.length; i++) {
-    console.log(`add ${localCart[i].product.title} to server`)
     let { data } = await axios.post('/api/cart/addToCart',
       localCart[i],
       {
       headers: {
         authorization: token
       }
-    })
-    cart = data.lineItems
+    });
+    cart = data.lineItems;
   }
-  console.log('trash localstorage')
   localStorage.removeItem(CART)
   return dispatch(_fetchCart(cart))
 }
@@ -154,7 +150,7 @@ export const changeStatus = (history, total) => async dispatch => {
   const { data } = await axios.put('api/cart/createOrder', null, {
     headers: {
       authorization: token,
-      total: total, // this should be sent somewhere else, but alas it's 2AM
+      total: total, // this should be tucked in somewhere better than headers, but it's 2AM
     }
   })
   history.push('/checkout')

@@ -201,7 +201,7 @@ export default (window.location.pathname.includes('/product/') )
 
   function CustomToggle({ children, eventKey }) {
     const decoratedOnClick = useAccordionButton(eventKey, () =>
-      console.log("toggle crupdate panel"));
+      console.log("toggle crupdate panel")); // <-- DO NOT REMOVE
     return (
       <button type="button" onClick={decoratedOnClick}>
         {children}

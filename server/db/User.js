@@ -110,7 +110,6 @@ User.prototype.addToCart = async function (body) {
   const cart = await this.getCart();
   let lineItem = cart.lineItems.find(item => item.productId === product.id)
   if (lineItem) {
-    console.log(`add ${itemQuantity} more`)
     lineItem.quantity += itemQuantity
     lineItem.quantity = parseInt(lineItem.quantity, 10)
     await lineItem.save()
@@ -125,9 +124,7 @@ User.prototype.addToCart = async function (body) {
   (cart.price)
     ? cart.price += product.price * itemQuantity
     : product.price * itemQuantity
-  console.log('cart$', cart.price)
   cart.price = parseFloat(cart.price).toFixed(2)
-  console.log('cart price', cart.price, typeof cart.price)
   await cart.save();
   return this.getCart()
 }
