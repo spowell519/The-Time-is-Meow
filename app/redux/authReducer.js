@@ -24,7 +24,6 @@ export const me = () => async dispatch => {
                 authorization: token
             }
         })
-        window.localStorage.setItem(USER, data.isAdmin)
         return dispatch(setAuth(data))
     }
 }

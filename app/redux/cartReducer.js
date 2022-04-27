@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 const TOKEN = 'token'
+const CART = 'cart'
 const SET_CART = 'SET_CART'
+const ADD_TO_CART = 'ADD_TO_CART'
 const CHANGE_CART_STATUS = 'CHANGE_CART_STATUS'
 
 //action
@@ -12,6 +14,13 @@ const _fetchCart = (cart) => {
     cart
   }
 };
+
+const _addToCart = (product) => {
+  return {
+    type: ADD_TO_CART,
+    product
+  }
+}
 
 const _changeStatus = (cart) => {
   return {
@@ -24,12 +33,24 @@ const _changeStatus = (cart) => {
 
 export const fetchCart = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
-  const res = await axios.get('/api/cart', {
-    headers: {
-      authorization: token
+  console.log('token:', token)
+  if (token !== null) {
+    const { data } = await axios.get('/api/cart', {
+      headers: {
+        authorization: token
+      }
+    })
+    return dispatch(_fetchCart(data))
+  }
+  else {
+    let localCart = [];
+    if (localStorage.getItem(CART)) {
+      console.log('stuff in cart')
+      localCart = JSON.parse(localStorage.getItem(CART));
     }
-  })
-  return dispatch(_fetchCart(res.data))
+    console.log('local', localCart)
+    return dispatch(_fetchCart(localCart))
+  }
 }
 
 export const removeFromCart = (product) => async dispatch => {
@@ -43,14 +64,37 @@ export const removeFromCart = (product) => async dispatch => {
 }
 
 export const addToCart = (product) => async dispatch => {
-  const token = window.localStorage.getItem(TOKEN)
-  const res = await axios.post('api/cart/addToCart', product, {
-    headers: {
-      authorization: token
-    }
-  })
-  return dispatch(_fetchCart(res.data))
+  const token = window.localStorage.getItem(TOKEN);
+  const { data } = await axios.post('api/cart/addToCart', product, {
+      headers: {
+        authorization: token
+      }
+    })
+    return dispatch(_fetchCart(data))
+
 };
+
+export const addProductToCart = (product) => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN)
+  if (token !== null) {
+    const { data } = await axios.post('/api/products/addToCart', product, {
+      headers: {
+        authorization: token
+      }
+    })
+  }
+  else {
+    let localCart = [];
+    if (localStorage.getItem(CART)) {
+      console.log('stuff in cart')
+      localCart = JSON.parse(localStorage.getItem(CART));
+    }
+    console.log('local', localCart)
+    localCart.push(product)
+    localStorage.setItem(CART, JSON.stringify(localCart));
+  }
+  return dispatch(_addToCart(product))
+}
 
 export const changeStatus = (cart) => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
@@ -68,9 +112,14 @@ export default function productReducer(state = {}, action) {
   switch (action.type) {
     case SET_CART:
       return action.cart
+
+      case ADD_TO_CART:
+      return [...state, action.product]
+
     case CHANGE_CART_STATUS:
       return action.cart
-    default:
+
+      default:
       return state
   }
 }

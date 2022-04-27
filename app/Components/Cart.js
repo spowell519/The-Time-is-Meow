@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToCart, fetchCart, removeFromCart, changeStatus } from '../redux/cartReducer';
 import Table from 'react-bootstrap/Table';
 
 
-export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus }) => {
-  (auth.id)
-    ? fetchCart()
-    : console.log("pull from local storage")
+export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus, fetchCart }) => {
+  useEffect(() => {fetchCart()}, []);
 
+  console.log('state.cart', cart)
+  console.log('cart lineItems', cart.lineItems)
   const lineItems = cart.lineItems || [];
   lineItems.sort((a, b) => a.product.title.localeCompare(b.product.title))
 
@@ -18,7 +18,7 @@ export const Cart = ({ cart, auth, removeFromCart, addToCart, changeStatus }) =>
     let itemPrice = lineItems[i].product.price
     totalPrice = totalPrice + Number(itemPrice) * lineItems[i].quantity
   }
-
+  console.log('cart quant', cart.length);
   return (
     <section>
       <div className="highlighted">

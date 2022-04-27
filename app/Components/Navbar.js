@@ -16,7 +16,7 @@ class Navbar extends React.PureComponent {
     this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount(){
-    if (this.props.auth.id) this.props.fetchCart()
+    this.props.fetchCart()
   }
   //DO NOT PUT FETCHCART IN COMPONENTDIDUPDATE, it creates an infinite loop
   handleChange(e){
@@ -26,6 +26,7 @@ class Navbar extends React.PureComponent {
   }
   // eslint-disable-next-line complexity
   render() {
+    const cartQuantity = this.props.cart.length || ''
     return (
       <nav>
         <ul className="left-nav">
@@ -35,7 +36,7 @@ class Navbar extends React.PureComponent {
         <ul className="right-nav">
           <li><Link to="/account">Account</Link></li>
           {(this.props.auth.id) ? <li><Link to="/" onClick={this.props.logout}>Log Out</Link></li> : ""}
-          <li><Link to="/cart"># <img src="/images/cart.png" alt="cart" /></Link></li>
+          <li><Link to="/cart">{cartQuantity} <img src="/images/cart.png" alt="cart" /></Link></li>
         </ul>
       </nav>
     )
@@ -46,6 +47,7 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
     auth: state.auth,
+    cart: state.cart,
   }
 }
 
