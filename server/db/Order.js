@@ -1,12 +1,10 @@
 const Sequelize = require('sequelize');
 const { DataTypes } = require('sequelize');
 const db = require('./database');
+const LineItem = require('./LineItem');
+const Product = require('./Product');
 
-//many products belong to an order
-//price would be total of all items
-//is this just a reference table?
-
-module.exports = db.define('order', {
+const Order = db.define('order', {
   price: {
     type: Sequelize.NUMERIC(10, 2),
     validate: {
@@ -27,3 +25,26 @@ module.exports = db.define('order', {
     }
   }
 })
+
+Order.beforeSave(async (order) => {
+  const cartItems = await LineItem.findAll({
+    where: {
+      orderId: order.id
+    },
+    include: [{
+      model: Product
+    }]
+  })
+  let prices = []
+  if (cartItems.length > 0) {
+    for (let i = 0; i < cartItems.length; i++) {
+      prices.push(Number(cartItems[i].dataValues.product.dataValues.price))
+    }
+  }
+  if (cartItems.length > 0) {
+    const total = prices.reduce((price, accum) => Number(price) + accum)
+    order.price = total
+  }
+})
+
+module.exports = Order
