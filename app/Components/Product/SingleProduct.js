@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { addProductToCart } from '../../redux/cartReducer';
+import { addToCart } from '../../redux/cartReducer';
 
 const SingleProduct = (props) => {
   const product = props.product || {};
   const tags = props.product.category || []
-  const addToCart = props.addProductToCart
 
   return (
     <section>
@@ -34,7 +33,7 @@ const SingleProduct = (props) => {
             <p className="bubble">{product.description} </p>
             tags: <ul>{tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
           </div>
-          <button type="button" className="blue" onClick={() => addToCart(product)}>add to cart</button>
+          <button type="button" className="blue" onClick={() => props.addProductToCart(product)}>add to cart</button>
         </div>
       </div>
     </section>
@@ -49,7 +48,7 @@ const mapState = (state) => {
 
 const mapDispatch = dispatch => {
   return {
-    addProductToCart: (product) => dispatch(addProductToCart(product))
+    addProductToCart: (product) => dispatch(addToCart(product))
   }
 }
 

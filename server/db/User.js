@@ -74,9 +74,11 @@ User.prototype.generateToken = function () {
 
 
 //CART METHODS
-User.prototype.createOrder = async function () {
+User.prototype.createOrder = async function (total) {
+  console.log('total:', total, typeof total)
   const cart = await this.getCart();
   cart.status = 'PENDING';
+  cart.price = total;
   await cart.save();
   return this.getCart();
 };
@@ -100,26 +102,43 @@ User.prototype.getCart = async function () {
     })
 }
 
-User.prototype.addToCart = async function (product) {
+User.prototype.addToCart = async function (body) {
+  // bulked up data coming from req.body for bulk adding! :strong:
+  const { product, quantity } = body;
+  const itemQuantity = (quantity) ? quantity : 1
+
   const cart = await this.getCart();
-  let lineItem = cart.lineItems.find(lineItem => lineItem.productId === product.id)
+  let lineItem = cart.lineItems.find(item => item.productId === product.id)
   if (lineItem) {
-    lineItem.quantity++
+    console.log(`add ${itemQuantity} more`)
+    lineItem.quantity += itemQuantity
+    lineItem.quantity = parseInt(lineItem.quantity, 10)
     await lineItem.save()
   } else {
     await LineItem.create({
       productId: product.id,
-      orderId: cart.id
+      orderId: cart.id,
+      quantity: parseInt(itemQuantity, 10)
     })
   }
+  cart.price =
+  (cart.price)
+    ? cart.price += product.price * itemQuantity
+    : product.price * itemQuantity
+  console.log('cart$', cart.price)
+  cart.price = parseFloat(cart.price).toFixed(2)
+  console.log('cart price', cart.price, typeof cart.price)
+  await cart.save();
   return this.getCart()
 }
 
 User.prototype.removeFromCart = async function (product) {
+
   const cart = await this.getCart();
-  const lineItem = await cart.lineItems.find(lineItem => lineItem.productId === product.id)
+  const lineItem = await cart.lineItems.find(item => item.productId === product.id)
   lineItem.quantity--
   if (lineItem.quantity) {
+    cart.price -= lineItem.price
     await lineItem.save()
   } else {
     await lineItem.destroy()

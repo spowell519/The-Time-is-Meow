@@ -28,7 +28,7 @@ class Navbar extends React.PureComponent {
     for (let i=0; i < this.props.cart.length; i++) {
       console.log(`[${i}]`, this.props.cart[i].quantity, this.props.cart[i].product.title)
     }
-    return (this.props.cart)
+    return (this.props.cart.length)
       ? this.props.cart.reduce((acc, product) => acc + (product.quantity), 0)
       : 0
   }

@@ -7,15 +7,12 @@ import {addToCart} from '../../redux/cartReducer'
 class ItemPreview extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.addToCart = this.addToCart.bind(this);
+    this.addToCartHandler = this.addToCartHandler.bind(this);
   }
 
-  addToCart(product, evt) {
+  addToCartHandler(product, evt) {
     evt.preventDefault();
-    console.log('user?', this.props.auth.id);
-    (this.props.auth.id)
-      ? this.props.addToCart(product)
-      : console.log('put in local storage')
+    this.props.addToCart(product)
   }
 
   render() {
@@ -23,12 +20,11 @@ class ItemPreview extends React.PureComponent {
     const edit = this.props.edit;
     const isAdmin = this.props.auth.isAdmin;
 
-    const { addToCart } = this;
     return (
       <div className="item-preview">
         <div className="quick-add">
           {(isAdmin) ? <button onClick={(evt) => edit(product, evt)} type="submit"><img src="/images/edit.png" /></button> : ' ' }
-          <button onClick={(evt) => addToCart(product, evt)} type="submit"><img src="/images/add-cart.png" /></button>
+          <button onClick={() => this.props.addProductToCart(product)} type="button"><img src="/images/add-cart.png" /></button>
         </div>
         <div className="thumbnail"><img src={'/images/' + product.imageUrl} /></div>
         <div className="info"><Link to={`/product/${product.id}`}><h4>{product.title}</h4></Link>
@@ -47,7 +43,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    addToCart: (product) => dispatch(addToCart(product))
+    addProductToCart: (product) => dispatch(addToCart(product))
   }
 }
 
