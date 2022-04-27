@@ -1,53 +1,73 @@
-import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { changeStatus } from '../redux/cartReducer'
+import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
+// import React from 'react';
+import {fetchCart} from '../redux/cartReducer';
 
-export const CheckoutForm = ({ changeStatus }) => {
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if(!stripe || !elements) {
-      return;
-    }
-
-    const result = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: 'http://localhost:1337/payment'
-      }
-    });
-
-    if (result.error) {
-      console.log(result.error.message);
-    } else {
-      //this sends it to return_url?
-    }
-  };
+const ProductDisplay = ({fetchCart}) => {
+  useEffect(() => {fetchCart()}, []);
+  const lineItems = cart.sort((a, b) => a.product.title.localeCompare(b.product.title)) || [];
 
   return (
     <section>
-      <div className="highlighted">
-      <div><img src="/images/logo.png" /></div>
-        <div className="highlighted-text">
-          <h1>Checkout</h1>
-          <form onSubmit={handleSubmit}>
-            <PaymentElement />
-            <button disabled={!stripe} onClick={()=>changeStatus()}>Submit</button>
-          </form>
+    {lineItems.map(item => {
+      return (
+        <div className="product" key={item.product.id}>
+          <img
+            src={item.product.imageUrl}
+            alt={item.product.title}
+          />
+          <div className="description">
+          <h3>{item.product.title}</h3>
+          <h5>{item.product.price}</h5>
+          </div>
         </div>
-      </div>
+      )
+    })}
+    <form action="/create-checkout-session" method="POST">
+      <button type="submit">
+        Checkout
+      </button>
+    </form>
     </section>
   )
-}
+};
 
 const mapDispatch = dispatch => {
   return {
-    changeStatus: (history, total) => dispatch(changeStatus(history, total))
+    fetchCart: () => dispatch(fetchCart()),
   }
+};
+
+export connect(null, mapDispatch)(ProductDisplay)
+
+const Message = ({ message }) => (
+  <section>
+    <p>{message}</p>
+  </section>
+);
+
+export default function App() {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    // Check to see if this is a redirect back from Checkout
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get("success")) {
+      setMessage("Order placed! You will receive an email confirmation.");
+    }
+
+    if (query.get("canceled")) {
+      setMessage(
+        "Order canceled -- continue to shop around and checkout when you're ready."
+      );
+    }
+  }, []);
+
+  return message ? (
+    <Message message={message} />
+  ) : (
+    <ProductDisplay />
+  );
 }
-
-export default connect (null, mapDispatch)(CheckoutForm)
-
