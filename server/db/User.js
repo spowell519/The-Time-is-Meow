@@ -137,7 +137,7 @@ User.byToken = async (token) => {
     return user
   } catch (err) {
     const error = Error('bad token')
-    error.status = 401
+    error.status = 403
     throw error
   }
 };
@@ -151,7 +151,7 @@ User.authenticate = async ({ email, password }) => {
   // check if user was found and plaintext password matches hashed pw
   if (!user || !(await user.correctPassword(password))) {
     const error = Error('bad authentication');
-    error.status = 401;
+    error.status = 403;
     throw error;
   }
   return user.generateToken()
