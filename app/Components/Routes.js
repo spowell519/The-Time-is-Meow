@@ -9,7 +9,8 @@ import CategoryPage from './Product/CategoryPage'
 // import Login from './LoginForm'
 import Cart from './Cart';
 import AccountPage from './User/AccountPage'
-import CheckoutForm from '../Components/CheckoutForm';
+// import CheckoutForm from '../Components/CheckoutForm';
+import CheckoutHolder from '../Components/CheckoutHolder'
 
 const Routes = (props) => {
   return (
@@ -21,7 +22,7 @@ const Routes = (props) => {
         <Route exact path="/category/:id" component={CategoryPage} />
         <Route exact path="/account" component={AccountPage} />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/checkout" component={props.auth && props.auth.id ? CheckoutForm : AccountPage} />
+        <Route exact path="/checkout" component={props.auth && props.auth.id ? CheckoutHolder : AccountPage} />
       </main>
     </Router>
   );

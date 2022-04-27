@@ -1,13 +1,9 @@
 const router = require('express').Router()
 // const { user } = require('pg/lib/defaults')1
 const User = require('../db/User')
-<<<<<<< HEAD
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-=======
 //mab secret key
 const stripe = require('stripe')('sk_test_51Kt0wgA47uR00zvl1fnDXeVIEl4dU2OWTmAZs89MANErydzRdLtVltenuah6ISQiw6nydxTHiZsKBEGj7b3uT4Jl00z1ruG3i2');
 // const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
->>>>>>> 5b987ae3f48dbbfd16906e363998723c6ca2f5ec
 
 router.get('/', async (req, res, next) => {
   try {
@@ -37,27 +33,6 @@ router.post('/removeFromCart', async (req, res, next) => {
   }
 })
 
-<<<<<<< HEAD
-//not being used right now, might be for stripe
-router.post('/create-checkout-session', async (req, res, next) => {
-  try{
-    console.log(req.body, 'req.body')
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          //need to figure out how total is passed through
-          price: headers.authorization.total,
-          currency: "usd"
-        }
-      ]
-    })
-
-    res.send({
-      clientSecret: paymentIntent.client_secret
-    })
-  } catch(err) {
-    next(err)
-=======
 router.post('/create-checkout-session', async (req, res) => {
   const user = await User.byToken(req.headers.authorization);
   /* need all items in cart in this format:
@@ -82,7 +57,6 @@ router.post('/create-checkout-session', async (req, res) => {
       price: lineItems[i].product.price,
       quantity: lineItems[i].quantity
     })
->>>>>>> 5b987ae3f48dbbfd16906e363998723c6ca2f5ec
   }
 
   const session = await stripe.checkout.sessions.create({
